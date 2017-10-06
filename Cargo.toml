@@ -1,0 +1,23 @@
+[package]
+name = "autopy"
+version = "0.1.0"
+authors = ["Michael Sanders <michael.sanders@fastmail.com>"]
+
+[lib]
+## Python extension modules should be compiled as 'cdylib'
+crate-type = ["cdylib"]
+name = "autopy"
+
+[dependencies.autopilot]
+path = "../autopilot-rs"
+version = "*"
+
+[dependencies.pyo3]
+version = "*"
+default-features = false
+
+[dependencies.image]
+version = "*"
+
+[dependencies.either]
+version = "*"
