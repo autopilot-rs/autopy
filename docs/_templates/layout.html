@@ -1,0 +1,12 @@
+{# layout.html #}
+{# Import the theme's layout. #}
+{% extends "!layout.html" %}
+
+{% block rootrellink %}
+<a href="{{ pathto('index') }}">{{ shorttitle }}</a> {{ reldelim1 }} <a href="{{ pathto('index') }}">API Reference</a>
+{% endblock %}
+{%- set rellinks = rellinks|filternav -%}
+{% block relbar2 %}{% endblock %}
+{% block footer %} {% endblock %}
+
+{% set css_files = css_files + ['_static/default.css'] %}
