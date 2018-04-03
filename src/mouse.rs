@@ -62,9 +62,8 @@ fn init(py: Python, m: &PyModule) -> PyResult<()> {
         Ok(())
     }
 
-    /// Convenience wrapper around `toggle()` that holds down and then
-    /// releases the given mouse button. By default, the left button is
-    /// pressed.
+    /// Convenience wrapper around `toggle()` that holds down and then releases
+    /// the given mouse button. By default, the left button is pressed.
     #[pyfn(m, "click")]
     fn click(button: Option<&Button>) -> PyResult<()> {
         use autopilot::mouse::Button::*;
@@ -83,8 +82,8 @@ fn init(py: Python, m: &PyModule) -> PyResult<()> {
         Ok(())
     }
 
-    /// Smoothly moves the mouse to the given `(x, y)` coordinate in a
-    /// straight line.
+    /// Smoothly moves the mouse to the given `(x, y)` coordinate in a straight
+    /// line.
     ///
     /// Exceptions:
     ///     - `ValueError` is thrown if the point is out of index.
@@ -101,12 +100,10 @@ fn init(py: Python, m: &PyModule) -> PyResult<()> {
 
 impl _Button {
     fn init_button_ref(&self, button: autopilot::mouse::Button) -> PyResult<&Button> {
-        let result = try!(self.py().init_ref(|t| {
-            Button {
-                button: button,
-                token: t,
-            }
-        }));
+        let result = try!(self.py().init_ref(|t| Button {
+            button: button,
+            token: t,
+        },));
         Ok(result)
     }
 }

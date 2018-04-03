@@ -241,24 +241,20 @@ fn py_object_to_key_code_convertible(
 
 impl _Modifier {
     fn init_modifier_ref(&self, flag: autopilot::key::Flag) -> PyResult<&Modifier> {
-        let result = try!(self.py().init_ref(|t| {
-            Modifier {
-                flag: flag,
-                token: t,
-            }
-        }));
+        let result = try!(self.py().init_ref(|t| Modifier {
+            flag: flag,
+            token: t,
+        },));
         Ok(result)
     }
 }
 
 impl _Code {
     fn init_code_ref(&self, code: autopilot::key::KeyCode) -> PyResult<&Code> {
-        let result = try!(self.py().init_ref(|t| {
-            Code {
-                code: code,
-                token: t,
-            }
-        }));
+        let result = try!(self.py().init_ref(|t| Code {
+            code: code,
+            token: t,
+        },));
         Ok(result)
     }
 }

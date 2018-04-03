@@ -16,10 +16,10 @@ struct Bitmap {
 
 #[py::methods]
 impl<'a> Bitmap {
-    /// Saves image to absolute path in the given format. The image
-    /// type is determined from the filename if possible, unless
-    /// format is given. If the file already exists, it will be
-    /// overwritten. Supported formats are png, gif, and bmp.
+    /// Saves image to absolute path in the given format. The image type is
+    /// determined from the filename if possible, unless format is given. If the
+    /// file already exists, it will be overwritten. Supported formats are png,
+    /// gif, and bmp.
     ///
     /// Exceptions:
     ///     - `IOError` is thrown if the file could not be saved.
@@ -42,8 +42,7 @@ impl<'a> Bitmap {
         }
     }
 
-    /// Returns `True` if the given point is contained in
-    /// `bmp.bounds`.
+    /// Returns `True` if the given point is contained in `bmp.bounds`.
     fn point_in_bounds(&self, x: f64, y: f64) -> PyResult<bool> {
         Ok(self.bitmap.bounds().is_point_visible(Point::new(x, y)))
     }
@@ -57,33 +56,30 @@ impl<'a> Bitmap {
         Ok(self.bitmap.bounds().is_rect_visible(rect))
     }
 
-    /// Open the image located at the path specified. The image's
-    /// format is determined from the path's file extension.
+    /// Open the image located at the path specified. The image's format is
+    /// determined from the path's file extension.
     #[classmethod]
     fn open(cls: &PyType, path: String) -> PyResult<&Bitmap> {
         let image = try!(image::open(path).map_err(FromImageError::from));
         let bmp = autopilot::bitmap::Bitmap::new(image, None);
-        let result = try!(cls.py().init_ref(|t| {
-            Bitmap {
-                bitmap: bmp,
-                token: t,
-            }
-        }));
+        let result = try!(cls.py().init_ref(|t| Bitmap {
+            bitmap: bmp,
+            token: t,
+        },));
         Ok(result)
     }
 
-
-    /// Returns `(r, g, b)` tuple describing the color at a given
-    /// point.
+    /// Returns `(r, g, b)` tuple describing the color at a given point.
     ///
     /// Exceptions:
     ///     - `ValueError` is thrown if the point out of bounds.
     fn get_color(&self, x: f64, y: f64) -> PyResult<(u8, u8, u8)> {
         let point = Point::new(x, y);
         if !self.bitmap.bounds().is_point_visible(point) {
-            Err(exc::ValueError::new(
-                format!("Point out of bounds {}", point),
-            ))
+            Err(exc::ValueError::new(format!(
+                "Point out of bounds {}",
+                point
+            )))
         } else {
             let rgb = self.bitmap.get_pixel(point);
             let (r, g, b, _) = rgb.channels4();
@@ -92,12 +88,12 @@ impl<'a> Bitmap {
     }
 
     /// Attempts to find `color` inside `rect` in `bmp` from the given
-    /// `start_point`. Returns coordinates if found, or `None` if
-    /// not. If `rect` is `None`, `bmp.bounds` is used instead. If
-    /// `start_point` is `None`, the origin of `rect` is used.
+    /// `start_point`. Returns coordinates if found, or `None` if not. If `rect`
+    /// is `None`, `bmp.bounds` is used instead. If `start_point` is `None`, the
+    /// origin of `rect` is used.
     ///
-    /// Tolerance is defined as a float in the range from 0 to 1,
-    /// where 0 is an exact match and 1 matches anything.
+    /// Tolerance is defined as a float in the range from 0 to 1, where 0 is an
+    /// exact match and 1 matches anything.
     fn find_color(
         &self,
         color: (u8, u8, u8),
@@ -106,9 +102,8 @@ impl<'a> Bitmap {
         start_point: Option<(f64, f64)>,
     ) -> PyResult<Option<(f64, f64)>> {
         let color = Rgba([color.0, color.1, color.2, 255]);
-        let rect: Option<Rect> = rect.map(|r| {
-            Rect::new(Point::new((r.0).0, (r.0).1), Size::new((r.1).0, (r.1).1))
-        });
+        let rect: Option<Rect> =
+            rect.map(|r| Rect::new(Point::new((r.0).0, (r.0).1), Size::new((r.1).0, (r.1).1)));
         let start_point: Option<Point> = start_point.map(|p| Point::new(p.0, p.1));
         if let Some(point) = self.bitmap.find_color(color, tolerance, rect, start_point) {
             Ok(Some((point.x, point.y)))
@@ -117,10 +112,10 @@ impl<'a> Bitmap {
         }
     }
 
-    /// Returns list of all `(x, y)` coordinates inside `rect` in
-    /// `bmp` matching `color` from the given `start_point`. If `rect`
-    /// is `None`, `bmp.bounds` is used instead. If `start_point` is
-    /// `None`, the origin of `rect` is used.
+    /// Returns list of all `(x, y)` coordinates inside `rect` in `bmp` matching
+    /// `color` from the given `start_point`. If `rect` is `None`, `bmp.bounds`
+    /// is used instead. If `start_point` is `None`, the origin of `rect` is
+    /// used.
     fn find_every_color(
         &self,
         color: (u8, u8, u8),
@@ -129,9 +124,8 @@ impl<'a> Bitmap {
         start_point: Option<(f64, f64)>,
     ) -> PyResult<Vec<(f64, f64)>> {
         let color = Rgba([color.0, color.1, color.2, 255]);
-        let rect: Option<Rect> = rect.map(|r| {
-            Rect::new(Point::new((r.0).0, (r.0).1), Size::new((r.1).0, (r.1).1))
-        });
+        let rect: Option<Rect> =
+            rect.map(|r| Rect::new(Point::new((r.0).0, (r.0).1), Size::new((r.1).0, (r.1).1)));
         let start_point: Option<Point> = start_point.map(|p| Point::new(p.0, p.1));
         let points = self.bitmap
             .find_every_color(color, tolerance, rect, start_point)
@@ -153,22 +147,21 @@ impl<'a> Bitmap {
         start_point: Option<(f64, f64)>,
     ) -> PyResult<u64> {
         let color = Rgba([color.0, color.1, color.2, 255]);
-        let rect: Option<Rect> = rect.map(|r| {
-            Rect::new(Point::new((r.0).0, (r.0).1), Size::new((r.1).0, (r.1).1))
-        });
+        let rect: Option<Rect> =
+            rect.map(|r| Rect::new(Point::new((r.0).0, (r.0).1), Size::new((r.1).0, (r.1).1)));
         let start_point: Option<Point> = start_point.map(|p| Point::new(p.0, p.1));
         let count = self.bitmap
             .count_of_color(color, tolerance, rect, start_point);
         Ok(count)
     }
 
-    /// Attempts to find `needle` inside `rect` in `bmp` from the
-    /// given `start_point`. Returns coordinates if found, or `None`
-    /// if not. If `rect` is `None`, `bmp.bounds` is used instead. If
-    /// `start_point` is `None`, the origin of `rect` is used.
+    /// Attempts to find `needle` inside `rect` in `bmp` from the given
+    /// `start_point`. Returns coordinates if found, or `None` if not. If `rect`
+    /// is `None`, `bmp.bounds` is used instead. If `start_point` is `None`, the
+    /// origin of `rect` is used.
     ///
-    /// Tolerance is defined as a float in the range from 0 to 1,
-    /// where 0 is an exact match and 1 matches anything.
+    /// Tolerance is defined as a float in the range from 0 to 1, where 0 is an
+    /// exact match and 1 matches anything.
     fn find_bitmap(
         &self,
         needle: &Bitmap,
@@ -176,21 +169,22 @@ impl<'a> Bitmap {
         rect: Option<((f64, f64), (f64, f64))>,
         start_point: Option<(f64, f64)>,
     ) -> PyResult<Option<(f64, f64)>> {
-        let rect: Option<Rect> = rect.map(|r| {
-            Rect::new(Point::new((r.0).0, (r.0).1), Size::new((r.1).0, (r.1).1))
-        });
+        let rect: Option<Rect> =
+            rect.map(|r| Rect::new(Point::new((r.0).0, (r.0).1), Size::new((r.1).0, (r.1).1)));
         let start_point: Option<Point> = start_point.map(|p| Point::new(p.0, p.1));
-        if let Some(point) = self.bitmap.find_bitmap(&needle.bitmap, tolerance, rect, start_point) {
+        if let Some(point) = self.bitmap
+            .find_bitmap(&needle.bitmap, tolerance, rect, start_point)
+        {
             Ok(Some((point.x, point.y)))
         } else {
             Ok(None)
         }
     }
 
-    /// Returns list of all `(x, y)` coordinates inside `rect` in
-    /// `bmp` matching `needle` from the given `start_point`. If
-    /// `rect` is `None`, `bmp.bounds` is used instead. If
-    /// `start_point` is `None`, the origin of `rect` is used.
+    /// Returns list of all `(x, y)` coordinates inside `rect` in `bmp` matching
+    /// `needle` from the given `start_point`. If `rect` is `None`, `bmp.bounds`
+    /// is used instead. If `start_point` is `None`, the origin of `rect` is
+    /// used.
     fn find_every_bitmap(
         &self,
         needle: &Bitmap,
@@ -198,9 +192,8 @@ impl<'a> Bitmap {
         rect: Option<((f64, f64), (f64, f64))>,
         start_point: Option<(f64, f64)>,
     ) -> PyResult<Vec<(f64, f64)>> {
-        let rect: Option<Rect> = rect.map(|r| {
-            Rect::new(Point::new((r.0).0, (r.0).1), Size::new((r.1).0, (r.1).1))
-        });
+        let rect: Option<Rect> =
+            rect.map(|r| Rect::new(Point::new((r.0).0, (r.0).1), Size::new((r.1).0, (r.1).1)));
         let start_point: Option<Point> = start_point.map(|p| Point::new(p.0, p.1));
         let points = self.bitmap
             .find_every_bitmap(&needle.bitmap, tolerance, rect, start_point)
@@ -210,8 +203,8 @@ impl<'a> Bitmap {
         Ok(points)
     }
 
-    /// Returns count of occurrences of `needle` in
-    /// `bmp`. Functionally equivalent to:
+    /// Returns count of occurrences of `needle` in `bmp`. Functionally
+    /// equivalent to:
     ///
     /// `len(find_every_bitmap(color, tolerance, rect, start_point))`
     ///
@@ -222,9 +215,8 @@ impl<'a> Bitmap {
         rect: Option<((f64, f64), (f64, f64))>,
         start_point: Option<(f64, f64)>,
     ) -> PyResult<u64> {
-        let rect: Option<Rect> = rect.map(|r| {
-            Rect::new(Point::new((r.0).0, (r.0).1), Size::new((r.1).0, (r.1).1))
-        });
+        let rect: Option<Rect> =
+            rect.map(|r| Rect::new(Point::new((r.0).0, (r.0).1), Size::new((r.1).0, (r.1).1)));
         let start_point: Option<Point> = start_point.map(|p| Point::new(p.0, p.1));
         let count = self.bitmap
             .count_of_bitmap(&needle.bitmap, tolerance, rect, start_point);
@@ -241,12 +233,10 @@ impl<'a> Bitmap {
             Size::new((rect.1).0, (rect.1).1),
         );
         let bmp = try!(self.bitmap.cropped(rect).map_err(FromImageError::from));
-        let result = try!(self.py().init_ref(|t| {
-            Bitmap {
-                bitmap: bmp,
-                token: t,
-            }
-        }));
+        let result = try!(self.py().init_ref(|t| Bitmap {
+            bitmap: bmp,
+            token: t,
+        },));
         Ok(result)
     }
 
@@ -276,14 +266,14 @@ impl<'a> Bitmap {
     }
 }
 
-/// This module defines the class `Bitmap` for accessing bitmaps and
-/// searching for bitmaps on-screen.
+/// This module defines the class `Bitmap` for accessing bitmaps and searching
+/// for bitmaps on-screen.
 ///
 /// It also defines functions for taking screenshots of the screen.
 #[py::modinit(bitmap)]
 fn init(py: Python, m: &PyModule) -> PyResult<()> {
-    /// Returns a screengrab of the given portion of the main
-    /// display, or the entire display if rect is `None`.
+    /// Returns a screengrab of the given portion of the main display, or the
+    /// entire display if rect is `None`.
     ///
     /// Exceptions:
     ///     - `ValueError` is thrown if the rect is out of bounds or the image
@@ -300,12 +290,10 @@ fn init(py: Python, m: &PyModule) -> PyResult<()> {
             autopilot::bitmap::capture_screen()
         };
         let bmp = try!(result.map_err(FromImageError::from));
-        let result = try!(python.init_ref(|t| {
-            Bitmap {
-                bitmap: bmp,
-                token: t,
-            }
-        }));
+        let result = try!(python.init_ref(|t| Bitmap {
+            bitmap: bmp,
+            token: t,
+        },));
         Ok(result)
     }
 
@@ -319,7 +307,6 @@ fn image_format_from_extension(extension: &str) -> Option<ImageFormat> {
         "bmp" => Some(ImageFormat::BMP),
         "gif" => Some(ImageFormat::GIF),
         "hdr" => Some(ImageFormat::HDR),
-
         "jpeg" => Some(ImageFormat::JPEG),
         "png" => Some(ImageFormat::PNG),
         "tga" => Some(ImageFormat::TGA),
