@@ -11,6 +11,9 @@ impl From<ImageError> for FromImageError {
 
 impl From<FromImageError> for PyErr {
     fn from(err: FromImageError) -> PyErr {
-        exc::ValueError::new(format!("{}", err.0))
+        match err.0 {
+            ImageError::DimensionError => exc::ValueError::new(format!("{}", err.0)),
+            _ => exc::IOError::new(format!("{}", err.0)),
+        }
     }
 }

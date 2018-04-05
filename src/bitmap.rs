@@ -42,6 +42,21 @@ impl<'a> Bitmap {
         }
     }
 
+    /// Copies image to pasteboard. Currently only supported on Windows and
+    /// macOS.
+    ///
+    /// Exceptions:
+    ///     - `IOError` is thrown if the image could not be copied.
+    ///     - `ValueError` is thrown if the image was too large or small.
+    fn copy_to_pasteboard(&self) -> PyResult<()> {
+        try!(
+            self.bitmap
+                .copy_to_pasteboard()
+                .map_err(FromImageError::from)
+        );
+        Ok(())
+    }
+
     /// Returns `True` if the given point is contained in `bmp.bounds`.
     fn point_in_bounds(&self, x: f64, y: f64) -> PyResult<bool> {
         Ok(self.bitmap.bounds().is_point_visible(Point::new(x, y)))
@@ -276,8 +291,8 @@ fn init(py: Python, m: &PyModule) -> PyResult<()> {
     /// entire display if rect is `None`.
     ///
     /// Exceptions:
-    ///     - `ValueError` is thrown if the rect is out of bounds or the image
-    ///       failed to parse.
+    ///     - `ValueError` is thrown if the rect is out of bounds.
+    ///     - `IOError` is thrown if the image failed to parse.
     #[pyfn(m, "capture_screen")]
     fn capture_screen(python: Python, rect: Option<((f64, f64), (f64, f64))>) -> PyResult<&Bitmap> {
         let result: ImageResult<autopilot::bitmap::Bitmap> = if let Some(rect) = rect {

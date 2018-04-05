@@ -9,6 +9,7 @@ Bitmap Object Methods
    :member-order: bysource
 
    .. automethod:: save(path: str, format: str=None)
+   .. automethod:: copy_to_pasteboard()
    .. automethod:: point_in_bounds(x: float, y: float) -> bool
    .. automethod:: rect_in_bounds(rect: Tuple[Tuple[float, float], Tuple[float, float]]) -> bool
    .. automethod:: open(path: str) -> Bitmap
