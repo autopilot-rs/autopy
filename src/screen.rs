@@ -8,7 +8,15 @@ use pyo3::prelude::*;
 /// This module contains functions for working with the screen.
 #[py::modinit(screen)]
 fn init(py: Python, m: &PyModule) -> PyResult<()> {
-    /// Returns a tuple `(width, height)` of the size of the main screen.
+    /// Returns the scale of the main screen, i.e. how many pixels are in a
+    /// point.
+    #[pyfn(m, "scale")]
+    fn scale() -> PyResult<f64> {
+        Ok((autopilot::screen::scale()))
+    }
+
+    /// Returns a tuple `(width, height)` of the size of the main screen in
+    /// points.
     #[pyfn(m, "size")]
     fn size() -> PyResult<(f64, f64)> {
         let size = autopilot::screen::size();
