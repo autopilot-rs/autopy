@@ -255,6 +255,15 @@ impl<'a> Bitmap {
         Ok(result)
     }
 
+    /// Returns true if bitmap is equal to receiver with the given tolerance.
+    pub fn is_bitmap_equal(&self, bitmap: &Bitmap, tolerance: Option<f64>) -> PyResult<bool> {
+        Ok(self.bitmap.bitmap_eq(&bitmap.bitmap, tolerance))
+    }
+
+    fn __eq__(&self, other: &Bitmap) -> PyResult<bool> {
+        Ok(self.bitmap == other.bitmap)
+    }
+
     #[getter(width)]
     fn width(&self) -> PyResult<f64> {
         Ok(self.bitmap.size.width)
