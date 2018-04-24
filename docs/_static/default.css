@@ -16,6 +16,7 @@ div.sphinxsidebar {
 
 div.bodywrapper {
   background: #fff;
+  overflow: auto;
 }
 
 div.body {

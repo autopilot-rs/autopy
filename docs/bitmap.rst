@@ -18,8 +18,8 @@ Bitmap Object Methods
    .. automethod:: find_every_color(color: Tuple[int, int, int], tolerance: float=None, rect: Tuple[Tuple[float, float], Tuple[float, float]]=None, start_point: Tuple[float, float]=None) -> List[Tuple[float, float]]
    .. automethod:: count_of_color(color: Tuple[int, int, int], tolerance: float=None, rect: Tuple[Tuple[float, float], Tuple[float, float]]=None, start_point: Tuple[float, float]=None) -> int
    .. automethod:: find_bitmap(needle: Bitmap, tolerance: float=None, rect: Tuple[Tuple[float, float], Tuple[float, float]]=None, start_point: Tuple[float, float]=None) -> Tuple[float, float]
-    .. automethod:: find_every_bitmap(needle: Bitmap, tolerance: float=None, rect: Tuple[Tuple[float, float], Tuple[float, float]]=None, start_point: Tuple[float, float]=None) -> [Tuple[float, float]]
-    .. automethod:: count_of_bitmap(needle: Bitmap, tolerance: float=None, rect: Tuple[Tuple[float, float], Tuple[float, float]]=None, start_point: Tuple[float, float]=None) -> int
+   .. automethod:: find_every_bitmap(needle: Bitmap, tolerance: float=None, rect: Tuple[Tuple[float, float], Tuple[float, float]]=None, start_point: Tuple[float, float]=None) -> [Tuple[float, float]]
+   .. automethod:: count_of_bitmap(needle: Bitmap, tolerance: float=None, rect: Tuple[Tuple[float, float], Tuple[float, float]]=None, start_point: Tuple[float, float]=None) -> int
    .. automethod:: cropped(rect: Tuple[Tuple[float, float], Tuple[float, float]]) -> Bitmap
    .. automethod:: is_bitmap_equal(bitmap: Bitmap, tolerance: float=None) -> bool
 

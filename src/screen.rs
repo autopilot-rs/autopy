@@ -33,10 +33,8 @@ fn init(py: Python, m: &PyModule) -> PyResult<()> {
     ///
     /// Functionally equivalent to:
     ///
-    /// ```
-    /// rect = ((x, y), (1, 1))
-    /// bitmap.capture_screen_portion(rect).get_color(0, 0)
-    /// ```
+    ///     rect = ((x, y), (1, 1))
+    ///     bitmap.capture_screen_portion(rect).get_color(0, 0)
     ///
     /// only more efficient/convenient.
     ///
