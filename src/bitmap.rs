@@ -42,8 +42,7 @@ impl<'a> Bitmap {
         }
     }
 
-    /// Copies image to pasteboard. Currently only supported on Windows and
-    /// macOS.
+    /// Copies image to pasteboard. Currently only supported on macOS.
     ///
     /// Exceptions:
     ///     - `IOError` is thrown if the image could not be copied.
