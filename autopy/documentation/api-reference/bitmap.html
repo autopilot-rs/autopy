@@ -1,0 +1,247 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>bitmap — autopy module for working with bitmaps &#8212; AutoPy 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="color — autopy module for working with colors" href="color.html" />
+    <link rel="prev" title="alert — autopy module for displaying alerts" href="alert.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="color.html" title="color — autopy module for working with colors"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="index.html" title="Index"
+             accesskey="index">index</a> |</li>
+        <li class="right" >
+          <a href="alert.html" title="alert — autopy module for displaying alerts"
+             accesskey="P">previous</a> |</li>
+<a href="index.html">AutoPy Documentation</a>  &#187; <a href="index.html">API Reference</a>
+ 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-autopy.bitmap">
+<span id="bitmap-autopy-module-for-working-with-bitmaps"></span><h1>bitmap — autopy module for working with bitmaps<a class="headerlink" href="#module-autopy.bitmap" title="Permalink to this headline">¶</a></h1>
+<p>This module defines the class <a class="reference internal" href="#autopy.bitmap.Bitmap" title="autopy.bitmap.Bitmap"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bitmap</span></code></a> for accessing bitmaps and searching
+for bitmaps on-screen.</p>
+<p>It also defines functions for taking screenshots of the screen.</p>
+<div class="section" id="bitmap-object-methods">
+<h2>Bitmap Object Methods<a class="headerlink" href="#bitmap-object-methods" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="autopy.bitmap.Bitmap">
+<em class="property">class </em><code class="descclassname">autopy.bitmap.</code><code class="descname">Bitmap</code><a class="headerlink" href="#autopy.bitmap.Bitmap" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="autopy.bitmap.Bitmap.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>path: str</em>, <em>format: str=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.bitmap.Bitmap.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves image to absolute path in the given format. The image type is
+determined from the filename if possible, unless format is given. If the
+file already exists, it will be overwritten. Supported formats are png,
+gif, and bmp.</p>
+<dl class="docutils">
+<dt><cite>Exceptions:</cite></dt>
+<dd><ul class="first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">IOError</span></code> is thrown if the file could not be saved.</li>
+<li><code class="docutils literal notranslate"><span class="pre">ValueError</span></code> is thrown if image couldn’t be parsed.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="autopy.bitmap.Bitmap.copy_to_pasteboard">
+<code class="descname">copy_to_pasteboard</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autopy.bitmap.Bitmap.copy_to_pasteboard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copies image to pasteboard. Currently only supported on Windows and
+macOS.</p>
+<dl class="docutils">
+<dt><cite>Exceptions:</cite></dt>
+<dd><ul class="first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">IOError</span></code> is thrown if the image could not be copied.</li>
+<li><code class="docutils literal notranslate"><span class="pre">ValueError</span></code> is thrown if the image was too large or small.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="autopy.bitmap.Bitmap.point_in_bounds">
+<code class="descname">point_in_bounds</code><span class="sig-paren">(</span><em>x: float</em>, <em>y: float</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#autopy.bitmap.Bitmap.point_in_bounds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the given point is contained in <code class="docutils literal notranslate"><span class="pre">bmp.bounds</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autopy.bitmap.Bitmap.rect_in_bounds">
+<code class="descname">rect_in_bounds</code><span class="sig-paren">(</span><em>rect: Tuple[Tuple[float, float], Tuple[float, float]]</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#autopy.bitmap.Bitmap.rect_in_bounds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the given rect is contained in <code class="docutils literal notranslate"><span class="pre">bmp.bounds</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autopy.bitmap.Bitmap.open">
+<code class="descname">open</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span> &#x2192; Bitmap<a class="headerlink" href="#autopy.bitmap.Bitmap.open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open the image located at the path specified. The image’s format is
+determined from the path’s file extension.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autopy.bitmap.Bitmap.get_color">
+<code class="descname">get_color</code><span class="sig-paren">(</span><em>x: float</em>, <em>y: float</em><span class="sig-paren">)</span> &#x2192; Tuple[int, int, int]<a class="headerlink" href="#autopy.bitmap.Bitmap.get_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">(r,</span> <span class="pre">g,</span> <span class="pre">b)</span></code> tuple describing the color at a given point.</p>
+<dl class="docutils">
+<dt><cite>Exceptions:</cite></dt>
+<dd><ul class="first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">ValueError</span></code> is thrown if the point out of bounds.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="autopy.bitmap.Bitmap.find_color">
+<code class="descname">find_color</code><span class="sig-paren">(</span><em>color: Tuple[int, int, int], tolerance: float=None, rect: Tuple[Tuple[float, float], Tuple[float, float]]=None, start_point: Tuple[float, float]=None</em><span class="sig-paren">)</span> &#x2192; Tuple[float, float]<a class="headerlink" href="#autopy.bitmap.Bitmap.find_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempts to find <code class="docutils literal notranslate"><span class="pre">color</span></code> inside <code class="docutils literal notranslate"><span class="pre">rect</span></code> in <code class="docutils literal notranslate"><span class="pre">bmp</span></code> from the given
+<code class="docutils literal notranslate"><span class="pre">start_point</span></code>. Returns coordinates if found, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if not. If <code class="docutils literal notranslate"><span class="pre">rect</span></code>
+is <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">bmp.bounds</span></code> is used instead. If <code class="docutils literal notranslate"><span class="pre">start_point</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, the
+origin of <code class="docutils literal notranslate"><span class="pre">rect</span></code> is used.</p>
+<p>Tolerance is defined as a float in the range from 0 to 1, where 0 is an
+exact match and 1 matches anything.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autopy.bitmap.Bitmap.find_every_color">
+<code class="descname">find_every_color</code><span class="sig-paren">(</span><em>color: Tuple[int, int, int], tolerance: float=None, rect: Tuple[Tuple[float, float], Tuple[float, float]]=None, start_point: Tuple[float, float]=None</em><span class="sig-paren">)</span> &#x2192; List[Tuple[float, float]]<a class="headerlink" href="#autopy.bitmap.Bitmap.find_every_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns list of all <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> coordinates inside <code class="docutils literal notranslate"><span class="pre">rect</span></code> in <code class="docutils literal notranslate"><span class="pre">bmp</span></code> matching
+<code class="docutils literal notranslate"><span class="pre">color</span></code> from the given <code class="docutils literal notranslate"><span class="pre">start_point</span></code>. If <code class="docutils literal notranslate"><span class="pre">rect</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">bmp.bounds</span></code>
+is used instead. If <code class="docutils literal notranslate"><span class="pre">start_point</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, the origin of <code class="docutils literal notranslate"><span class="pre">rect</span></code> is
+used.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autopy.bitmap.Bitmap.count_of_color">
+<code class="descname">count_of_color</code><span class="sig-paren">(</span><em>color: Tuple[int, int, int], tolerance: float=None, rect: Tuple[Tuple[float, float], Tuple[float, float]]=None, start_point: Tuple[float, float]=None</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#autopy.bitmap.Bitmap.count_of_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns count of color in bitmap. Functionally equivalent to:</p>
+<p><code class="docutils literal notranslate"><span class="pre">len(find_every_color(color,</span> <span class="pre">tolerance,</span> <span class="pre">rect,</span> <span class="pre">start_point))</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autopy.bitmap.Bitmap.find_bitmap">
+<code class="descname">find_bitmap</code><span class="sig-paren">(</span><em>needle: Bitmap, tolerance: float=None, rect: Tuple[Tuple[float, float], Tuple[float, float]]=None, start_point: Tuple[float, float]=None</em><span class="sig-paren">)</span> &#x2192; Tuple[float, float]<a class="headerlink" href="#autopy.bitmap.Bitmap.find_bitmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempts to find <code class="docutils literal notranslate"><span class="pre">needle</span></code> inside <code class="docutils literal notranslate"><span class="pre">rect</span></code> in <code class="docutils literal notranslate"><span class="pre">bmp</span></code> from the given
+<code class="docutils literal notranslate"><span class="pre">start_point</span></code>. Returns coordinates if found, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if not. If <code class="docutils literal notranslate"><span class="pre">rect</span></code>
+is <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">bmp.bounds</span></code> is used instead. If <code class="docutils literal notranslate"><span class="pre">start_point</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, the
+origin of <code class="docutils literal notranslate"><span class="pre">rect</span></code> is used.</p>
+<p>Tolerance is defined as a float in the range from 0 to 1, where 0 is an
+exact match and 1 matches anything.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autopy.bitmap.Bitmap.find_every_bitmap">
+<code class="descname">find_every_bitmap</code><span class="sig-paren">(</span><em>needle: Bitmap, tolerance: float=None, rect: Tuple[Tuple[float, float], Tuple[float, float]]=None, start_point: Tuple[float, float]=None</em><span class="sig-paren">)</span> &#x2192; [Tuple[float, float]]<a class="headerlink" href="#autopy.bitmap.Bitmap.find_every_bitmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns list of all <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> coordinates inside <code class="docutils literal notranslate"><span class="pre">rect</span></code> in <code class="docutils literal notranslate"><span class="pre">bmp</span></code> matching
+<code class="docutils literal notranslate"><span class="pre">needle</span></code> from the given <code class="docutils literal notranslate"><span class="pre">start_point</span></code>. If <code class="docutils literal notranslate"><span class="pre">rect</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">bmp.bounds</span></code>
+is used instead. If <code class="docutils literal notranslate"><span class="pre">start_point</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, the origin of <code class="docutils literal notranslate"><span class="pre">rect</span></code> is
+used.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autopy.bitmap.Bitmap.count_of_bitmap">
+<code class="descname">count_of_bitmap</code><span class="sig-paren">(</span><em>needle: Bitmap, tolerance: float=None, rect: Tuple[Tuple[float, float], Tuple[float, float]]=None, start_point: Tuple[float, float]=None</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#autopy.bitmap.Bitmap.count_of_bitmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns count of occurrences of <code class="docutils literal notranslate"><span class="pre">needle</span></code> in <code class="docutils literal notranslate"><span class="pre">bmp</span></code>. Functionally
+equivalent to:</p>
+<p><code class="docutils literal notranslate"><span class="pre">len(find_every_bitmap(color,</span> <span class="pre">tolerance,</span> <span class="pre">rect,</span> <span class="pre">start_point))</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="autopy.bitmap.Bitmap.cropped">
+<code class="descname">cropped</code><span class="sig-paren">(</span><em>rect: Tuple[Tuple[float, float], Tuple[float, float]]</em><span class="sig-paren">)</span> &#x2192; Bitmap<a class="headerlink" href="#autopy.bitmap.Bitmap.cropped" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns new bitmap object created from a portion of another.</p>
+<dl class="docutils">
+<dt><cite>Exceptions:</cite></dt>
+<dd><ul class="first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">ValueError</span></code> is thrown if the portion was out of bounds.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="autopy.bitmap.Bitmap.is_bitmap_equal">
+<code class="descname">is_bitmap_equal</code><span class="sig-paren">(</span><em>bitmap: Bitmap</em>, <em>tolerance: float=None</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#autopy.bitmap.Bitmap.is_bitmap_equal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if bitmap is equal to receiver with the given tolerance.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><span class="target" id="module-autopy.bitmap"></span><dl class="function">
+<dt id="autopy.bitmap.capture_screen">
+<code class="descclassname">autopy.bitmap.</code><code class="descname">capture_screen</code><span class="sig-paren">(</span><em>rect: Tuple[Tuple[float, float], Tuple[float, float]]</em><span class="sig-paren">)</span> &#x2192; autopy.bitmap.Bitmap<a class="headerlink" href="#autopy.bitmap.capture_screen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a screengrab of the given portion of the main display, or the
+entire display if rect is <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<dl class="docutils">
+<dt><cite>Exceptions:</cite></dt>
+<dd><ul class="first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">ValueError</span></code> is thrown if the rect is out of bounds.</li>
+<li><code class="docutils literal notranslate"><span class="pre">IOError</span></code> is thrown if the image failed to parse.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">bitmap — autopy module for working with bitmaps</a><ul>
+<li><a class="reference internal" href="#bitmap-object-methods">Bitmap Object Methods</a></li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+<script type="text/javascript" src=_static/toc.js></script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="alert.html"
+                        title="previous chapter">alert — autopy module for displaying alerts</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="color.html"
+                        title="next chapter">color — autopy module for working with colors</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div> 
+  </body>
+</html>

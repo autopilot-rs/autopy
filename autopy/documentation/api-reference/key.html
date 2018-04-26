@@ -1,0 +1,191 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>key — autopy module for working with the keyboard &#8212; AutoPy 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="mouse — autopy module for working with the mouse" href="mouse.html" />
+    <link rel="prev" title="color — autopy module for working with colors" href="color.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="mouse.html" title="mouse — autopy module for working with the mouse"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="index.html" title="Index"
+             accesskey="index">index</a> |</li>
+        <li class="right" >
+          <a href="color.html" title="color — autopy module for working with colors"
+             accesskey="P">previous</a> |</li>
+<a href="index.html">AutoPy Documentation</a>  &#187; <a href="index.html">API Reference</a>
+ 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-autopy.key">
+<span id="key-autopy-module-for-working-with-the-keyboard"></span><h1>key — autopy module for working with the keyboard<a class="headerlink" href="#module-autopy.key" title="Permalink to this headline">¶</a></h1>
+<p>This module contains functions for controlling the keyboard.</p>
+<div class="section" id="module-autopy.key">
+<span id="functions"></span><h2>Functions<a class="headerlink" href="#module-autopy.key" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="autopy.key.toggle">
+<code class="descclassname">autopy.key.</code><code class="descname">toggle</code><span class="sig-paren">(</span><em>key: Any, down: bool, modifiers: List[Modifier]</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.key.toggle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Holds down the given key or keycode if <code class="docutils literal notranslate"><span class="pre">down</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, or releases it
+if not. Integer keycodes and modifiers should be taken from module
+constants (e.g., <code class="docutils literal notranslate"><span class="pre">key.K_DELETE</span></code> or <code class="docutils literal notranslate"><span class="pre">key.MOD_META</span></code>). If the given key is
+a character, it is automatically converted to a keycode corresponding to
+the current keyboard layout.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="autopy.key.tap">
+<code class="descclassname">autopy.key.</code><code class="descname">tap</code><span class="sig-paren">(</span><em>key: Any, modifiers: List[Modifier]</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.key.tap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience wrapper around <code class="docutils literal notranslate"><span class="pre">toggle()</span></code> that holds down and then releases
+the given key and modifiers.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="autopy.key.type_string">
+<code class="descclassname">autopy.key.</code><code class="descname">type_string</code><span class="sig-paren">(</span><em>string: str</em>, <em>wpm: float=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.key.type_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempts to simulate typing a string at the given WPM, or as fast as
+possible if the WPM is 0.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="constants">
+<h2>Constants<a class="headerlink" href="#constants" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="autopy.key.Code">
+<em class="property">class </em><code class="descclassname">autopy.key.</code><code class="descname">Code</code><a class="headerlink" href="#autopy.key.Code" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Code:</th><td class="field-body">F1</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Code:</th><td class="field-body">F2</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Code:</th><td class="field-body">F3</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Code:</th><td class="field-body">F4</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Code:</th><td class="field-body">F5</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Code:</th><td class="field-body">F6</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Code:</th><td class="field-body">F7</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Code:</th><td class="field-body">F8</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Code:</th><td class="field-body">F9</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Code:</th><td class="field-body">F10</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Code:</th><td class="field-body">F11</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Code:</th><td class="field-body">F12</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Code:</th><td class="field-body">LEFT_ARROW</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Code:</th><td class="field-body">CONTROL</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Code:</th><td class="field-body">RIGHT_ARROW</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Code:</th><td class="field-body">DOWN_ARROW</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Code:</th><td class="field-body">END</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Code:</th><td class="field-body">UP_ARROW</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Code:</th><td class="field-body">PAGE_UP</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Code:</th><td class="field-body">ALT</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Code:</th><td class="field-body">RETURN</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Code:</th><td class="field-body">PAGE_DOWN</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Code:</th><td class="field-body">DELETE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Code:</th><td class="field-body">HOME</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Code:</th><td class="field-body">ESCAPE</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Code:</th><td class="field-body">BACKSPACE</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="autopy.key.Modifier">
+<em class="property">class </em><code class="descclassname">autopy.key.</code><code class="descname">Modifier</code><a class="headerlink" href="#autopy.key.Modifier" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Modifier:</th><td class="field-body">META</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Modifier:</th><td class="field-body">ALT</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Modifier:</th><td class="field-body">CONTROL</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Modifier:</th><td class="field-body">SHIFT</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">key — autopy module for working with the keyboard</a><ul>
+<li><a class="reference internal" href="#module-autopy.key">Functions</a></li>
+<li><a class="reference internal" href="#constants">Constants</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+<script type="text/javascript" src=_static/toc.js></script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="color.html"
+                        title="previous chapter">color — autopy module for working with colors</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="mouse.html"
+                        title="next chapter">mouse — autopy module for working with the mouse</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div> 
+  </body>
+</html>

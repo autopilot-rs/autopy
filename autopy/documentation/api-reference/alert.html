@@ -1,0 +1,94 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>alert — autopy module for displaying alerts &#8212; AutoPy 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="bitmap — autopy module for working with bitmaps" href="bitmap.html" />
+    <link rel="prev" title="autopy — API Reference" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="bitmap.html" title="bitmap — autopy module for working with bitmaps"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="index.html" title="Index"
+             accesskey="index">index</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="autopy — API Reference"
+             accesskey="P">previous</a> |</li>
+<a href="index.html">AutoPy Documentation</a>  &#187; <a href="index.html">API Reference</a>
+ 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-autopy.alert">
+<span id="alert-autopy-module-for-displaying-alerts"></span><h1>alert — autopy module for displaying alerts<a class="headerlink" href="#module-autopy.alert" title="Permalink to this headline">¶</a></h1>
+<p>This module contains functions for displaying alerts.</p>
+<div class="section" id="module-autopy.alert">
+<span id="functions"></span><h2>Functions<a class="headerlink" href="#module-autopy.alert" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="autopy.alert.alert">
+<code class="descclassname">autopy.alert.</code><code class="descname">alert</code><span class="sig-paren">(</span><em>msg: str</em>, <em>title: str=None</em>, <em>default_button: str=None</em>, <em>cancel_button: str=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.alert.alert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Displays alert with the given attributes. If <code class="docutils literal notranslate"><span class="pre">cancel_button</span></code> is not
+given, only the default button is displayed. Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the
+default button was pressed, or <code class="docutils literal notranslate"><span class="pre">False</span></code> if cancelled. Note that the
+arguments are keywords, and can be passed as named parameters (e.g.,
+<code class="docutils literal notranslate"><span class="pre">alert(msg=\&quot;bar\&quot;,</span> <span class="pre">title=\&quot;foo\&quot;)</span></code>).</p>
+<p>NOTE: Due to limitations in the Win32 API, Windows currently replaces
+<code class="docutils literal notranslate"><span class="pre">default_button</span></code> with “OK” and <code class="docutils literal notranslate"><span class="pre">cancel_button</span></code> (if given) with “Cancel”.
+This may be fixed in a later release.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">alert — autopy module for displaying alerts</a><ul>
+<li><a class="reference internal" href="#module-autopy.alert">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+<script type="text/javascript" src=_static/toc.js></script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">autopy — API Reference</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="bitmap.html"
+                        title="next chapter">bitmap — autopy module for working with bitmaps</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div> 
+  </body>
+</html>

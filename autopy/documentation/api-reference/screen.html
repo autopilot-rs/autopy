@@ -1,0 +1,113 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>screen — autopy module for working with the screen &#8212; AutoPy 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="mouse — autopy module for working with the mouse" href="mouse.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="index.html" title="Index"
+             accesskey="index">index</a></li>
+        <li class="right" >
+          <a href="mouse.html" title="mouse — autopy module for working with the mouse"
+             accesskey="P">previous</a> |</li>
+<a href="index.html">AutoPy Documentation</a>  &#187; <a href="index.html">API Reference</a>
+ 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-autopy.screen">
+<span id="screen-autopy-module-for-working-with-the-screen"></span><h1>screen — autopy module for working with the screen<a class="headerlink" href="#module-autopy.screen" title="Permalink to this headline">¶</a></h1>
+<p>This module contains functions for working with the screen.</p>
+<div class="section" id="module-autopy.screen">
+<span id="functions"></span><h2>Functions<a class="headerlink" href="#module-autopy.screen" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="autopy.screen.scale">
+<code class="descclassname">autopy.screen.</code><code class="descname">scale</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#autopy.screen.scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the scale of the main screen, i.e. how many pixels are in a
+point.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="autopy.screen.size">
+<code class="descclassname">autopy.screen.</code><code class="descname">size</code><span class="sig-paren">(</span><em>) -&gt; (float</em>, <em>float</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.screen.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a tuple <code class="docutils literal notranslate"><span class="pre">(width,</span> <span class="pre">height)</span></code> of the size of the main screen in
+points.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="autopy.screen.is_point_visible">
+<code class="descclassname">autopy.screen.</code><code class="descname">is_point_visible</code><span class="sig-paren">(</span><em>x: float</em>, <em>y: float</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#autopy.screen.is_point_visible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the given point is inside the main screen boundaries.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="autopy.screen.get_color">
+<code class="descclassname">autopy.screen.</code><code class="descname">get_color</code><span class="sig-paren">(</span><em>x: float</em>, <em>y: float) -&gt; (int</em>, <em>int</em>, <em>int</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.screen.get_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">(r,</span> <span class="pre">g,</span> <span class="pre">b)</span></code> tuple describing the color at a given point.</p>
+<p>Functionally equivalent to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rect</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">bitmap</span><span class="o">.</span><span class="n">capture_screen_portion</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>only more efficient/convenient.</p>
+<dl class="docutils">
+<dt><cite>Exceptions:</cite></dt>
+<dd><ul class="first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">ValueError</span></code> is thrown if the point out of bounds.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">screen — autopy module for working with the screen</a><ul>
+<li><a class="reference internal" href="#module-autopy.screen">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+<script type="text/javascript" src=_static/toc.js></script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="mouse.html"
+                        title="previous chapter">mouse — autopy module for working with the mouse</a></p>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div> 
+  </body>
+</html>

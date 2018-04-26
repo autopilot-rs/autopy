@@ -1,0 +1,84 @@
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+div.documentwrapper, div.document, div.bodywrapper {
+  height: 100%;
+}
+
+body {
+  background-color: #1c4e63;
+}
+
+div.sphinxsidebar {
+}
+
+div.bodywrapper {
+  background: #fff;
+  overflow: auto;
+}
+
+div.body {
+  min-height: 100%;
+  padding-bottom: 15px;
+}
+
+dl.attribute .property {
+  display: none;
+}
+
+dl.attribute {
+  line-height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.toctree-wrapper > ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.function > dt, .attribute > dt, .method > dt, .property > dt, .classmethod > dt, .class > dt {
+  font-size: 16px;
+}
+
+code.descname, code.descclassname {
+  font-size: inherit;
+}
+
+.function > dd {
+  padding: 0;
+  margin: 1em 0 0 0;
+}
+
+.attribute > dd, .method > dd, .property > dd, .classmethod > dd, .class > dd {
+  padding: 0;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+span.pre {
+  font-family: Menlo, "Panic Sans", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
+  font-size: 95%;
+}
+
+code.literal {
+  background: transparent;
+  font-weight: normal;
+}
+
+.docutils dd > ul li {
+	margin: 0.25em 0 0 20px;
+	list-style: square inside;
+}
+
+.docutils dd, .docutils dd > ul {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.section#functions > blockquote {
+  padding: 0;
+  margin: 0;
+}
