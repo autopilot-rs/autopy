@@ -26,7 +26,7 @@ def main():
         name='autopy',
         version=version,
         author=author,
-        author_email='michael.sanders [at] fastmail [dot] com',
+        author_email='michael.sanders@fastmail.com',
         description=description,
         license='MIT',
         classifiers=[
