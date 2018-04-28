@@ -16,7 +16,8 @@ Currently supported on macOS, Windows, and X11 with the XTest extension.
 ### Requirements
 
 * Python 2.7, or Python 3.5 and up.
-* Rust 1.23.0-nightly 2017-11-07 or later (unless using native OS installer).
+* Rust 1.23.0-nightly 2017-11-07 or later (unless using a binary wheel
+  distribution).
 * macOS 10.6 and up.
 * Windows 7 and up.
 * X11 with the XTest extension.
@@ -51,7 +52,7 @@ hello_world()
 
 AutoPy includes a number of functions for controlling the mouse. For a full
 list, consult the [API
-Reference](http://www.autopy.org/documentation/api-reference/mouse.html). E.g.,
+Reference](https://www.autopy.org/documentation/api-reference/mouse.html). E.g.,
 to immediately "teleport" the mouse to the top left corner of the screen:
 
 	>>> import autopy
@@ -91,7 +92,7 @@ def sine_mouse_wave():
 sine_mouse_wave()
 ```
 
-<a href="http://www.autopy.org/documentation/sine-wave"><img src="https://github.com/msanders/autopy/raw/gh-pages/sine-move-mouse-thumbnail.jpg" alt="Demonstration video"/></a>
+<a href="https://www.autopy.org/documentation/sine-wave"><img src="https://github.com/msanders/autopy/raw/gh-pages/sine-move-mouse-thumbnail.jpg" alt="Demonstration video"/></a>
 
 ### Working with Bitmaps
 
@@ -121,7 +122,8 @@ built-in `hex` function:
 	>>> hex(autopy.bitmap.capture_screen().get_color(1, 1))
 	'0xF2F2F2'
 
-Alternatively, we can use: 
+Alternatively, we can use:
+
 
 	>>> import autopy
 	>>> autopy.color.hex_to_rgb(autopy.screen.get_color(1, 1))
@@ -166,5 +168,5 @@ find_image_example()
 ## API Reference
 
 Hope you enjoy using autopy! For a more in depth overview, see the [API
-Reference](http://www.autopy.org/documentation/api-reference/).
+Reference](https://www.autopy.org/documentation/api-reference/).
 
