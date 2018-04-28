@@ -1,7 +1,7 @@
 extern crate autopilot;
 extern crate pyo3;
-use pyo3::prelude::*;
 use either::{Either, Left, Right};
+use pyo3::prelude::*;
 
 // NB: pyo3 doesn't currently support static properties for python classes, so
 // using a separate class as a namespace instead.

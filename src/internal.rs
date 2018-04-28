@@ -1,5 +1,5 @@
-use pyo3::prelude::*;
 use image::ImageError;
+use pyo3::prelude::*;
 
 pub struct FromImageError(ImageError);
 

@@ -1,7 +1,7 @@
 extern crate autopilot;
 extern crate pyo3;
-use pyo3::prelude::*;
 use autopilot::geometry::Point;
+use pyo3::prelude::*;
 
 struct FromMouseError(autopilot::mouse::MouseError);
 

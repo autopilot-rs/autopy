@@ -7,10 +7,10 @@ extern crate either;
 extern crate image;
 extern crate pyo3;
 
-mod internal;
 pub mod alert;
 pub mod bitmap;
 pub mod color;
+mod internal;
 pub mod key;
 pub mod mouse;
 pub mod screen;

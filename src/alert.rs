@@ -1,7 +1,7 @@
 extern crate autopilot;
 extern crate pyo3;
-use pyo3::prelude::*;
 use autopilot::alert::Response;
+use pyo3::prelude::*;
 
 /// This module contains functions for displaying alerts.
 #[py::modinit(alert)]
