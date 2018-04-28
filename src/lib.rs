@@ -1,4 +1,6 @@
-#![feature(proc_macro, specialization, const_fn, const_align_of, const_size_of)]
+#![feature(
+    proc_macro, proc_macro_attribute, specialization, const_fn, const_align_of, const_size_of
+)]
 
 extern crate autopilot;
 extern crate either;
