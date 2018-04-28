@@ -15,17 +15,15 @@ Currently supported on macOS, Windows, and X11 with the XTest extension.
 
 ### Requirements
 
-* Python 2.7 or 3.
+* Python 2.7, or Python 3.5 and up.
+* Rust 1.23.0-nightly 2017-11-07 or later (unless using native OS installer).
 * macOS 10.6 and up.
 * Windows 7 and up.
 * X11 with the XTest extension.
 
 ### Installation
 
-Installers for Windows are available here: http://pypi.python.org/pypi/autopy/.
-
-For every other OS, first install [rustup](https://rustup.rs).
-Then run:
+First install [rustup](https://rustup.rs). Then run:
 
     $ rustup install nightly
     $ rustup default nightly
