@@ -28,7 +28,7 @@ def main():
         author=author,
         author_email='michael.sanders@fastmail.com',
         description=description,
-        license='MIT',
+        license='Apache-2.0',
         classifiers=[
             'Development Status :: 4 - Beta',
             'Environment :: MacOS X',
