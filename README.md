@@ -22,15 +22,23 @@ Currently supported on macOS, Windows, and X11 with the XTest extension.
 
 ### Installation
 
-AutoPy is available from [PyPI](https://pypi.org/project/autopy/):
+Installers for Windows are available here: http://pypi.python.org/pypi/autopy/.
 
-	pip install -U autopy
+For every other OS, first install [rustup](https://rustup.rs).
+Then run:
+
+    $ rustup install nightly
+    $ rustup default nightly
+	$ pip install -U setuptools-rust
+	$ pip install -U autopy
 
 Another option is to compile from the latest source on the GitHub repository:
 
 	$ git clone git://github.com/autopilot-rs/autopy-rs.git
 	$ cd autopy
+    $ rustup install nightly
     $ rustup default nightly
+  	$ pip install -U setuptools-rust
 	$ python setup.py build
 	# python setup.py install
 
