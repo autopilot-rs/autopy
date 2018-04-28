@@ -18,8 +18,8 @@ struct Bitmap {
 impl<'a> Bitmap {
     /// Saves image to absolute path in the given format. The image type is
     /// determined from the filename if possible, unless format is given. If the
-    /// file already exists, it will be overwritten. Supported formats are png,
-    /// gif, and bmp.
+    /// file already exists, it will be overwritten. Currently only jpeg and png
+    /// files are supported.
     ///
     /// Exceptions:
     ///     - `IOError` is thrown if the file could not be saved.
@@ -33,7 +33,7 @@ impl<'a> Bitmap {
             try!(
                 self.bitmap
                     .image
-                    .save(buffer, fmt)
+                    .write_to(buffer, fmt)
                     .map_err(FromImageError::from)
             );
             Ok(())

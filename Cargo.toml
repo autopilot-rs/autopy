@@ -9,15 +9,14 @@ crate-type = ["cdylib"]
 name = "autopy"
 
 [dependencies.autopilot]
-path = "../autopilot-rs"
-version = "*"
+git = "https://github.com/autopilot-rs/autopilot-rs.git"
 
 [dependencies.pyo3]
-version = "*"
+version = "0.2.6"
 default-features = false
 
 [dependencies.image]
-version = "*"
+image = "0.19"
 
 [dependencies.either]
-version = "*"
+version = "1.5.0"

@@ -140,8 +140,7 @@ To save the screen capture to a file, we can use:
 	>>> autopy.bitmap.capture_screen().save('screengrab.png')
 
 The filetype is either parsed automatically from the filename, or given as an
-optional parameter. AutoPy currently supports all image types given in Rust's
-[image module](http://www.piston.rs/image/image/enum.ImageFormat.html).
+optional parameter. Currently only jpeg and png files are supported.
 
 	>>> import autopy
 	>>> autopy.bitmap.Bitmap.open('needle.png')
