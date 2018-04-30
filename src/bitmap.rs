@@ -4,14 +4,39 @@ use autopilot::geometry::{Point, Rect, Size};
 use image;
 use image::{ImageFormat, ImageResult, Pixel, Rgba};
 use internal::FromImageError;
-use pyo3::prelude::*;
+use pyo3::*;
+use std;
+use std::collections::hash_map::DefaultHasher;
 use std::fs::File;
+use std::hash::{Hash, Hasher};
 use std::path::Path;
 
 #[py::class]
 struct Bitmap {
     bitmap: autopilot::bitmap::Bitmap,
     token: PyToken,
+}
+
+impl std::cmp::PartialEq for Bitmap {
+    fn eq(&self, other: &Bitmap) -> bool {
+        self.bitmap == other.bitmap
+    }
+}
+
+#[py::proto]
+impl PyObjectProtocol for Bitmap {
+    fn __richcmp__(&self, other: &Bitmap, op: CompareOp) -> PyResult<bool> {
+        match op {
+            CompareOp::Eq => Ok(self.bitmap == other.bitmap),
+            _ => unimplemented!(),
+        }
+    }
+
+    fn __hash__(&self) -> PyResult<isize> {
+        let mut s = DefaultHasher::new();
+        self.bitmap.hash(&mut s);
+        Ok(s.finish() as isize)
+    }
 }
 
 #[py::methods]
@@ -257,10 +282,6 @@ impl<'a> Bitmap {
     /// Returns true if bitmap is equal to receiver with the given tolerance.
     pub fn is_bitmap_equal(&self, bitmap: &Bitmap, tolerance: Option<f64>) -> PyResult<bool> {
         Ok(self.bitmap.bitmap_eq(&bitmap.bitmap, tolerance))
-    }
-
-    fn __eq__(&self, other: &Bitmap) -> PyResult<bool> {
-        Ok(self.bitmap == other.bitmap)
     }
 
     #[getter(scale)]
