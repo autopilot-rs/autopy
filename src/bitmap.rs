@@ -263,6 +263,11 @@ impl<'a> Bitmap {
         Ok(self.bitmap == other.bitmap)
     }
 
+    #[getter(scale)]
+    fn scale(&self) -> PyResult<f64> {
+        Ok(self.bitmap.scale)
+    }
+
     #[getter(width)]
     fn width(&self) -> PyResult<f64> {
         Ok(self.bitmap.size.width)
