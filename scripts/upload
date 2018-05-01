@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+eval "$(pyenv init -)"
+pyenv shell 3.6.4
+
+set -x
+pip install -U twine
+twine upload dist/autopy-*-manylinux*.whl --sign -r pypitest
+twine upload dist/autopy-*mac*.whl --sign -r pypitest
+twine upload dist/autopy-*win*.whl --sign -r pypitest
