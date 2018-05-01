@@ -17,12 +17,6 @@ struct Bitmap {
     token: PyToken,
 }
 
-impl std::cmp::PartialEq for Bitmap {
-    fn eq(&self, other: &Bitmap) -> bool {
-        self.bitmap == other.bitmap
-    }
-}
-
 #[py::proto]
 impl PyObjectProtocol for Bitmap {
     fn __richcmp__(&self, other: &Bitmap, op: CompareOp) -> PyResult<bool> {
