@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
+# Modified from
+# https://github.com/PyO3/setuptools-rust/blob/5adb24/example/build-wheels.sh
+# https://pyo3.github.io/pyo3/guide/distribution.html#binary-wheel-distribution
 set -e -x
+
+yum install -y gpg libXtst libXtst-devel libXext libXext-devel
 
 mkdir ~/rust-installer
 curl -sL https://static.rust-lang.org/rustup.sh -o ~/rust-installer/rustup.sh
-sh ~/rust-installer/rustup.sh --prefix=~/rust --spec=nightly -y --disable-sudo --date="2018-04-19"
+sh ~/rust-installer/rustup.sh --prefix=~/rust --channel=nightly -y --disable-sudo --date="2018-04-19"
 export PATH="$HOME/rust/bin:$PATH"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/rust/lib"
-
-yum install -y libXtst libXtst-devel libXext libXext-devel
 
 # Compile wheels
 for PYBIN in /opt/python/cp{27,35,36}*/bin; do
@@ -27,4 +30,5 @@ done
 # Install packages and test
 for PYBIN in /opt/python/cp{27,35,36}*/bin/; do
     "${PYBIN}/pip" install autopy --no-index -f /io/dist/
+    "${PYBIN}/python" -c 'import autopy'
 done
