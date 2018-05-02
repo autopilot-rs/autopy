@@ -176,6 +176,10 @@ def find_image_example():
 find_image_example()
 ```
 
+## Projects using AutoPy
+
+- [AutoPyDriverServer](https://github.com/daluu/autopydriverserver), AutoPy through WebDriver or a webdriver-compatible server.
+
 ## API Reference
 
 Hope you enjoy using autopy! For a more in depth overview, see the [API
