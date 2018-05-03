@@ -171,7 +171,7 @@ def find_image_example():
 
     pos = barrel.find_bitmap(needle)
     if pos:
-        print "Found needle at: %s" % str(pos)
+        print("Found needle at: %s" % str(pos))
 
 find_image_example()
 ```
@@ -179,6 +179,7 @@ find_image_example()
 ## Projects using AutoPy
 
 - [AutoPyDriverServer](https://github.com/daluu/autopydriverserver), AutoPy through WebDriver or a webdriver-compatible server.
+- [guibot](https://github.com/intra2net/guibot), A tool for GUI automation using a variety of computer vision and desktop control backends.
 
 ## API Reference
 
