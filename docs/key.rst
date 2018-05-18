@@ -44,6 +44,8 @@ Constants
    :code: HOME
    :code: ESCAPE
    :code: BACKSPACE
+   :code: SHIFT
+   :code: CAPS_LOCK
 
 .. class:: Modifier
 
