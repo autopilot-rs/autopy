@@ -30,22 +30,22 @@ Constants
    :code: F10
    :code: F11
    :code: F12
-   :code: LEFT_ARROW
+   :code: ALT
+   :code: BACKSPACE
+   :code: CAPS_LOCK
    :code: CONTROL
-   :code: RIGHT_ARROW
+   :code: DELETE
    :code: DOWN_ARROW
    :code: END
-   :code: UP_ARROW
-   :code: PAGE_UP
-   :code: ALT
-   :code: RETURN
-   :code: PAGE_DOWN
-   :code: DELETE
-   :code: HOME
    :code: ESCAPE
-   :code: BACKSPACE
+   :code: HOME
+   :code: LEFT_ARROW
+   :code: PAGE_DOWN
+   :code: PAGE_UP
+   :code: RETURN
+   :code: RIGHT_ARROW
    :code: SHIFT
-   :code: CAPS_LOCK
+   :code: UP_ARROW
 
 .. class:: Modifier
 
