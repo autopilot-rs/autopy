@@ -16,7 +16,7 @@ Currently supported on macOS, Windows, and X11 with the XTest extension.
 ### Requirements
 
 * Python 2.7, or Python 3.5 and up.
-* Rust 1.23.0-nightly 2017-11-07 or later (unless using a binary wheel
+* Rust 1.23.0-nightly 2018-05-01 or later (unless using a binary wheel
   distribution).
 * macOS 10.6 and up.
 * Windows 7 and up.
@@ -30,7 +30,7 @@ First, see if a binary wheel is available for your machine by running:
 
 If that fails, install [rustup](https://rustup.rs) and then run:
 
-    $ rustup default nightly-2018-04-19
+    $ rustup default nightly
     $ pip install -U setuptools-rust
     $ pip install -U autopy
 
@@ -38,7 +38,7 @@ Another option is to compile from the latest source on the GitHub repository:
 
     $ git clone git://github.com/autopilot-rs/autopy-rs.git
     $ cd autopy
-    $ rustup default nightly-2018-04-19
+    $ rustup default nightly
     $ pip install -U setuptools-rust
     $ python setup.py build
     # python setup.py install

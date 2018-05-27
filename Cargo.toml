@@ -9,10 +9,10 @@ crate-type = ["cdylib"]
 name = "autopy"
 
 [dependencies.autopilot]
-version = "0.1.1"
+version = "0.1.3"
 
 [dependencies.pyo3]
-version = "0.2.6"
+version = "0.2.7"
 default-features = false
 
 [dependencies.image]

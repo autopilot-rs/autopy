@@ -182,12 +182,18 @@ fn init(py: Python, m: &PyModule) -> PyResult<()> {
     /// a character, it is automatically converted to a keycode corresponding to
     /// the current keyboard layout.
     #[pyfn(m, "toggle")]
-    fn toggle(key: &PyObjectRef, down: bool, modifiers: Vec<&Modifier>) -> PyResult<()> {
+    fn toggle(
+        key: &PyObjectRef,
+        down: bool,
+        modifiers: Vec<&Modifier>,
+        modifier_delay: Option<u64>,
+    ) -> PyResult<()> {
+        let modifier_delay_ms: u64 = modifier_delay.map(|x| x as u64 * 1000).unwrap_or(0);
         if let Some(either) = py_object_to_key_code_convertible(key) {
             let flags: Vec<_> = modifiers.iter().map(|x| x.flag).collect();
             match either {
-                Left(x) => autopilot::key::toggle(x, down, &flags),
-                Right(x) => autopilot::key::toggle(x, down, &flags),
+                Left(x) => autopilot::key::toggle(x, down, &flags, modifier_delay_ms),
+                Right(x) => autopilot::key::toggle(x, down, &flags, modifier_delay_ms),
             };
             Ok(())
         } else {
@@ -198,12 +204,13 @@ fn init(py: Python, m: &PyModule) -> PyResult<()> {
     /// Convenience wrapper around `toggle()` that holds down and then releases
     /// the given key and modifiers.
     #[pyfn(m, "tap")]
-    fn tap(key: &PyObjectRef, modifiers: Vec<&Modifier>) -> PyResult<()> {
+    fn tap(key: &PyObjectRef, modifiers: Vec<&Modifier>, delay: Option<f64>) -> PyResult<()> {
+        let delay_ms: u64 = delay.map(|x| x as u64 * 1000).unwrap_or(0);
         if let Some(either) = py_object_to_key_code_convertible(key) {
             let flags: Vec<_> = modifiers.iter().map(|x| x.flag).collect();
             match either {
-                Left(x) => autopilot::key::tap(x, &flags),
-                Right(x) => autopilot::key::tap(x, &flags),
+                Left(x) => autopilot::key::tap(x, delay_ms, &flags),
+                Right(x) => autopilot::key::tap(x, delay_ms, &flags),
             };
             Ok(())
         } else {
@@ -215,7 +222,7 @@ fn init(py: Python, m: &PyModule) -> PyResult<()> {
     /// possible if the WPM is 0.
     #[pyfn(m, "type_string")]
     fn type_string(string: &str, wpm: Option<f64>) -> PyResult<()> {
-        autopilot::key::type_string(string, wpm, None, &[]);
+        autopilot::key::type_string(string, wpm.unwrap_or(0.0), 0.0, &[]);
         Ok(())
     }
 

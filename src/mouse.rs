@@ -65,9 +65,10 @@ fn init(py: Python, m: &PyModule) -> PyResult<()> {
     /// Convenience wrapper around `toggle()` that holds down and then releases
     /// the given mouse button. By default, the left button is pressed.
     #[pyfn(m, "click")]
-    fn click(button: Option<&Button>) -> PyResult<()> {
+    fn click(button: Option<&Button>, delay: Option<f64>) -> PyResult<()> {
+        let delay_ms: Option<u64> = delay.map(|x| x as u64 * 1000);
         use autopilot::mouse::Button::*;
-        autopilot::mouse::click(button.map_or(Left, |x| x.button));
+        autopilot::mouse::click(button.map_or(Left, |x| x.button), delay_ms);
         Ok(())
     }
 
@@ -88,8 +89,8 @@ fn init(py: Python, m: &PyModule) -> PyResult<()> {
     /// Exceptions:
     ///     - `ValueError` is thrown if the point is out of index.
     #[pyfn(m, "smooth_move")]
-    fn smooth_move(x: f64, y: f64) -> PyResult<()> {
-        let result = autopilot::mouse::smooth_move(Point::new(x, y));
+    fn smooth_move(x: f64, y: f64, duration: Option<f64>) -> PyResult<()> {
+        let result = autopilot::mouse::smooth_move(Point::new(x, y), duration);
         try!(result.map_err(FromMouseError::from));
         Ok(())
     }
