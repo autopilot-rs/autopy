@@ -5,7 +5,6 @@ use image;
 use image::{ImageFormat, ImageResult, Pixel, Rgba};
 use internal::FromImageError;
 use pyo3::*;
-use std;
 use std::collections::hash_map::DefaultHasher;
 use std::fs::File;
 use std::hash::{Hash, Hasher};
@@ -39,7 +38,6 @@ impl pyo3::class::PyBufferProtocol for Bitmap {
     // https://github.com/PyO3/pyo3/blob/14ab12/tests/test_buffer_protocol.rs#L18
     fn bf_getbuffer(&self, view: *mut ffi::Py_buffer, flags: c_int) -> PyResult<()> {
         use pyo3::*;
-        use std::os::raw::{c_int, c_void};
         use std::ptr;
 
         if view.is_null() {

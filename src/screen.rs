@@ -12,7 +12,7 @@ fn init(py: Python, m: &PyModule) -> PyResult<()> {
     /// point.
     #[pyfn(m, "scale")]
     fn scale() -> PyResult<f64> {
-        Ok((autopilot::screen::scale()))
+        Ok(autopilot::screen::scale())
     }
 
     /// Returns a tuple `(width, height)` of the size of the main screen in
