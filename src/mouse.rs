@@ -1,5 +1,3 @@
-extern crate autopilot;
-extern crate pyo3;
 use autopilot::geometry::Point;
 use pyo3::prelude::*;
 
@@ -7,20 +5,31 @@ struct FromMouseError(autopilot::mouse::MouseError);
 
 // NB: pyo3 doesn't currently support static properties for python classes, so
 // using a separate class as a namespace instead.
-#[py::class]
+#[pyclass]
 /// Constants used by this module in order to specify mouse buttons.
 struct _Button {
     token: PyToken,
 }
 
-#[py::class]
+#[pyclass]
 /// Constants used by this module in order to specify mouse buttons.
 struct Button {
     button: autopilot::mouse::Button,
     token: PyToken,
 }
 
-#[py::methods]
+/// Moves the mouse to the given `(x, y)` coordinate.
+///
+/// Exceptions:
+///     - `ValueError` is thrown if the point is out of index.
+#[pyfunction]
+fn move_py(x: f64, y: f64) -> PyResult<()> {
+    let result = autopilot::mouse::move_to(Point::new(x, y));
+    try!(result.map_err(FromMouseError::from));
+    Ok(())
+}
+
+#[pymethods]
 impl _Button {
     #[getter(LEFT)]
     fn left(&self) -> PyResult<&Button> {
@@ -43,8 +52,11 @@ impl _Button {
 ///
 /// Unless otherwise stated, coordinates are those of a screen coordinate
 /// system, where the origin is at the top left.
-#[py::modinit(mouse)]
+#[pymodinit(mouse)]
 fn init(py: Python, m: &PyModule) -> PyResult<()> {
+    // Workaround bug where #[pyfn(m, "move")] identifier causes error in pyo3.
+    m.add("move", wrap_function!(move_py)(py))?;
+
     /// Returns a tuple `(x, y)` of the current mouse position.
     #[pyfn(m, "location")]
     fn location() -> PyResult<(f64, f64)> {
@@ -69,17 +81,6 @@ fn init(py: Python, m: &PyModule) -> PyResult<()> {
         let delay_ms: Option<u64> = delay.map(|x| x as u64 * 1000);
         use autopilot::mouse::Button::*;
         autopilot::mouse::click(button.map_or(Left, |x| x.button), delay_ms);
-        Ok(())
-    }
-
-    /// Moves the mouse to the given `(x, y)` coordinate.
-    ///
-    /// Exceptions:
-    ///     - `ValueError` is thrown if the point is out of index.
-    #[pyfn(m, "move")]
-    fn move_py(x: f64, y: f64) -> PyResult<()> {
-        let result = autopilot::mouse::move_to(Point::new(x, y));
-        try!(result.map_err(FromMouseError::from));
         Ok(())
     }
 

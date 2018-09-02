@@ -1,22 +1,20 @@
-extern crate autopilot;
-extern crate pyo3;
 use autopilot::geometry::{Point, Rect, Size};
 use image;
 use image::{ImageFormat, ImageResult, Pixel, Rgba};
 use internal::FromImageError;
-use pyo3::*;
+use pyo3::prelude::*;
 use std::collections::hash_map::DefaultHasher;
 use std::fs::File;
 use std::hash::{Hash, Hasher};
 use std::path::Path;
 
-#[py::class]
+#[pyclass]
 struct Bitmap {
     bitmap: autopilot::bitmap::Bitmap,
     token: PyToken,
 }
 
-#[py::proto]
+#[pyproto]
 impl PyObjectProtocol for Bitmap {
     fn __richcmp__(&self, other: &Bitmap, op: CompareOp) -> PyResult<bool> {
         match op {
@@ -32,11 +30,15 @@ impl PyObjectProtocol for Bitmap {
     }
 }
 
-#[py::proto]
+#[pyproto]
 impl pyo3::class::PyBufferProtocol for Bitmap {
     // From
     // https://github.com/PyO3/pyo3/blob/14ab12/tests/test_buffer_protocol.rs#L18
-    fn bf_getbuffer(&self, view: *mut ffi::Py_buffer, flags: c_int) -> PyResult<()> {
+    fn bf_getbuffer(
+        &self,
+        view: *mut pyo3::ffi::Py_buffer,
+        flags: pyo3::libc::c_int,
+    ) -> PyResult<()> {
         use pyo3::*;
         use std::ptr;
 
@@ -48,32 +50,32 @@ impl pyo3::class::PyBufferProtocol for Bitmap {
             (*view).obj = ptr::null_mut();
         }
 
-        if (flags & ffi::PyBUF_WRITABLE) == ffi::PyBUF_WRITABLE {
+        if (flags & pyo3::ffi::PyBUF_WRITABLE) == pyo3::ffi::PyBUF_WRITABLE {
             return Err(PyErr::new::<exc::BufferError, _>("Object is not writable"));
         }
 
         let bytes = &self.bitmap.image.raw_pixels();
 
         unsafe {
-            (*view).buf = bytes.as_ptr() as *mut c_void;
+            (*view).buf = bytes.as_ptr() as *mut std::os::raw::c_void;
             (*view).len = bytes.len() as isize;
             (*view).readonly = 1;
             (*view).itemsize = 1;
 
             (*view).format = ptr::null_mut();
-            if (flags & ffi::PyBUF_FORMAT) == ffi::PyBUF_FORMAT {
+            if (flags & pyo3::ffi::PyBUF_FORMAT) == pyo3::ffi::PyBUF_FORMAT {
                 let msg = ::std::ffi::CStr::from_ptr("B\0".as_ptr() as *const _);
                 (*view).format = msg.as_ptr() as *mut _;
             }
 
             (*view).ndim = 1;
             (*view).shape = ptr::null_mut();
-            if (flags & ffi::PyBUF_ND) == ffi::PyBUF_ND {
+            if (flags & pyo3::ffi::PyBUF_ND) == pyo3::ffi::PyBUF_ND {
                 (*view).shape = (&((*view).len)) as *const _ as *mut _;
             }
 
             (*view).strides = ptr::null_mut();
-            if (flags & ffi::PyBUF_STRIDES) == ffi::PyBUF_STRIDES {
+            if (flags & pyo3::ffi::PyBUF_STRIDES) == pyo3::ffi::PyBUF_STRIDES {
                 (*view).strides = &((*view).itemsize) as *const _ as *mut _;
             }
 
@@ -85,7 +87,7 @@ impl pyo3::class::PyBufferProtocol for Bitmap {
     }
 }
 
-#[py::methods]
+#[pymethods]
 impl<'a> Bitmap {
     /// Saves image to absolute path in the given format. The image type is
     /// determined from the filename if possible, unless format is given. If the
@@ -365,8 +367,8 @@ impl<'a> Bitmap {
 /// for bitmaps on-screen.
 ///
 /// It also defines functions for taking screenshots of the screen.
-#[py::modinit(bitmap)]
-fn init(py: Python, m: &PyModule) -> PyResult<()> {
+#[pymodinit(bitmap)]
+fn init(_py: Python, m: &PyModule) -> PyResult<()> {
     /// Returns a screengrab of the given portion of the main display, or the
     /// entire display if rect is `None`.
     ///

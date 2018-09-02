@@ -1,37 +1,35 @@
-extern crate autopilot;
-extern crate pyo3;
 use either::{Either, Left, Right};
 use pyo3::prelude::*;
 
 // NB: pyo3 doesn't currently support static properties for python classes, so
 // using a separate class as a namespace instead.
-#[py::class]
+#[pyclass]
 /// Constants used by this module in order to specify modifier flags.
 struct _Modifier {
     token: PyToken,
 }
 
-#[py::class]
+#[pyclass]
 /// Constants used by this module in order to specify key codes.
 struct _Code {
     token: PyToken,
 }
 
-#[py::class]
+#[pyclass]
 /// Constants used by this module in order to specify modifier flags.
 struct Modifier {
     flag: autopilot::key::Flag,
     token: PyToken,
 }
 
-#[py::class]
+#[pyclass]
 /// Constants used by this module in order to specify key codes.
 struct Code {
     code: autopilot::key::KeyCode,
     token: PyToken,
 }
 
-#[py::methods]
+#[pymethods]
 impl _Modifier {
     /// Equivalent to the command key modifier on Mac OS X, the Windows key
     /// modifier on Windows, or the meta key modifiers on X11.
@@ -53,7 +51,7 @@ impl _Modifier {
     }
 }
 
-#[py::methods]
+#[pymethods]
 impl _Code {
     #[getter(F1)]
     fn f1(&self) -> PyResult<&Code> {
@@ -178,7 +176,7 @@ impl _Code {
 }
 
 /// This module contains functions for controlling the keyboard.
-#[py::modinit(key)]
+#[pymodinit(key)]
 fn init(py: Python, m: &PyModule) -> PyResult<()> {
     /// Holds down the given key or keycode if `down` is `True`, or releases it
     /// if not. Integer keycodes and modifiers should be taken from module

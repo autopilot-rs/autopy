@@ -1,8 +1,9 @@
-#![feature(specialization, const_fn)]
+#![feature(specialization, const_fn, extern_prelude)]
 
 extern crate autopilot;
 extern crate either;
 extern crate image;
+#[macro_use]
 extern crate pyo3;
 
 pub mod alert;

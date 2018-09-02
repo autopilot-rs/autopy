@@ -1,13 +1,11 @@
-extern crate autopilot;
-extern crate pyo3;
 use autopilot::geometry::Point;
 use image::Pixel;
 use internal::FromImageError;
 use pyo3::prelude::*;
 
 /// This module contains functions for working with the screen.
-#[py::modinit(screen)]
-fn init(py: Python, m: &PyModule) -> PyResult<()> {
+#[pymodinit(screen)]
+fn init(_py: Python, m: &PyModule) -> PyResult<()> {
     /// Returns the scale of the main screen, i.e. how many pixels are in a
     /// point.
     #[pyfn(m, "scale")]

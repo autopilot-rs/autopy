@@ -1,10 +1,9 @@
-extern crate pyo3;
 use pyo3::prelude::*;
 
 /// This module provides functions for converting between the hexadecimal format
 /// used by autopy methods and other more readable formats (e.g., RGB tuples).
-#[py::modinit(color)]
-fn init(py: Python, m: &PyModule) -> PyResult<()> {
+#[pymodinit(color)]
+fn init(_py: Python, m: &PyModule) -> PyResult<()> {
     /// Returns hexadecimal value of given RGB tuple. `r`, `g`, and `b` must be
     /// in the range 0 - 255.
     #[pyfn(m, "rgb_to_hex")]
