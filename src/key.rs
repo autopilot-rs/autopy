@@ -159,6 +159,10 @@ impl _Code {
     fn backspace(&self) -> PyResult<&Code> {
         self.init_code_ref(autopilot::key::KeyCode::Backspace)
     }
+    #[getter(SPACE)]
+    fn space(&self) -> PyResult<&Code> {
+        self.init_code_ref(autopilot::key::KeyCode::Space)
+    }
     #[getter(META)]
     fn meta(&self) -> PyResult<&Code> {
         self.init_code_ref(autopilot::key::KeyCode::Meta)
@@ -209,8 +213,8 @@ fn init(py: Python, m: &PyModule) -> PyResult<()> {
         if let Some(either) = py_object_to_key_code_convertible(key) {
             let flags: Vec<_> = modifiers.iter().map(|x| x.flag).collect();
             match either {
-                Left(x) => autopilot::key::tap(x, delay_ms, &flags),
-                Right(x) => autopilot::key::tap(x, delay_ms, &flags),
+                Left(x) => autopilot::key::tap(x, &flags, delay_ms),
+                Right(x) => autopilot::key::tap(x, &flags, delay_ms),
             };
             Ok(())
         } else {
@@ -222,7 +226,7 @@ fn init(py: Python, m: &PyModule) -> PyResult<()> {
     /// possible if the WPM is 0.
     #[pyfn(m, "type_string")]
     fn type_string(string: &str, wpm: Option<f64>) -> PyResult<()> {
-        autopilot::key::type_string(string, wpm.unwrap_or(0.0), 0.0, &[]);
+        autopilot::key::type_string(string, &[], wpm.unwrap_or(0.0), 0.0);
         Ok(())
     }
 
