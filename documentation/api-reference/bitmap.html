@@ -57,8 +57,8 @@ for bitmaps on-screen.</p>
 <code class="descname">save</code><span class="sig-paren">(</span><em>path: str</em>, <em>format: str=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.bitmap.Bitmap.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Saves image to absolute path in the given format. The image type is
 determined from the filename if possible, unless format is given. If the
-file already exists, it will be overwritten. Supported formats are png,
-gif, and bmp.</p>
+file already exists, it will be overwritten. Currently only jpeg and png
+files are supported.</p>
 <dl class="docutils">
 <dt><cite>Exceptions:</cite></dt>
 <dd><ul class="first last simple">
@@ -72,8 +72,7 @@ gif, and bmp.</p>
 <dl class="method">
 <dt id="autopy.bitmap.Bitmap.copy_to_pasteboard">
 <code class="descname">copy_to_pasteboard</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#autopy.bitmap.Bitmap.copy_to_pasteboard" title="Permalink to this definition">¶</a></dt>
-<dd><p>Copies image to pasteboard. Currently only supported on Windows and
-macOS.</p>
+<dd><p>Copies image to pasteboard. Currently only supported on macOS.</p>
 <dl class="docutils">
 <dt><cite>Exceptions:</cite></dt>
 <dd><ul class="first last simple">

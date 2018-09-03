@@ -49,7 +49,7 @@
 <span id="functions"></span><h2>Functions<a class="headerlink" href="#module-autopy.key" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="autopy.key.toggle">
-<code class="descclassname">autopy.key.</code><code class="descname">toggle</code><span class="sig-paren">(</span><em>key: Any, down: bool, modifiers: List[Modifier]</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.key.toggle" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">autopy.key.</code><code class="descname">toggle</code><span class="sig-paren">(</span><em>key: Any, down: bool, modifiers: List[Modifier], modifier_delay: float=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.key.toggle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Holds down the given key or keycode if <code class="docutils literal notranslate"><span class="pre">down</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, or releases it
 if not. Integer keycodes and modifiers should be taken from module
 constants (e.g., <code class="docutils literal notranslate"><span class="pre">key.K_DELETE</span></code> or <code class="docutils literal notranslate"><span class="pre">key.MOD_META</span></code>). If the given key is
@@ -59,7 +59,7 @@ the current keyboard layout.</p>
 
 <dl class="function">
 <dt id="autopy.key.tap">
-<code class="descclassname">autopy.key.</code><code class="descname">tap</code><span class="sig-paren">(</span><em>key: Any, modifiers: List[Modifier]</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.key.tap" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">autopy.key.</code><code class="descname">tap</code><span class="sig-paren">(</span><em>key: Any, modifiers: List[Modifier], delay: float=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.key.tap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convenience wrapper around <code class="docutils literal notranslate"><span class="pre">toggle()</span></code> that holds down and then releases
 the given key and modifiers.</p>
 </dd></dl>
@@ -135,7 +135,9 @@ possible if the WPM is 0.</p>
 </tr>
 <tr class="field-odd field"><th class="field-name">Code:</th><td class="field-body">SHIFT</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Code:</th><td class="field-body">UP_ARROW</td>
+<tr class="field-even field"><th class="field-name">Code:</th><td class="field-body">SPACE</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Code:</th><td class="field-body">UP_ARROW</td>
 </tr>
 </tbody>
 </table>

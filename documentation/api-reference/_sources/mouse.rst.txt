@@ -9,7 +9,7 @@ Functions
 
    .. autofunction:: location() -> (float, float)
    .. autofunction:: toggle(button: Button=None, down: bool)
-   .. autofunction:: click(button: Button=None)
+   .. autofunction:: click(button: Button=None, delay: float=None)
    .. autofunction:: move(x: float, y: float)
    .. autofunction:: smooth_move(x: float, y: float)
 
