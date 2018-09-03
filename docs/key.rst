@@ -45,6 +45,7 @@ Constants
    :code: RETURN
    :code: RIGHT_ARROW
    :code: SHIFT
+   :code: SPACE
    :code: UP_ARROW
 
 .. class:: Modifier
