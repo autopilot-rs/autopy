@@ -28,7 +28,7 @@ for whl in /io/dist/*.whl; do
 done
 
 # Install packages and test
-for PYBIN in /opt/python/cp{27,35,36}*/bin/; do
+for PYBIN in /opt/python/cp{27,35,36,37}*/bin/; do
     "${PYBIN}/pip" install autopy --no-index -f /io/dist/
     "${PYBIN}/python" -c 'import autopy'
 done

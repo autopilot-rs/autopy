@@ -21,6 +21,9 @@ rustup default nightly-2018-04-19
 pyenv shell 2.7.14
 build_wheel
 
+pyenv shell 3.7.0
+build_wheel
+
 pyenv shell 3.6.5
 build_wheel
 
