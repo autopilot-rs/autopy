@@ -9,7 +9,7 @@ crate-type = ["cdylib"]
 name = "autopy"
 
 [dependencies.autopilot]
-version = "0.1.5"
+version = "0.1.6"
 
 [dependencies.pyo3]
 version = "0.4.1"
