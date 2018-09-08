@@ -6,6 +6,7 @@ build_wheel() {
     python --version
     pip install -U pip wheel
     pip install -U -r requirements.txt
+    python setup.py clean
     python setup.py bdist_wheel
     pip uninstall -y autopy
     pip install autopy --no-index -f dist
@@ -16,7 +17,7 @@ build_wheel() {
 }
 
 eval "$(pyenv init -)"
-rustup default nightly-2018-04-19
+rustup default nightly
 
 pyenv shell 2.7.14
 build_wheel

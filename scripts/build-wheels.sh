@@ -8,12 +8,12 @@ yum install -y gpg libXtst libXtst-devel libXext libXext-devel
 
 mkdir ~/rust-installer
 curl -sL https://static.rust-lang.org/rustup.sh -o ~/rust-installer/rustup.sh
-sh ~/rust-installer/rustup.sh --prefix=~/rust --channel=nightly -y --disable-sudo --date="2018-04-19"
+sh ~/rust-installer/rustup.sh --prefix=~/rust --channel=nightly -y --disable-sudo
 export PATH="$HOME/rust/bin:$PATH"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/rust/lib"
 
 # Compile wheels
-for PYBIN in /opt/python/cp{27,35,36}*/bin; do
+for PYBIN in /opt/python/cp{27,35,36,37}*/bin; do
     export PYTHON_SYS_EXECUTABLE="$PYBIN/python"
     export PYTHON_LIB=$(${PYBIN}/python -c "import sysconfig; print(sysconfig.get_config_var('LIBDIR'))")
     export LIBRARY_PATH="$LIBRARY_PATH:$PYTHON_LIB"
