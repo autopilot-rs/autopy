@@ -39,9 +39,11 @@ Another option is to compile from the latest source on the GitHub repository:
     $ git clone git://github.com/autopilot-rs/autopy-rs.git
     $ cd autopy
     $ rustup default nightly
-    $ pip install -U setuptools-rust
+    $ pip install -r requirements.txt
     $ python setup.py build
     # python setup.py install
+
+Additional instructions for installing from source on Windows are available [here](https://github.com/autopilot-rs/autopy/blob/master/scripts/windows-setup.md).
 
 ### Hello World
 
@@ -169,7 +171,7 @@ def find_image_example():
     needle = autopy.bitmap.Bitmap.open('needle.png')
     haystack = autopy.bitmap.Bitmap.open('haystack.png')
 
-    pos = barrel.find_bitmap(needle)
+    pos = haystack.find_bitmap(needle)
     if pos:
         print("Found needle at: %s" % str(pos))
 
