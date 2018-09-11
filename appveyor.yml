@@ -1,7 +1,6 @@
 environment:
   TWINE_USERNAME: michael.sanders
-  TWINE_PASSWORD:
-    secure: KaZtF5dYBSkBOMAd0H/04w==
+  # Note: TWINE_PASSWORD is set in Appveyor settings.
   matrix:
     # Stable 64-bit MSVC
     - channel: stable
@@ -31,7 +30,17 @@ build_script:
     (
     python -m pip install twine
     &&
-    python -m twine upload 'wheelhouse/*.whl'
+    @python -m twine upload "wheelhouse/*.whl" --username %TWINE_USERNAME% --password %TWINE_PASSWORD%
+    )
+  - >
+    IF "%APPVEYOR_REPO_BRANCH%" == "master"
+    (
+    IF [%APPVEYOR_PULL_REQUEST_HEAD_COMMIT%] == []
+    (
+    python -m pip install twine
+    &&
+    @python -m twine upload "wheelhouse/*.whl" --repository-url https://test.pypi.org/legacy/ --username %TWINE_USERNAME% --password %TWINE_TEST_PASSWORD%
+    )
     )
 
 artifacts:
