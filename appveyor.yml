@@ -10,7 +10,7 @@ environment:
     # Stable 32-bit MSVC
     - channel: stable
       target: i686-pc-windows-msvc
-      CIBW_SKIP: "*win_amd64* cp27-* cp33-* cp34-*"
+      CIBW_SKIP: "*win_amd64* cp33-* cp34-*"
       CIBW_BEFORE_BUILD: pip install setuptools-rust
 
 
