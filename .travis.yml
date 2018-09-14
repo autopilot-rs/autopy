@@ -1,0 +1,44 @@
+language: python
+matrix:
+  include:
+    - name: Linux 64-bit
+      sudo: required
+      services:
+        - docker
+      env:
+        - CIBW_SKIP=*manylinux1_i686*
+        - PIP=pip
+        - PYTHON=python
+    - name: Linux 32-bit
+      sudo: required
+      services:
+        - docker
+      env:
+        - CIBW_SKIP=*manylinux1_x86_64*
+        - PIP=pip
+        - PYTHON=python
+    - name: macOS
+      os: osx
+      language: generic
+      env:
+        - PIP=pip2
+        - PYTHON=python2
+env:
+  global:
+    - TWINE_USERNAME=michael.sanders
+    # Note: TWINE_PASSWORD is set in Travis settings.
+script:
+  - "$PIP install cibuildwheel setuptools_rust"
+  - export CIBW_BEFORE_BUILD="pip install setuptools_rust && source ./scripts/travis"
+  - export CIBW_SKIP=cp34-*\ $CIBW_SKIP
+  - export CIBW_ENVIRONMENT="CI=\"$CI\" TRAVIS_BRANCH=\"$TRAVIS_BRANCH\" TRAVIS_COMMIT=\"$TRAVIS_COMMIT\" PATH=\"\$HOME/rust/bin:\$PATH\""
+  - cibuildwheel --output-dir wheelhouse
+  - |
+    if [[ ! -z "$TRAVIS_TAG" ]]; then
+      $PIP install twine
+      $PYTHON -m twine upload wheelhouse/*.whl
+    elif [[ "$TRAVIS_BRANCH" = "master" ]] && [[ -z "$TRAVIS_PULL_REQUEST_SHA" ]]; then
+      export TWINE_PASSWORD="$TWINE_TEST_PASSWORD"
+      $PIP install twine
+      $PYTHON -m twine upload wheelhouse/*.whl --repository-url https://test.pypi.org/legacy/
+    fi

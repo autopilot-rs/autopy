@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# From https://github.com/benfred/py-cpp-demangle/blob/13a22fd/ci/install_rust.sh
+# https://www.benfrederickson.com/writing-python-extensions-in-rust-using-pyo3/
+if [ ! -d ~/rust-installer ]; then
+    set -x
+    mkdir ~/rust-installer
+    curl -sL https://static.rust-lang.org/rustup.sh -o ~/rust-installer/rustup.sh
+    sh ~/rust-installer/rustup.sh --prefix=~/rust --spec=nightly --disable-sudo -y
+    set +x
+fi
+
+if command -v yum; then
+    yum install -y gpg libXtst libXtst-devel libXext libXext-devel
+fi

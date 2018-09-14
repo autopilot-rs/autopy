@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
+import distutils.util
+import os
 import re
+import subprocess
 from ast import literal_eval
 from setuptools import setup
 from setuptools_rust import Binding, RustExtension
@@ -19,12 +22,36 @@ def parse_module_metadata():
         return [grep_attr(body, attr) for attr in ("version", "author")]
 
 
+def strtobool(string):
+    return bool(distutils.util.strtobool(string))
+
+
+def git_rev_count(revision):
+    return subprocess.check_output(["git",
+                                    "rev-list",
+                                    "--count",
+                                    revision]).decode("utf-8").strip()
+
+
+def expand_version(version):
+    env = os.environ
+    is_ci = strtobool(env.get("CI", "f"))
+    pr_sha = env.get("TRAVIS_PULL_REQUEST_SHA") or \
+             env.get("APPVEYOR_PULL_REQUEST_HEAD_COMMIT")
+    branch = env.get("APPVEYOR_REPO_BRANCH") or env.get("TRAVIS_BRANCH")
+    if is_ci and not pr_sha and branch == "master":
+        commit = env.get("APPVEYOR_REPO_COMMIT") or env.get("TRAVIS_COMMIT")
+        rev_count = git_rev_count(commit)
+        return "{}.dev{}".format(version, rev_count)
+    return version
+
+
 def main():
     version, author = parse_module_metadata()
     description = "A simple, cross-platform GUI automation library for Python."
     setup(
         name='autopy',
-        version=version,
+        version=expand_version(version),
         author=author,
         author_email='michael.sanders@fastmail.com',
         description=description,
