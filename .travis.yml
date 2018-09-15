@@ -32,6 +32,7 @@ script:
   - export CIBW_BEFORE_BUILD="pip install setuptools_rust && source ./scripts/travis"
   - export CIBW_SKIP=cp34-*\ $CIBW_SKIP
   - export CIBW_ENVIRONMENT="CI=\"$CI\" TRAVIS_BRANCH=\"$TRAVIS_BRANCH\" TRAVIS_COMMIT=\"$TRAVIS_COMMIT\" PATH=\"\$HOME/rust/bin:\$PATH\""
+  - export CIBW_TEST_COMMAND="python -c 'import autopy'"
   - cibuildwheel --output-dir wheelhouse
   - |
     if [[ ! -z "$TRAVIS_TAG" ]]; then
