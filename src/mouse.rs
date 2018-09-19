@@ -120,7 +120,7 @@ impl From<FromMouseError> for PyErr {
     fn from(err: FromMouseError) -> PyErr {
         use autopilot::mouse::MouseError::*;
         match err.0 {
-            OutOfBounds => exc::ValueError::new("Point out of bounds"),
+            OutOfBounds => exc::ValueError::py_err("Point out of bounds"),
         }
     }
 }

@@ -12,7 +12,7 @@ name = "autopy"
 version = "0.1.7"
 
 [dependencies.pyo3]
-version = "0.4.1"
+version = "0.5.0-alpha.1"
 default-features = false
 
 [dependencies.image]

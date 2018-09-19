@@ -199,7 +199,7 @@ fn init(py: Python, m: &PyModule) -> PyResult<()> {
             };
             Ok(())
         } else {
-            Err(exc::TypeError::new("Expected string or key code"))
+            Err(exc::TypeError::py_err("Expected string or key code"))
         }
     }
 
@@ -216,7 +216,7 @@ fn init(py: Python, m: &PyModule) -> PyResult<()> {
             };
             Ok(())
         } else {
-            Err(exc::TypeError::new("Expected string or key code"))
+            Err(exc::TypeError::py_err("Expected string or key code"))
         }
     }
 

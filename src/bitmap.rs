@@ -111,7 +111,7 @@ impl<'a> Bitmap {
             );
             Ok(())
         } else {
-            Err(exc::ValueError::new(format!("Unknown format {}", format)))
+            Err(exc::ValueError::py_err(format!("Unknown format {}", format)))
         }
     }
 
@@ -163,7 +163,7 @@ impl<'a> Bitmap {
     fn get_color(&self, x: f64, y: f64) -> PyResult<(u8, u8, u8)> {
         let point = Point::new(x, y);
         if !self.bitmap.bounds().is_point_visible(point) {
-            Err(exc::ValueError::new(format!(
+            Err(exc::ValueError::py_err(format!(
                 "Point out of bounds {}",
                 point
             )))
