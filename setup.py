@@ -57,7 +57,7 @@ def main():
         description=description,
         license='Apache-2.0',
         classifiers=[
-            'Development Status :: 4 - Beta',
+            'Development Status :: 5 - Production/Stable',
             'Operating System :: MacOS',
             'Operating System :: MacOS :: MacOS X',
             'Environment :: Win32 (MS Windows)',
