@@ -9,16 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added constant for spacebar key.
-- Added support for passing a delay to `mouse.click`.
+- Added support for passing a delay into `mouse.click`.
 - Added constant for tab key.
-- Added support for passing delay into `key.tap`.
-- Added support faster typing with `key.type_string`.
+- Added support for passing a delay into `key.tap`.
+- Added support for faster typing with `key.type_string`.
 
 ### Changed
 - Updated `autopilot-rs` to the latest version, including the following fixes:
 - Updated Cocoa and other macOS dependencies.
 - Updated x11 dependency.
-- Update function signatures with delay parameters to be consistent.
+- Updated function signatures with delay parameters to be consistent.
 - Updated `key.tap` delay to be passed through to modifier key toggles.
 - Updated `mouse.smooth_move` to accept a duration.
 
@@ -32,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 1.0.1 - 2018-05-01
 
 ### Fixed
-- Fix packaging issue on Linux. 
+- Fixed packaging issue on Linux.
 
 ## 1.0.0 - 2018-04-30
 
