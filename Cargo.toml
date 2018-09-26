@@ -20,3 +20,6 @@ version = "0.19"
 
 [dependencies.either]
 version = "1.5.0"
+
+[replace]
+"autopilot:0.1.7" = { git = "https://github.com/autopilot-rs/autopilot-rs", branch = "master" }
