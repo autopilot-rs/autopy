@@ -180,9 +180,15 @@ find_image_example()
 
 ## Projects using AutoPy
 
-- [AutoPyDriverServer](https://github.com/daluu/autopydriverserver), AutoPy through WebDriver or a webdriver-compatible server.
-- [guibot](https://github.com/intra2net/guibot), A tool for GUI automation using a variety of computer vision and desktop control backends.
-- [SUMO](https://github.com/eclipse/sumo), An open source, highly portable, microscopic and continuous road traffic simulation package designed to handle large road networks.
+- [AutoPyDriverServer](https://github.com/daluu/autopydriverserver), AutoPy
+  through WebDriver or a webdriver-compatible server.
+- [guibot](https://github.com/intra2net/guibot), A tool for GUI automation using
+  a variety of computer vision and desktop control backends.
+- [spynner](https://github.com/makinacorpus/spynner), Programmatic web browsing
+  module with AJAX support for Python.
+- [SUMO](https://github.com/eclipse/sumo), An open source, highly portable,
+  microscopic and continuous road traffic simulation package designed to handle
+  large road networks.
 
 ## API Reference
 
