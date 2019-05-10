@@ -5,11 +5,18 @@
 if [ ! -d ~/rust-installer ]; then
     set -x
     mkdir ~/rust-installer
-    curl -sL https://static.rust-lang.org/rustup.sh -o ~/rust-installer/rustup.sh
-    sh ~/rust-installer/rustup.sh --prefix=~/rust --spec=nightly --disable-sudo -y
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o ~/rust-installer/rustup.sh
+    sh ~/rust-installer/rustup.sh --default-toolchain=nightly -y
     set +x
 fi
 
 if command -v yum; then
     yum install -y gpg libXtst libXtst-devel libXext libXext-devel
 fi
+
+set -x
+# shellcheck source=/dev/null
+source "$HOME/.cargo/env"
+cargo update -p pyo3 --precise "0.5.0-alpha.1"
+cargo update -p autopilot --precise "0.1.8"
+set +x
