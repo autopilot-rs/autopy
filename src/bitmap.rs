@@ -126,11 +126,10 @@ impl<'a> Bitmap {
     ///     - `IOError` is thrown if the image could not be copied.
     ///     - `ValueError` is thrown if the image was too large or small.
     fn copy_to_pasteboard(&self) -> PyResult<()> {
-        try!(
-            self.bitmap
-                .copy_to_pasteboard()
-                .map_err(FromImageError::from)
-        );
+        try!(self
+            .bitmap
+            .copy_to_pasteboard()
+            .map_err(FromImageError::from));
         Ok(())
     }
 
@@ -219,7 +218,8 @@ impl<'a> Bitmap {
         let rect: Option<Rect> =
             rect.map(|r| Rect::new(Point::new((r.0).0, (r.0).1), Size::new((r.1).0, (r.1).1)));
         let start_point: Option<Point> = start_point.map(|p| Point::new(p.0, p.1));
-        let points = self.bitmap
+        let points = self
+            .bitmap
             .find_every_color(color, tolerance, rect, start_point)
             .iter()
             .map(|p| (p.x, p.y))
@@ -230,7 +230,6 @@ impl<'a> Bitmap {
     /// Returns count of color in bitmap. Functionally equivalent to:
     ///
     /// `len(find_every_color(color, tolerance, rect, start_point))`
-    ///
     fn count_of_color(
         &self,
         color: (u8, u8, u8),
@@ -242,7 +241,8 @@ impl<'a> Bitmap {
         let rect: Option<Rect> =
             rect.map(|r| Rect::new(Point::new((r.0).0, (r.0).1), Size::new((r.1).0, (r.1).1)));
         let start_point: Option<Point> = start_point.map(|p| Point::new(p.0, p.1));
-        let count = self.bitmap
+        let count = self
+            .bitmap
             .count_of_color(color, tolerance, rect, start_point);
         Ok(count)
     }
@@ -264,7 +264,8 @@ impl<'a> Bitmap {
         let rect: Option<Rect> =
             rect.map(|r| Rect::new(Point::new((r.0).0, (r.0).1), Size::new((r.1).0, (r.1).1)));
         let start_point: Option<Point> = start_point.map(|p| Point::new(p.0, p.1));
-        if let Some(point) = self.bitmap
+        if let Some(point) = self
+            .bitmap
             .find_bitmap(&needle.bitmap, tolerance, rect, start_point)
         {
             Ok(Some((point.x, point.y)))
@@ -287,7 +288,8 @@ impl<'a> Bitmap {
         let rect: Option<Rect> =
             rect.map(|r| Rect::new(Point::new((r.0).0, (r.0).1), Size::new((r.1).0, (r.1).1)));
         let start_point: Option<Point> = start_point.map(|p| Point::new(p.0, p.1));
-        let points = self.bitmap
+        let points = self
+            .bitmap
             .find_every_bitmap(&needle.bitmap, tolerance, rect, start_point)
             .iter()
             .map(|p| (p.x, p.y))
@@ -299,7 +301,6 @@ impl<'a> Bitmap {
     /// equivalent to:
     ///
     /// `len(find_every_bitmap(color, tolerance, rect, start_point))`
-    ///
     fn count_of_bitmap(
         &self,
         needle: &Bitmap,
@@ -310,7 +311,8 @@ impl<'a> Bitmap {
         let rect: Option<Rect> =
             rect.map(|r| Rect::new(Point::new((r.0).0, (r.0).1), Size::new((r.1).0, (r.1).1)));
         let start_point: Option<Point> = start_point.map(|p| Point::new(p.0, p.1));
-        let count = self.bitmap
+        let count = self
+            .bitmap
             .count_of_bitmap(&needle.bitmap, tolerance, rect, start_point);
         Ok(count)
     }
