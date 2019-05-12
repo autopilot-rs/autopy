@@ -9,14 +9,14 @@ crate-type = ["cdylib"]
 name = "autopy"
 
 [dependencies.autopilot]
-version = "0.1.8"
+version = "0.2.0"
 
 [dependencies.pyo3]
 version = "0.5.0-alpha.1"
 default-features = false
 
 [dependencies.image]
-version = "0.19"
+version = "0.21.1"
 
 [dependencies.either]
 version = "1.5.0"

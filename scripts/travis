@@ -18,5 +18,4 @@ set -x
 # shellcheck source=/dev/null
 source "$HOME/.cargo/env"
 cargo update -p pyo3 --precise "0.5.0-alpha.1"
-cargo update -p autopilot --precise "0.1.8"
 set +x

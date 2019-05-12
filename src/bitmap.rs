@@ -1,6 +1,7 @@
 use autopilot::geometry::{Point, Rect, Size};
 use image;
-use image::{ImageFormat, ImageResult, Pixel, Rgba};
+use image::Pixel;
+use image::{ImageOutputFormat, ImageResult, Rgba};
 use internal::FromImageError;
 use pyo3::prelude::*;
 use std::collections::hash_map::DefaultHasher;
@@ -101,17 +102,21 @@ impl<'a> Bitmap {
         let format = format
             .or(Path::new(path).extension().and_then(|x| x.to_str()))
             .unwrap_or("");
-        if let Some(fmt) = image_format_from_extension(format) {
-            let ref mut buffer = try!(File::create(path));
-            try!(
-                self.bitmap
+        let fmt = image_output_format_from_extension(format);
+        match fmt {
+            AutoPyImageFormat::Unsupported => Err(exc::ValueError::py_err(format!(
+                "Unknown format {}",
+                format
+            ))),
+            _ => {
+                let ref mut buffer = try!(File::create(path));
+                try!(self
+                    .bitmap
                     .image
                     .write_to(buffer, fmt)
-                    .map_err(FromImageError::from)
-            );
-            Ok(())
-        } else {
-            Err(exc::ValueError::py_err(format!("Unknown format {}", format)))
+                    .map_err(FromImageError::from));
+                Ok(())
+            }
         }
     }
 
@@ -398,17 +403,49 @@ fn init(_py: Python, m: &PyModule) -> PyResult<()> {
     Ok(())
 }
 
-fn image_format_from_extension(extension: &str) -> Option<ImageFormat> {
+enum AutoPyImageFormat {
+    BMP,
+    GIF,
+    JPEG,
+    PNG,
+    Unsupported,
+}
+
+impl From<AutoPyImageFormat> for ImageOutputFormat {
+    fn from(format: AutoPyImageFormat) -> ImageOutputFormat {
+        use image::ImageOutputFormat::*;
+        match format {
+            AutoPyImageFormat::BMP => BMP,
+            AutoPyImageFormat::GIF => GIF,
+            AutoPyImageFormat::JPEG => JPEG(100),
+            AutoPyImageFormat::PNG => PNG,
+            AutoPyImageFormat::Unsupported => {
+                Unsupported("This image format is unsupported by AutoPy".to_string())
+            }
+        }
+    }
+}
+
+impl From<ImageOutputFormat> for AutoPyImageFormat {
+    fn from(format: ImageOutputFormat) -> AutoPyImageFormat {
+        use image::ImageOutputFormat::*;
+        match format {
+            BMP => AutoPyImageFormat::BMP,
+            GIF => AutoPyImageFormat::GIF,
+            JPEG(_) => AutoPyImageFormat::JPEG,
+            PNG => AutoPyImageFormat::PNG,
+            _ => AutoPyImageFormat::Unsupported,
+        }
+    }
+}
+
+fn image_output_format_from_extension(extension: &str) -> AutoPyImageFormat {
     let extension: &str = &(extension.to_lowercase());
     match extension {
-        "bmp" => Some(ImageFormat::BMP),
-        "gif" => Some(ImageFormat::GIF),
-        "hdr" => Some(ImageFormat::HDR),
-        "jpeg" => Some(ImageFormat::JPEG),
-        "png" => Some(ImageFormat::PNG),
-        "tga" => Some(ImageFormat::TGA),
-        "tiff" => Some(ImageFormat::TIFF),
-        "webp" => Some(ImageFormat::WEBP),
-        _ => None,
+        "bmp" => AutoPyImageFormat::BMP,
+        "gif" => AutoPyImageFormat::GIF,
+        "jpeg" => AutoPyImageFormat::JPEG,
+        "png" => AutoPyImageFormat::PNG,
+        _ => AutoPyImageFormat::Unsupported,
     }
 }

@@ -26,7 +26,6 @@ install:
 
 build_script:
   - cargo update -p pyo3 --precise "0.5.0-alpha.1"
-  - cargo update -p autopilot --precise "0.1.8"
   - cibuildwheel --output-dir wheelhouse
   - >
     IF "%APPVEYOR_REPO_TAG%" == "true"
