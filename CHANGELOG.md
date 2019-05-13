@@ -8,12 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 2.0.0 - 2019-05-13
 
 ### Changed
-- Removed handling of unsupported image formats. AutoPy now only supports
-  directly saving of PNG, GIF, BMP and JPEG files.
 - Updated for latest Python versions and `cibuildwheel`.
 - Updated `autopilot-rs` to the latest version, including the following fixes:
 - Updated image, libc, scopeguard, quickcheck, pkg-config, core-foundation,
   core-graphics, and cocoa crates to latest versions.
+
+### Removed
+- Removed handling of unsupported image formats. AutoPy now only supports
+  direct saving of PNG, GIF, BMP and JPEG files.
 
 ## 1.1.1 - 2018-09-26
 
