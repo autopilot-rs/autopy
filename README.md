@@ -1,4 +1,6 @@
 [![PyPI version](https://pypip.in/version/autopy/badge.svg)](https://pypi.python.org/pypi/autopy/)
+[![Travis Build Status](https://travis-ci.org/autopilot-rs/autopy.svg?branch=master)](https://travis-ci.org/autopilot-rs/autopilot-rs)
+[![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/2p5xap3tv4qkwsd1?svg=true)](https://ci.appveyor.com/project/msanders/autopy)
 
 AutoPy Introduction and Tutorial
 =================================
