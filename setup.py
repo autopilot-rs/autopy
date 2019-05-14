@@ -74,6 +74,7 @@ def main():
         author_email='michael.sanders@fastmail.com',
         description=description,
         long_description=read_description(),
+        url='https://www.autopy.org',
         license='Apache-2.0',
         classifiers=[
             'Development Status :: 5 - Production/Stable',
