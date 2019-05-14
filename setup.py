@@ -7,6 +7,15 @@ from ast import literal_eval
 from setuptools import setup
 from setuptools_rust import Binding, RustExtension
 
+REPO_URL = "https://github.com/autopilot-rs/autopy"
+
+def convert_md(source):
+    try:
+        from pypandoc import convert
+        return convert(source, "rst", format="md", encoding="utf8")
+    except (ImportError, OSError):
+        return source
+
 
 def module_attr_re(attr):
     return re.compile(r'__{0}__\s*=\s*(.*)'.format(attr))
@@ -14,6 +23,15 @@ def module_attr_re(attr):
 
 def grep_attr(body, attr):
     return literal_eval(module_attr_re(attr).search(body).group(1))
+
+
+def read_description():
+    with open("README.md") as f:
+        footer = "For more information, see the [GitHub Repository]" \
+                 "({0}).".format(REPO_URL)
+        filter_re = re.compile(r'.*\bPyPI\b.*')
+        contents = filter_re.sub("", f.read()) + "\n" + footer
+        return convert_md(contents).strip()
 
 
 def parse_module_metadata():
@@ -55,6 +73,7 @@ def main():
         author=author,
         author_email='michael.sanders@fastmail.com',
         description=description,
+        long_description=read_description(),
         license='Apache-2.0',
         classifiers=[
             'Development Status :: 5 - Production/Stable',
@@ -77,6 +96,8 @@ def main():
             "GUI",
             "automation",
             "cross-platform",
+            "input",
+            "simulation",
         ],
         platforms=["macOS", "Windows", "X11"],
         rust_extensions=[
