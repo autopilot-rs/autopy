@@ -9,13 +9,6 @@ from setuptools_rust import Binding, RustExtension
 
 REPO_URL = "https://github.com/autopilot-rs/autopy"
 
-def convert_md(source):
-    try:
-        from pypandoc import convert
-        return convert(source, "rst", format="md", encoding="utf8")
-    except (ImportError, OSError):
-        return source
-
 
 def module_attr_re(attr):
     return re.compile(r'__{0}__\s*=\s*(.*)'.format(attr))
@@ -31,7 +24,7 @@ def read_description():
                  "({0}).".format(REPO_URL)
         filter_re = re.compile(r'.*\bPyPI\b.*')
         contents = filter_re.sub("", f.read()) + "\n" + footer
-        return convert_md(contents).strip()
+        return contents.strip()
 
 
 def parse_module_metadata():
@@ -74,6 +67,7 @@ def main():
         author_email='michael.sanders@fastmail.com',
         description=description,
         long_description=read_description(),
+        long_description_content_type='text/markdown',
         url='https://www.autopy.org',
         license='Apache-2.0',
         classifiers=[
