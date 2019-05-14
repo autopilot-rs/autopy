@@ -29,7 +29,6 @@ script:
   - export CIBW_ENVIRONMENT="CI=\"$CI\" TRAVIS_BRANCH=\"$TRAVIS_BRANCH\" TRAVIS_COMMIT=\"$TRAVIS_COMMIT\" PATH=\"\$HOME/.cargo/bin:\$PATH\""
   - export CIBW_TEST_COMMAND="python -c 'import autopy'"
   - git fetch --unshallow
-  - source ./scripts/travis
   - cibuildwheel --output-dir wheelhouse
   - |
     if [[ ! -z "$TRAVIS_TAG" ]]; then

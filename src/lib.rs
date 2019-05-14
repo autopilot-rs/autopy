@@ -1,4 +1,4 @@
-#![feature(specialization, const_fn)]
+#![feature(specialization, const_fn, custom_attribute)]
 
 extern crate autopilot;
 extern crate either;

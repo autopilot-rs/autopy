@@ -3,7 +3,11 @@ use image;
 use image::Pixel;
 use image::{ImageOutputFormat, ImageResult, Rgba};
 use internal::FromImageError;
+use pyo3::basic::CompareOp;
 use pyo3::prelude::*;
+use pyo3::types::PyType;
+use pyo3::PyNativeType;
+use pyo3::PyObjectProtocol;
 use std::collections::hash_map::DefaultHasher;
 use std::fs::File;
 use std::hash::{Hash, Hasher};
@@ -12,7 +16,6 @@ use std::path::Path;
 #[pyclass]
 struct Bitmap {
     bitmap: autopilot::bitmap::Bitmap,
-    token: PyToken,
 }
 
 #[pyproto]
@@ -34,49 +37,47 @@ impl PyObjectProtocol for Bitmap {
 #[pyproto]
 impl pyo3::class::PyBufferProtocol for Bitmap {
     // From
-    // https://github.com/PyO3/pyo3/blob/14ab12/tests/test_buffer_protocol.rs#L18
-    fn bf_getbuffer(
-        &self,
-        view: *mut pyo3::ffi::Py_buffer,
-        flags: pyo3::libc::c_int,
-    ) -> PyResult<()> {
+    // https://github.com/PyO3/pyo3/blob/97189a1/tests/test_buffer_protocol.rs#L17
+    fn bf_getbuffer(&self, view: *mut pyo3::ffi::Py_buffer, flags: libc::c_int) -> PyResult<()> {
+        use pyo3::exceptions::BufferError;
         use pyo3::*;
+        use std::ffi::CStr;
         use std::ptr;
 
         if view.is_null() {
-            return Err(PyErr::new::<exc::BufferError, _>("View is null"));
+            return Err(BufferError::py_err("View is null"));
         }
 
         unsafe {
             (*view).obj = ptr::null_mut();
         }
 
-        if (flags & pyo3::ffi::PyBUF_WRITABLE) == pyo3::ffi::PyBUF_WRITABLE {
-            return Err(PyErr::new::<exc::BufferError, _>("Object is not writable"));
+        if (flags & ffi::PyBUF_WRITABLE) == ffi::PyBUF_WRITABLE {
+            return Err(BufferError::py_err("Object is not writable"));
         }
 
         let bytes = &self.bitmap.image.raw_pixels();
 
         unsafe {
-            (*view).buf = bytes.as_ptr() as *mut std::os::raw::c_void;
+            (*view).buf = bytes.as_ptr() as *mut libc::c_void;
             (*view).len = bytes.len() as isize;
             (*view).readonly = 1;
             (*view).itemsize = 1;
 
             (*view).format = ptr::null_mut();
-            if (flags & pyo3::ffi::PyBUF_FORMAT) == pyo3::ffi::PyBUF_FORMAT {
-                let msg = ::std::ffi::CStr::from_ptr("B\0".as_ptr() as *const _);
+            if (flags & ffi::PyBUF_FORMAT) == ffi::PyBUF_FORMAT {
+                let msg = CStr::from_bytes_with_nul(b"B\0").unwrap();
                 (*view).format = msg.as_ptr() as *mut _;
             }
 
             (*view).ndim = 1;
             (*view).shape = ptr::null_mut();
-            if (flags & pyo3::ffi::PyBUF_ND) == pyo3::ffi::PyBUF_ND {
+            if (flags & ffi::PyBUF_ND) == ffi::PyBUF_ND {
                 (*view).shape = (&((*view).len)) as *const _ as *mut _;
             }
 
             (*view).strides = ptr::null_mut();
-            if (flags & pyo3::ffi::PyBUF_STRIDES) == pyo3::ffi::PyBUF_STRIDES {
+            if (flags & ffi::PyBUF_STRIDES) == ffi::PyBUF_STRIDES {
                 (*view).strides = &((*view).itemsize) as *const _ as *mut _;
             }
 
@@ -89,7 +90,7 @@ impl pyo3::class::PyBufferProtocol for Bitmap {
 }
 
 #[pymethods]
-impl<'a> Bitmap {
+impl Bitmap {
     /// Saves image to absolute path in the given format. The image type is
     /// determined from the filename if possible, unless format is given. If the
     /// file already exists, it will be overwritten. Currently only jpeg and png
@@ -104,7 +105,7 @@ impl<'a> Bitmap {
             .unwrap_or("");
         let fmt = image_output_format_from_extension(format);
         match fmt {
-            AutoPyImageFormat::Unsupported => Err(exc::ValueError::py_err(format!(
+            AutoPyImageFormat::Unsupported => Err(pyo3::exceptions::ValueError::py_err(format!(
                 "Unknown format {}",
                 format
             ))),
@@ -150,13 +151,10 @@ impl<'a> Bitmap {
     /// Open the image located at the path specified. The image's format is
     /// determined from the path's file extension.
     #[classmethod]
-    fn open(cls: &PyType, path: String) -> PyResult<&Bitmap> {
+    fn open(cls: &PyType, path: String) -> PyResult<Py<Bitmap>> {
         let image = try!(image::open(path).map_err(FromImageError::from));
         let bmp = autopilot::bitmap::Bitmap::new(image, None);
-        let result = try!(cls.py().init_ref(|t| Bitmap {
-            bitmap: bmp,
-            token: t,
-        },));
+        let result = try!(Py::new(cls.py(), Bitmap { bitmap: bmp },));
         Ok(result)
     }
 
@@ -167,7 +165,7 @@ impl<'a> Bitmap {
     fn get_color(&self, x: f64, y: f64) -> PyResult<(u8, u8, u8)> {
         let point = Point::new(x, y);
         if !self.bitmap.bounds().is_point_visible(point) {
-            Err(exc::ValueError::py_err(format!(
+            Err(pyo3::exceptions::ValueError::py_err(format!(
                 "Point out of bounds {}",
                 point
             )))
@@ -321,16 +319,14 @@ impl<'a> Bitmap {
     ///
     /// Exceptions:
     ///     - `ValueError` is thrown if the portion was out of bounds.
-    fn cropped(&mut self, rect: ((f64, f64), (f64, f64))) -> PyResult<&Bitmap> {
+    fn cropped(&mut self, rect: ((f64, f64), (f64, f64))) -> PyResult<Py<Bitmap>> {
         let rect = Rect::new(
             Point::new((rect.0).0, (rect.0).1),
             Size::new((rect.1).0, (rect.1).1),
         );
         let bmp = try!(self.bitmap.cropped(rect).map_err(FromImageError::from));
-        let result = try!(self.py().init_ref(|t| Bitmap {
-            bitmap: bmp,
-            token: t,
-        },));
+        let gil = Python::acquire_gil();
+        let result = try!(Py::new(gil.python(), Bitmap { bitmap: bmp }));
         Ok(result)
     }
 
@@ -370,38 +366,36 @@ impl<'a> Bitmap {
     }
 }
 
+/// Returns a screengrab of the given portion of the main display, or the
+/// entire display if rect is `None`.
+///
+/// Exceptions:
+///     - `ValueError` is thrown if the rect is out of bounds.
+///     - `IOError` is thrown if the image failed to parse.
+#[pyfunction]
+fn capture_screen(python: Python, rect: Option<((f64, f64), (f64, f64))>) -> PyResult<Py<Bitmap>> {
+    let result: ImageResult<autopilot::bitmap::Bitmap> = if let Some(rect) = rect {
+        let portion = Rect::new(
+            Point::new((rect.0).0, (rect.0).1),
+            Size::new((rect.1).0, (rect.1).1),
+        );
+        autopilot::bitmap::capture_screen_portion(portion)
+    } else {
+        autopilot::bitmap::capture_screen()
+    };
+    let bmp = try!(result.map_err(FromImageError::from));
+    let result = try!(Py::new(python, Bitmap { bitmap: bmp }));
+    Ok(result)
+}
+
 /// This module defines the class `Bitmap` for accessing bitmaps and searching
 /// for bitmaps on-screen.
 ///
 /// It also defines functions for taking screenshots of the screen.
-#[pymodinit(bitmap)]
+#[pymodule(bitmap)]
 fn init(_py: Python, m: &PyModule) -> PyResult<()> {
-    /// Returns a screengrab of the given portion of the main display, or the
-    /// entire display if rect is `None`.
-    ///
-    /// Exceptions:
-    ///     - `ValueError` is thrown if the rect is out of bounds.
-    ///     - `IOError` is thrown if the image failed to parse.
-    #[pyfn(m, "capture_screen")]
-    fn capture_screen(python: Python, rect: Option<((f64, f64), (f64, f64))>) -> PyResult<&Bitmap> {
-        let result: ImageResult<autopilot::bitmap::Bitmap> = if let Some(rect) = rect {
-            let portion = Rect::new(
-                Point::new((rect.0).0, (rect.0).1),
-                Size::new((rect.1).0, (rect.1).1),
-            );
-            autopilot::bitmap::capture_screen_portion(portion)
-        } else {
-            autopilot::bitmap::capture_screen()
-        };
-        let bmp = try!(result.map_err(FromImageError::from));
-        let result = try!(python.init_ref(|t| Bitmap {
-            bitmap: bmp,
-            token: t,
-        },));
-        Ok(result)
-    }
-
     m.add_class::<Bitmap>()?;
+    m.add_wrapped(wrap_pyfunction!(capture_screen))?;
     Ok(())
 }
 

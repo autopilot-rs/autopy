@@ -13,9 +13,3 @@ fi
 if command -v yum; then
     yum install -y gpg libXtst libXtst-devel libXext libXext-devel
 fi
-
-set -x
-# shellcheck source=/dev/null
-source "$HOME/.cargo/env"
-cargo update -p pyo3 --precise "0.5.0-alpha.1"
-set +x
