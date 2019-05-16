@@ -20,10 +20,10 @@ def grep_attr(body, attr):
 
 def read_description():
     with open("README.md") as f:
-        footer = "For more information, see the [GitHub Repository]" \
+        header = "For more information, see the [GitHub Repository]" \
                  "({0}).".format(REPO_URL)
         filter_re = re.compile(r'.*\bPyPI\b.*')
-        contents = filter_re.sub("", f.read()) + "\n" + footer
+        contents = header + "\n" + filter_re.sub("", f.read())
         return contents.strip()
 
 
