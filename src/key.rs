@@ -170,11 +170,11 @@ impl _Code {
     }
 }
 
-/// Holds down the given key or keycode if `down` is `True`, or releases it
-/// if not. Integer keycodes and modifiers should be taken from module
-/// constants (e.g., `key.K_DELETE` or `key.MOD_META`). If the given key is
-/// a character, it is automatically converted to a keycode corresponding to
-/// the current keyboard layout.
+/// Holds down the given key or keycode if `down` is `True`, or releases it if
+/// not. Integer keycodes and modifiers should be taken from module constants
+/// (e.g., `Code.DELETE` or `Modifier.META`). If the given key is a character,
+/// it is automatically converted to a keycode corresponding to the current
+/// keyboard layout.
 #[pyfunction]
 fn toggle(
     key: &PyAny,
