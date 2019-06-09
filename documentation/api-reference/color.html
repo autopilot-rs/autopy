@@ -1,21 +1,22 @@
 
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>color — autopy module for working with colors &#8212; AutoPy 1.0 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
-    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="key — autopy module for working with the keyboard" href="key.html" />
     <link rel="prev" title="bitmap — autopy module for working with bitmaps" href="bitmap.html" /> 
@@ -50,14 +51,14 @@ used by autopy methods and other more readable formats (e.g., RGB tuples).</p>
 <span id="functions"></span><h2>Functions<a class="headerlink" href="#module-autopy.color" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="autopy.color.rgb_to_hex">
-<code class="descclassname">autopy.color.</code><code class="descname">rgb_to_hex</code><span class="sig-paren">(</span><em>red: int</em>, <em>green: int</em>, <em>blue: int</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#autopy.color.rgb_to_hex" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">autopy.color.</code><code class="sig-name descname">rgb_to_hex</code><span class="sig-paren">(</span><em class="sig-param">red: int</em>, <em class="sig-param">green: int</em>, <em class="sig-param">blue: int</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#autopy.color.rgb_to_hex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns hexadecimal value of given RGB tuple. <code class="docutils literal notranslate"><span class="pre">r</span></code>, <code class="docutils literal notranslate"><span class="pre">g</span></code>, and <code class="docutils literal notranslate"><span class="pre">b</span></code> must be
 in the range 0 - 255.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="autopy.color.hex_to_rgb">
-<code class="descclassname">autopy.color.</code><code class="descname">hex_to_rgb</code><span class="sig-paren">(</span><em>hex: int</em><span class="sig-paren">)</span> &#x2192; Tuple[int, int, int]<a class="headerlink" href="#autopy.color.hex_to_rgb" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">autopy.color.</code><code class="sig-name descname">hex_to_rgb</code><span class="sig-paren">(</span><em class="sig-param">hex: int</em><span class="sig-paren">)</span> &#x2192; Tuple[int, int, int]<a class="headerlink" href="#autopy.color.hex_to_rgb" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a tuple <code class="docutils literal notranslate"><span class="pre">(r,</span> <span class="pre">g,</span> <span class="pre">b)</span></code> of the RGB integer values equivalent to the
 given RGB hexadecimal value. <code class="docutils literal notranslate"><span class="pre">r</span></code>, <code class="docutils literal notranslate"><span class="pre">g</span></code>, and <code class="docutils literal notranslate"><span class="pre">b</span></code> are in the range 0 - 255.</p>
 </dd></dl>

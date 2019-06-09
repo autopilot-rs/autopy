@@ -1,21 +1,22 @@
 
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>alert — autopy module for displaying alerts &#8212; AutoPy 1.0 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
-    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="bitmap — autopy module for working with bitmaps" href="bitmap.html" />
     <link rel="prev" title="autopy — API Reference" href="index.html" /> 
@@ -49,14 +50,14 @@
 <span id="functions"></span><h2>Functions<a class="headerlink" href="#module-autopy.alert" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="autopy.alert.alert">
-<code class="descclassname">autopy.alert.</code><code class="descname">alert</code><span class="sig-paren">(</span><em>msg: str</em>, <em>title: str=None</em>, <em>default_button: str=None</em>, <em>cancel_button: str=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.alert.alert" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">autopy.alert.</code><code class="sig-name descname">alert</code><span class="sig-paren">(</span><em class="sig-param">msg: str</em>, <em class="sig-param">title: str=None</em>, <em class="sig-param">default_button: str=None</em>, <em class="sig-param">cancel_button: str=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.alert.alert" title="Permalink to this definition">¶</a></dt>
 <dd><p>Displays alert with the given attributes. If <code class="docutils literal notranslate"><span class="pre">cancel_button</span></code> is not
 given, only the default button is displayed. Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the
 default button was pressed, or <code class="docutils literal notranslate"><span class="pre">False</span></code> if cancelled. Note that the
 arguments are keywords, and can be passed as named parameters (e.g.,
-<code class="docutils literal notranslate"><span class="pre">alert(msg=\&quot;bar\&quot;,</span> <span class="pre">title=\&quot;foo\&quot;)</span></code>).</p>
+<code class="docutils literal notranslate"><span class="pre">alert(msg='bar',</span> <span class="pre">title='foo')</span></code>).</p>
 <p>NOTE: Due to limitations in the Win32 API, Windows currently replaces
-<code class="docutils literal notranslate"><span class="pre">default_button</span></code> with “OK” and <code class="docutils literal notranslate"><span class="pre">cancel_button</span></code> (if given) with “Cancel”.
+<code class="docutils literal notranslate"><span class="pre">default_button</span></code> with ‘OK’ and <code class="docutils literal notranslate"><span class="pre">cancel_button</span></code> (if given) with ‘Cancel’.
 This may be fixed in a later release.</p>
 </dd></dl>
 
