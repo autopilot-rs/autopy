@@ -110,12 +110,11 @@ impl Bitmap {
                 format
             ))),
             _ => {
-                let ref mut buffer = try!(File::create(path));
-                try!(self
-                    .bitmap
+                let ref mut buffer = File::create(path)?;
+                self.bitmap
                     .image
                     .write_to(buffer, fmt)
-                    .map_err(FromImageError::from));
+                    .map_err(FromImageError::from)?;
                 Ok(())
             }
         }
@@ -127,10 +126,9 @@ impl Bitmap {
     ///     - `IOError` is thrown if the image could not be copied.
     ///     - `ValueError` is thrown if the image was too large or small.
     fn copy_to_pasteboard(&self) -> PyResult<()> {
-        try!(self
-            .bitmap
+        self.bitmap
             .copy_to_pasteboard()
-            .map_err(FromImageError::from));
+            .map_err(FromImageError::from)?;
         Ok(())
     }
 
@@ -152,9 +150,9 @@ impl Bitmap {
     /// determined from the path's file extension.
     #[classmethod]
     fn open(cls: &PyType, path: String) -> PyResult<Py<Bitmap>> {
-        let image = try!(image::open(path).map_err(FromImageError::from));
+        let image = image::open(path).map_err(FromImageError::from)?;
         let bmp = autopilot::bitmap::Bitmap::new(image, None);
-        let result = try!(Py::new(cls.py(), Bitmap { bitmap: bmp },));
+        let result = Py::new(cls.py(), Bitmap { bitmap: bmp })?;
         Ok(result)
     }
 
@@ -324,9 +322,9 @@ impl Bitmap {
             Point::new((rect.0).0, (rect.0).1),
             Size::new((rect.1).0, (rect.1).1),
         );
-        let bmp = try!(self.bitmap.cropped(rect).map_err(FromImageError::from));
+        let bmp = self.bitmap.cropped(rect).map_err(FromImageError::from)?;
         let gil = Python::acquire_gil();
-        let result = try!(Py::new(gil.python(), Bitmap { bitmap: bmp }));
+        let result = Py::new(gil.python(), Bitmap { bitmap: bmp })?;
         Ok(result)
     }
 
@@ -383,8 +381,8 @@ fn capture_screen(python: Python, rect: Option<((f64, f64), (f64, f64))>) -> PyR
     } else {
         autopilot::bitmap::capture_screen()
     };
-    let bmp = try!(result.map_err(FromImageError::from));
-    let result = try!(Py::new(python, Bitmap { bitmap: bmp }));
+    let bmp = result.map_err(FromImageError::from)?;
+    let result = Py::new(python, Bitmap { bitmap: bmp })?;
     Ok(result)
 }
 

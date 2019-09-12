@@ -22,7 +22,7 @@ struct Button {
 #[pyfunction]
 fn move_py(x: f64, y: f64) -> PyResult<()> {
     let result = autopilot::mouse::move_to(Point::new(x, y));
-    try!(result.map_err(FromMouseError::from));
+    result.map_err(FromMouseError::from)?;
     Ok(())
 }
 
@@ -79,7 +79,7 @@ fn click(button: Option<&Button>, delay: Option<f64>) -> PyResult<()> {
 #[pyfunction]
 fn smooth_move(x: f64, y: f64, duration: Option<f64>) -> PyResult<()> {
     let result = autopilot::mouse::smooth_move(Point::new(x, y), duration);
-    try!(result.map_err(FromMouseError::from));
+    result.map_err(FromMouseError::from)?;
     Ok(())
 }
 
@@ -97,14 +97,14 @@ fn init(py: Python, m: &PyModule) -> PyResult<()> {
     m.add_wrapped(wrap_pyfunction!(click))?;
     m.add_wrapped(wrap_pyfunction!(smooth_move))?;
 
-    try!(m.add("Button", Py::new(py, _Button {})?));
+    m.add("Button", Py::new(py, _Button {})?)?;
     Ok(())
 }
 
 impl _Button {
     fn init_button_ref(&self, button: autopilot::mouse::Button) -> PyResult<Py<Button>> {
         let gil = Python::acquire_gil();
-        let result = try!(Py::new(gil.python(), Button { button: button }));
+        let result = Py::new(gil.python(), Button { button: button })?;
         Ok(result)
     }
 }

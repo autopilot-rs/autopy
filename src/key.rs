@@ -227,8 +227,8 @@ fn type_string(string: &str, wpm: Option<f64>) -> PyResult<()> {
 /// This module contains functions for controlling the keyboard.
 #[pymodule(key)]
 fn init(py: Python, m: &PyModule) -> PyResult<()> {
-    try!(m.add("Modifier", Py::new(py, _Modifier {})?));
-    try!(m.add("Code", Py::new(py, _Code {})?));
+    m.add("Modifier", Py::new(py, _Modifier {})?)?;
+    m.add("Code", Py::new(py, _Code {})?)?;
     m.add_wrapped(wrap_pyfunction!(toggle))?;
     m.add_wrapped(wrap_pyfunction!(tap))?;
     m.add_wrapped(wrap_pyfunction!(type_string))?;
@@ -253,7 +253,7 @@ fn py_object_to_key_code_convertible(
 impl _Modifier {
     fn init_modifier_ref(&self, flag: autopilot::key::Flag) -> PyResult<Py<Modifier>> {
         let gil = Python::acquire_gil();
-        let result = try!(Py::new(gil.python(), Modifier { flag: flag }));
+        let result = Py::new(gil.python(), Modifier { flag: flag })?;
         Ok(result)
     }
 }
@@ -261,7 +261,7 @@ impl _Modifier {
 impl _Code {
     fn init_code_ref(&self, code: autopilot::key::KeyCode) -> PyResult<Py<Code>> {
         let gil = Python::acquire_gil();
-        let result = try!(Py::new(gil.python(), Code { code: code }));
+        let result = Py::new(gil.python(), Code { code: code })?;
         Ok(result)
     }
 }
