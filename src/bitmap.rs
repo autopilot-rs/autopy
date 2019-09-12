@@ -2,7 +2,7 @@ use autopilot::geometry::{Point, Rect, Size};
 use image;
 use image::Pixel;
 use image::{ImageOutputFormat, ImageResult, Rgba};
-use internal::FromImageError;
+use internal::{rgb_to_hex, FromImageError};
 use pyo3::basic::CompareOp;
 use pyo3::prelude::*;
 use pyo3::types::PyType;
@@ -158,11 +158,11 @@ impl Bitmap {
         Ok(result)
     }
 
-    /// Returns `(r, g, b)` tuple describing the color at a given point.
+    /// Returns hexadecimal value describing the color at a given point.
     ///
     /// Exceptions:
     ///     - `ValueError` is thrown if the point out of bounds.
-    fn get_color(&self, x: f64, y: f64) -> PyResult<(u8, u8, u8)> {
+    fn get_color(&self, x: f64, y: f64) -> PyResult<u32> {
         let point = Point::new(x, y);
         if !self.bitmap.bounds().is_point_visible(point) {
             Err(pyo3::exceptions::ValueError::py_err(format!(
@@ -172,7 +172,7 @@ impl Bitmap {
         } else {
             let rgb = self.bitmap.get_pixel(point);
             let (r, g, b, _) = rgb.channels4();
-            Ok((r, g, b))
+            Ok(rgb_to_hex(r, g, b))
         }
     }
 

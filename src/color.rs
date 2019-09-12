@@ -1,10 +1,11 @@
+use internal::rgb_to_hex;
 use pyo3::prelude::*;
 
 /// Returns hexadecimal value of given RGB tuple. `r`, `g`, and `b` must be
 /// in the range 0 - 255.
 #[pyfunction]
-fn rgb_to_hex(red: u8, green: u8, blue: u8) -> PyResult<u32> {
-    Ok(((red as u32) << 16) | ((green as u32) << 8) | blue as u32)
+fn py_rgb_to_hex(red: u8, green: u8, blue: u8) -> PyResult<u32> {
+    Ok(rgb_to_hex(red, green, blue))
 }
 
 /// Returns a tuple `(r, g, b)` of the RGB integer values equivalent to the
@@ -20,8 +21,8 @@ fn hex_to_rgb(hex: u32) -> PyResult<(u8, u8, u8)> {
 /// This module provides functions for converting between the hexadecimal format
 /// used by autopy methods and other more readable formats (e.g., RGB tuples).
 #[pymodule(color)]
-fn init(_py: Python, m: &PyModule) -> PyResult<()> {
-    m.add_wrapped(wrap_pyfunction!(rgb_to_hex))?;
+fn init(py: Python, m: &PyModule) -> PyResult<()> {
+    m.add("rgb_to_hex", wrap_pyfunction!(py_rgb_to_hex)(py))?;
     m.add_wrapped(wrap_pyfunction!(hex_to_rgb))?;
     Ok(())
 }

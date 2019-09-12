@@ -2,6 +2,9 @@ use image::ImageError;
 use pyo3::prelude::*;
 
 pub struct FromImageError(ImageError);
+pub fn rgb_to_hex(red: u8, green: u8, blue: u8) -> u32 {
+    ((red as u32) << 16) | ((green as u32) << 8) | blue as u32
+}
 
 impl From<ImageError> for FromImageError {
     fn from(err: ImageError) -> FromImageError {
