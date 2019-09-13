@@ -26,7 +26,7 @@ struct Code {
 
 #[pymethods]
 impl _Modifier {
-    /// Equivalent to the command key modifier on Mac OS X, the Windows key
+    /// Equivalent to the command key modifier on macOS, the Windows key
     /// modifier on Windows, or the meta key modifiers on X11.
     #[getter(META)]
     fn meta(&self) -> PyResult<Py<Modifier>> {
