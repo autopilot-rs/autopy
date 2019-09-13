@@ -96,6 +96,54 @@ impl _Code {
     fn f12(&self) -> PyResult<Py<Code>> {
         self.init_code_ref(autopilot::key::KeyCode::F12)
     }
+    #[getter(F13)]
+    fn f13(&self) -> PyResult<Py<Code>> {
+        self.init_code_ref(autopilot::key::KeyCode::F13)
+    }
+    #[getter(F14)]
+    fn f14(&self) -> PyResult<Py<Code>> {
+        self.init_code_ref(autopilot::key::KeyCode::F14)
+    }
+    #[getter(F15)]
+    fn f15(&self) -> PyResult<Py<Code>> {
+        self.init_code_ref(autopilot::key::KeyCode::F15)
+    }
+    #[getter(F16)]
+    fn f16(&self) -> PyResult<Py<Code>> {
+        self.init_code_ref(autopilot::key::KeyCode::F16)
+    }
+    #[getter(F17)]
+    fn f17(&self) -> PyResult<Py<Code>> {
+        self.init_code_ref(autopilot::key::KeyCode::F17)
+    }
+    #[getter(F18)]
+    fn f18(&self) -> PyResult<Py<Code>> {
+        self.init_code_ref(autopilot::key::KeyCode::F18)
+    }
+    #[getter(F19)]
+    fn f19(&self) -> PyResult<Py<Code>> {
+        self.init_code_ref(autopilot::key::KeyCode::F19)
+    }
+    #[getter(F20)]
+    fn f20(&self) -> PyResult<Py<Code>> {
+        self.init_code_ref(autopilot::key::KeyCode::F20)
+    }
+    #[getter(F21)]
+    fn f21(&self) -> PyResult<Py<Code>> {
+        self.init_code_ref(autopilot::key::KeyCode::F21)
+    }
+    #[getter(F22)]
+    fn f22(&self) -> PyResult<Py<Code>> {
+        self.init_code_ref(autopilot::key::KeyCode::F22)
+    }
+    #[getter(F23)]
+    fn f23(&self) -> PyResult<Py<Code>> {
+        self.init_code_ref(autopilot::key::KeyCode::F23)
+    }
+    #[getter(F24)]
+    fn f24(&self) -> PyResult<Py<Code>> {
+        self.init_code_ref(autopilot::key::KeyCode::F24)
+    }
     #[getter(LEFT_ARROW)]
     fn left_arrow(&self) -> PyResult<Py<Code>> {
         self.init_code_ref(autopilot::key::KeyCode::LeftArrow)
