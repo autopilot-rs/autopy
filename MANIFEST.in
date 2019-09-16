@@ -1,2 +1,5 @@
+include CHANGELOG.md
 include Cargo.toml
+include LICENSE
+include requirements.txt
 recursive-include src *
