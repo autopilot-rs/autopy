@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 3.0.0 - 2019-09-16
+
+### Added
+
+- Added support for missing function keys F13 – F24.
+
+### Changed
+
+- Updated color functions to return hex value rather than tuple.
+- Updated `autopilot-rs` to the latest version, including the following fixes:
+- Updated image, libc, rand, quickcheck, pkg-config, and cocoa crates to latest
+  versions.
+  
+### Fixed
+
+- Fixed warnings of using try operator on latest nightly.
+
 ## 2.1.0 - 2019-05-15
 
 ### Changed
