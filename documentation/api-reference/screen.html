@@ -67,7 +67,7 @@ points.</p>
 <dl class="function">
 <dt id="autopy.screen.get_color">
 <code class="sig-prename descclassname">autopy.screen.</code><code class="sig-name descname">get_color</code><span class="sig-paren">(</span><em class="sig-param">x: float</em>, <em class="sig-param">y: float) -&gt; (int</em>, <em class="sig-param">int</em>, <em class="sig-param">int</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.screen.get_color" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">(r,</span> <span class="pre">g,</span> <span class="pre">b)</span></code> tuple describing the color at a given point.</p>
+<dd><p>Returns hexadecimal value describing the color at a given point.</p>
 <p>Functionally equivalent to:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rect</span> <span class="o">=</span> <span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 <span class="n">bitmap</span><span class="o">.</span><span class="n">capture_screen_portion</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span><span class="o">.</span><span class="n">get_color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
