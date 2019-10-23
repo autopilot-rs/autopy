@@ -248,13 +248,19 @@ fn toggle(
 /// Convenience wrapper around `toggle()` that holds down and then releases
 /// the given key and modifiers.
 #[pyfunction]
-fn tap(key: &PyAny, modifiers: Vec<&Modifier>, delay: Option<f64>) -> PyResult<()> {
+fn tap(
+    key: &PyAny,
+    modifiers: Vec<&Modifier>,
+    delay: Option<f64>,
+    modifier_delay: Option<f64>,
+) -> PyResult<()> {
     let delay_ms: u64 = delay.map(|x| x as u64 * 1000).unwrap_or(0);
+    let modifier_delay_ms: u64 = modifier_delay.map(|x| x as u64 * 1000).unwrap_or(delay_ms);
     if let Some(either) = py_object_to_key_code_convertible(key) {
         let flags: Vec<_> = modifiers.iter().map(|x| x.flag).collect();
         match either {
-            Left(x) => autopilot::key::tap(&x, &flags, delay_ms, delay_ms),
-            Right(x) => autopilot::key::tap(&x, &flags, delay_ms, delay_ms),
+            Left(x) => autopilot::key::tap(&x, &flags, delay_ms, modifier_delay_ms),
+            Right(x) => autopilot::key::tap(&x, &flags, delay_ms, modifier_delay_ms),
         };
         Ok(())
     } else {
