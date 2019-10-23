@@ -253,8 +253,8 @@ fn tap(key: &PyAny, modifiers: Vec<&Modifier>, delay: Option<f64>) -> PyResult<(
     if let Some(either) = py_object_to_key_code_convertible(key) {
         let flags: Vec<_> = modifiers.iter().map(|x| x.flag).collect();
         match either {
-            Left(x) => autopilot::key::tap(&x, &flags, delay_ms),
-            Right(x) => autopilot::key::tap(&x, &flags, delay_ms),
+            Left(x) => autopilot::key::tap(&x, &flags, delay_ms, delay_ms),
+            Right(x) => autopilot::key::tap(&x, &flags, delay_ms, delay_ms),
         };
         Ok(())
     } else {
