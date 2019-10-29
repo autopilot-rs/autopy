@@ -30,6 +30,18 @@ Constants
    :code: F10
    :code: F11
    :code: F12
+   :code: F13
+   :code: F14
+   :code: F15
+   :code: F16
+   :code: F17
+   :code: F18
+   :code: F19
+   :code: F20
+   :code: F21
+   :code: F22
+   :code: F23
+   :code: F24
    :code: ALT
    :code: BACKSPACE
    :code: CAPS_LOCK
@@ -40,6 +52,7 @@ Constants
    :code: ESCAPE
    :code: HOME
    :code: LEFT_ARROW
+   :code: META
    :code: PAGE_DOWN
    :code: PAGE_UP
    :code: RETURN
