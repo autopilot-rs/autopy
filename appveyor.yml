@@ -17,7 +17,7 @@ environment:
 # From https://github.com/starkat99/appveyor-rust/blob/master/appveyor.yml
 install:
   - appveyor DownloadFile https://win.rustup.rs/ -FileName rustup-init.exe
-  - rustup-init -yv --default-toolchain nightly --default-host %target%
+  - rustup-init -yv --default-toolchain nightly-2019-10-05 --default-host %target%
   - set PATH=%PATH%;%USERPROFILE%\.cargo\bin
   - rustc -vV
   - cargo -vV

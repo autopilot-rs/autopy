@@ -32,7 +32,7 @@ First, see if a binary wheel is available for your machine by running:
 
 If that fails, install [rustup](https://rustup.rs) and then run:
 
-    $ rustup default nightly
+    $ rustup default nightly-2019-10-05
     $ pip install -U setuptools-rust
     $ pip install -U autopy
 
@@ -40,7 +40,7 @@ Another option is to compile from the latest source on the GitHub repository:
 
     $ git clone git://github.com/autopilot-rs/autopy-rs.git
     $ cd autopy
-    $ rustup default nightly
+    $ rustup default nightly-2019-10-05
     $ pip install -r requirements.txt
     $ python setup.py build
     # python setup.py install
