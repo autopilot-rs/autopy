@@ -6,12 +6,12 @@ environment:
     - channel: stable
       target: x86_64-pc-windows-msvc
       CIBW_SKIP: "*win32* cp27-* cp33-* cp34-*"
-      CIBW_BEFORE_BUILD: pip install setuptools-rust==0.10.3
+      CIBW_BEFORE_BUILD: python -m pip install setuptools setuptools-rust==0.10.3
     # Stable 32-bit MSVC
     - channel: stable
       target: i686-pc-windows-msvc
       CIBW_SKIP: "*win_amd64* cp33-* cp34-*"
-      CIBW_BEFORE_BUILD: pip install setuptools-rust==0.10.3
+      CIBW_BEFORE_BUILD: python -m pip install setuptools setuptools-rust==0.10.3
 
 
 # From https://github.com/starkat99/appveyor-rust/blob/master/appveyor.yml
@@ -21,8 +21,8 @@ install:
   - set PATH=%PATH%;%USERPROFILE%\.cargo\bin
   - rustc -vV
   - cargo -vV
-  - pip install -U pip --user
-  - pip install cibuildwheel==0.9.4 setuptools-rust==0.10.3
+  - python -m pip install -U pip
+  - python -m pip install cibuildwheel==0.9.4 setuptools setuptools-rust==0.10.3
 
 build_script:
   - cibuildwheel --output-dir wheelhouse
