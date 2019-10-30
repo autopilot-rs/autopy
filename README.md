@@ -54,6 +54,8 @@ code will cause an alert dialog to appear on every major platform:
 
 ```python
 import autopy
+
+
 def hello_world():
     autopy.alert.alert("Hello, world")
 hello_world()
@@ -110,6 +112,28 @@ sine_mouse_wave()
 ```
 
 <a href="https://www.autopy.org/documentation/sine-wave"><img src="https://github.com/msanders/autopy/raw/gh-pages/sine-move-mouse-thumbnail.jpg" alt="Demonstration video"/></a>
+
+### Controlling the Keyboard
+
+The following will enter the keys from the string "Hello, world!" in the
+currently focused input at 100 WPM:
+
+```python
+import autopy
+
+
+autopy.key.type_string("Hello, world!", wpm=100)
+```
+
+Alternatively, individual keys can be entered using the following:
+
+```python
+import autopy
+
+
+autopy.key.tap(autopy.key.Code.TAB, [autopy.key.Modifier.META])
+autopy.key.tap("w", [autopy.key.Modifier.META])
+```
 
 ### Working with Bitmaps
 
