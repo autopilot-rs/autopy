@@ -8,8 +8,8 @@ Functions
 -----------------------------
 .. automodule:: autopy.key
 
-   .. autofunction:: toggle(key: Any, down: bool, modifiers: List[Modifier], modifier_delay: float=None)
-   .. autofunction:: tap(key: Any, modifiers: List[Modifier], delay: float=None)
+   .. autofunction:: toggle(key: Any, down: bool, modifiers: List[Modifier]=[], modifier_delay: float=None)
+   .. autofunction:: tap(key: Any, modifiers: List[Modifier]=[], delay: float=None)
    .. autofunction:: type_string(string: str, wpm: float=None)
 
 

@@ -227,12 +227,16 @@ impl _Code {
 fn toggle(
     key: &PyAny,
     down: bool,
-    modifiers: Vec<&Modifier>,
+    modifiers: Option<Vec<&Modifier>>,
     modifier_delay: Option<u64>,
 ) -> PyResult<()> {
     let modifier_delay_ms: u64 = modifier_delay.map(|x| x as u64 * 1000).unwrap_or(0);
     if let Some(either) = py_object_to_key_code_convertible(key) {
-        let flags: Vec<_> = modifiers.iter().map(|x| x.flag).collect();
+        let flags: Vec<_> = modifiers
+            .unwrap_or(Vec::new())
+            .iter()
+            .map(|x| x.flag)
+            .collect();
         match either {
             Left(x) => autopilot::key::toggle(&x, down, &flags, modifier_delay_ms),
             Right(x) => autopilot::key::toggle(&x, down, &flags, modifier_delay_ms),
@@ -250,14 +254,18 @@ fn toggle(
 #[pyfunction]
 fn tap(
     key: &PyAny,
-    modifiers: Vec<&Modifier>,
+    modifiers: Option<Vec<&Modifier>>,
     delay: Option<f64>,
     modifier_delay: Option<f64>,
 ) -> PyResult<()> {
     let delay_ms: u64 = delay.map(|x| x as u64 * 1000).unwrap_or(0);
     let modifier_delay_ms: u64 = modifier_delay.map(|x| x as u64 * 1000).unwrap_or(delay_ms);
     if let Some(either) = py_object_to_key_code_convertible(key) {
-        let flags: Vec<_> = modifiers.iter().map(|x| x.flag).collect();
+        let flags: Vec<_> = modifiers
+            .unwrap_or(Vec::new())
+            .iter()
+            .map(|x| x.flag)
+            .collect();
         match either {
             Left(x) => autopilot::key::tap(&x, &flags, delay_ms, modifier_delay_ms),
             Right(x) => autopilot::key::tap(&x, &flags, delay_ms, modifier_delay_ms),
