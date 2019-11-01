@@ -206,6 +206,13 @@ def find_image_example():
 find_image_example()
 ```
 
+It's also possible to do a bounded search by passing a tuple `((x, y), (width,
+height))`:
+
+```python
+haystack.find_bitmap(needle, rect=((10, 10), (100, 100)))
+```
+
 ## Projects using AutoPy
 
 - [AutoPyDriverServer](https://github.com/daluu/autopydriverserver), AutoPy
