@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 3.0.1 - 2019-11-12
+
+### Added
+
+- Added support for Python 3.8.
+- Added support for setting modifier delay in `key.tap`.
+
+### Changed
+
+- Updated modifiers param in `key.tap` and `key.toggle` to be optional.
+
+### Fixed
+
+- Updated `autopilot-rs` to 0.3.1, including the following fixes:
+- Fixed issue with point scaling in `mouse.location` and `mouse.move`.
+- Fixed typing of "^" character on Linux.
+- Fixed typing of "_" character on Linux.
+
 ## 3.0.0 - 2019-09-16
 
 ### Added
