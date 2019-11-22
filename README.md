@@ -1,4 +1,7 @@
-[![PyPI version](https://pypip.in/version/autopy/badge.svg)](https://pypi.python.org/pypi/autopy/)
+[![Latest PyPI version](https://img.shields.io/pypi/v/autopy.svg)](https://pypi.python.org/pypi/autopy/)
+[![Supported Python versions](https://img.shields.io/pypi/pyversions/autopy.svg)](https://pypi.python.org/pypi/autopy/)
+[![Total downloads](https://pepy.tech/badge/autopy)](https://pepy.tech/project/autopy)
+
 [![Travis Build Status](https://travis-ci.org/autopilot-rs/autopy.svg?branch=master)](https://travis-ci.org/autopilot-rs/autopy)
 [![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/2p5xap3tv4qkwsd1?svg=true)](https://ci.appveyor.com/project/msanders/autopy)
 
