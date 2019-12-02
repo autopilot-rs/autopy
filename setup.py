@@ -97,6 +97,11 @@ def main():
             "input",
             "simulation",
         ],
+        project_urls={
+            "Documentation": "https://www.autopy.org/documentation/api-reference/",
+            "Code": "https://github.com/autopilot-rs/autopy/",
+            "Issue Tracker": "https://github.com/autopilot-rs/autopy/issues",
+        },
         platforms=["macOS", "Windows", "X11"],
         rust_extensions=[
             RustExtension('autopy.alert', 'Cargo.toml', binding=Binding.PyO3),
