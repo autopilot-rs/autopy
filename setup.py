@@ -69,7 +69,7 @@ def main():
         long_description=read_description(),
         long_description_content_type='text/markdown',
         url='https://www.autopy.org',
-        license='Apache-2.0',
+        license='MIT OR Apache-2.0',
         classifiers=[
             'Development Status :: 5 - Production/Stable',
             'Environment :: MacOS X',
@@ -77,6 +77,7 @@ def main():
             'Environment :: X11 Applications',
             'Intended Audience :: Developers',
             'License :: OSI Approved :: Apache Software License',
+            'License :: OSI Approved :: MIT License',
             'Natural Language :: English',
             'Operating System :: MacOS',
             'Operating System :: Microsoft :: Windows',
