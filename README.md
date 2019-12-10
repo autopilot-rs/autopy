@@ -233,3 +233,11 @@ haystack.find_bitmap(needle, rect=((10, 10), (100, 100)))
 Hope you enjoy using autopy! For a more in depth overview, see the [API
 Reference](https://www.autopy.org/documentation/api-reference/).
 
+## License
+
+This project is licensed under either the [Apache-2.0](LICENSE-APACHE) or
+[MIT](LICENSE-MIT) license, at your option.
+
+Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
+dual licensed as above, without any additional terms or conditions.
