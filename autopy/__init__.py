@@ -6,5 +6,5 @@ AutoPy is a simple, cross-platform GUI automation library for Python.
 from . import alert, bitmap, color, key, mouse, screen
 
 __author__ = "Michael Sanders"
-__version__ = "3.0.1"
+__version__ = "3.1.0"
 __all__ = ["alert", "bitmap", "color", "key", "mouse", "screen"]

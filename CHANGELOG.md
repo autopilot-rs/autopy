@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 3.1.0 - 2020-01-17
+
+### Added
+
+- Added constant for tab key.
+
+### Fixed
+
+- Updated `autopilot-rs` to 0.4.0, including the following fixes:
+- Fixed typing of apostrophe and quote characters on Linux.
+
+### Changed
+
+- This project has been relicensed under the MIT or Apache 2.0 license.
+- Updated image, libc, rand, quickcheck, pkg-config, core-foundation,
+  core-graphics, and cocoa crates to latest versions.
+
 ## 3.0.1 - 2019-11-12
 
 ### Added
