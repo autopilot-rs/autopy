@@ -64,7 +64,7 @@ def hello_world():
 hello_world()
 ```
 
-![Cross platform alerts](https://github.com/msanders/autopy/raw/gh-pages/alerts.png)
+![Cross platform alerts](https://github.com/autopilot-rs/autopy/raw/gh-pages/alerts.png)
 
 ## Tutorials
 
@@ -114,7 +114,7 @@ def sine_mouse_wave():
 sine_mouse_wave()
 ```
 
-<a href="https://www.autopy.org/documentation/sine-wave"><img src="https://github.com/msanders/autopy/raw/gh-pages/sine-move-mouse-thumbnail.jpg" alt="Demonstration video"/></a>
+<a href="https://www.autopy.org/documentation/sine-wave"><img src="https://github.com/autopilot-rs/autopy/raw/gh-pages/sine-move-mouse-thumbnail.jpg" alt="Demonstration video"/></a>
 
 ### Controlling the Keyboard
 
@@ -232,6 +232,16 @@ haystack.find_bitmap(needle, rect=((10, 10), (100, 100)))
 
 Hope you enjoy using autopy! For a more in depth overview, see the [API
 Reference](https://www.autopy.org/documentation/api-reference/).
+
+## Contributing
+
+If you are interested in this project, please consider contributing. Here are a
+few ways you can help:
+
+- [Report issues](https://github.com/autopilot-rs/autopy/issues).
+- Fix bugs and [submit pull requests](https://github.com/autopilot-rs/autopy/pulls).
+- Write, clarify, or fix documentation.
+- Suggest or add new features.
 
 ## License
 
