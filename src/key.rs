@@ -223,6 +223,10 @@ impl _Code {
     fn shift(&self) -> PyResult<Py<Code>> {
         self.init_code_ref(autopilot::key::KeyCode::Shift)
     }
+    #[getter(TAB)]
+    fn tab(&self) -> PyResult<Py<Code>> {
+        self.init_code_ref(autopilot::key::KeyCode::Tab)
+    }
 }
 
 /// Holds down the given key or keycode if `down` is `True`, or releases it if
