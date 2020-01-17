@@ -14,7 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated modifiers param in `key.tap` and `key.toggle` to be optional.
+- Updated modifiers param in `key.tap` and `key.toggle` to be optional (note
+  that this is not a breaking change).
 
 ### Fixed
 
@@ -43,28 +44,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 2.1.0 - 2019-05-15
 
 ### Changed
+
 - Updated to the latest version of pyo3.
 
 ## 2.0.0 - 2019-05-13
 
 ### Changed
+
 - Updated for latest Python versions and `cibuildwheel`.
 - Updated `autopilot-rs` to the latest version, including the following fixes:
 - Updated image, libc, scopeguard, quickcheck, pkg-config, core-foundation,
   core-graphics, and cocoa crates to latest versions.
 
 ### Removed
+
 - Removed handling of unsupported image formats. AutoPy now only supports
   direct saving of PNG, GIF, BMP and JPEG files.
 
 ## 1.1.1 - 2018-09-26
 
 ### Fixed
+
 - Updated scale factor on x11 to be rounded to the nearest hundredth.
 
 ## 1.1.0 - 2018-09-19
 
 ### Added
+
 - Added constant for spacebar key.
 - Added support for passing a delay into `mouse.click`.
 - Added constant for tab key.
@@ -72,6 +78,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added support for faster typing with `key.type_string`.
 
 ### Changed
+
 - Updated `autopilot-rs` to the latest version, including the following fixes:
 - Updated Cocoa and other macOS dependencies.
 - Updated x11 dependency.
@@ -80,6 +87,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated `mouse.smooth_move` to accept a duration.
 
 ### Fixed
+
 - Fixed compilation error on 32-bit Linux.
 - Fixed compilation error on 32-bit Windows.
 - Fixed linux arrow keycode constant definitions.
@@ -89,9 +97,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 1.0.1 - 2018-05-01
 
 ### Fixed
+
 - Fixed packaging issue on Linux.
 
 ## 1.0.0 - 2018-04-30
 
 ### Added
+
 - Initial release of new fork.
