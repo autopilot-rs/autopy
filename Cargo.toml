@@ -16,10 +16,10 @@ version = "0.6.0"
 default-features = false
 
 [dependencies.image]
-version = "0.22.2"
+version = "0.22.4"
 
 [dependencies.either]
 version = "1.5.0"
 
 [dependencies.libc]
-version = "0.2.62"
+version = "0.2.66"
