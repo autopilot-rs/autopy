@@ -22,7 +22,7 @@ install:
   - rustc -vV
   - cargo -vV
   - python -m pip install -U pip
-  - python -m pip install cibuildwheel==1.0.0 setuptools setuptools-rust==0.10.3
+  - python -m pip install cibuildwheel==1.1.0 setuptools setuptools-rust==0.10.3
 
 build_script:
   - cibuildwheel --output-dir wheelhouse
