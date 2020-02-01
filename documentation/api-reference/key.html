@@ -1,262 +1,304 @@
-
-
-
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
+<head>
     <meta charset="utf-8" />
     <title>key — autopy module for working with the keyboard &#8212; AutoPy 1.0 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
-    
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/language_data.js"></script>
-    
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="mouse — autopy module for working with the mouse" href="mouse.html" />
-    <link rel="prev" title="color — autopy module for working with colors" href="color.html" /> 
-  </head><body>
+    <link rel="prev" title="color — autopy module for working with colors" href="color.html" />
+</head>
+<body>
     <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="mouse.html" title="mouse — autopy module for working with the mouse"
-             accesskey="N">next</a></li>
-        <li class="right" >
-          <a href="index.html" title="Index"
-             accesskey="index">index</a> |</li>
-        <li class="right" >
-          <a href="color.html" title="color — autopy module for working with colors"
-             accesskey="P">previous</a> |</li>
-<a href="index.html">AutoPy Documentation</a>  &#187; <a href="index.html">API Reference</a>
- 
-      </ul>
-    </div>  
-
+        <h3>Navigation</h3>
+        <ul>
+            <li class="right" style="margin-right: 10px">
+                <a href="mouse.html" title="mouse — autopy module for working with the mouse" accesskey="N">next</a>
+            </li>
+            <li class="right">
+                <a href="index.html" title="Index" accesskey="index">index</a> |
+            </li>
+            <li class="right">
+                <a href="color.html" title="color — autopy module for working with colors" accesskey="P">previous</a> |
+            </li><a href="index.html">AutoPy Documentation</a>&#187; <a href="index.html">API Reference</a>
+        </ul>
+    </div>
     <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
-            
-  <div class="section" id="module-autopy.key">
-<span id="key-autopy-module-for-working-with-the-keyboard"></span><h1>key — autopy module for working with the keyboard<a class="headerlink" href="#module-autopy.key" title="Permalink to this headline">¶</a></h1>
-<p>This module contains functions for controlling the keyboard.</p>
-<div class="section" id="module-autopy.key">
-<span id="functions"></span><h2>Functions<a class="headerlink" href="#module-autopy.key" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="autopy.key.toggle">
-<code class="sig-prename descclassname">autopy.key.</code><code class="sig-name descname">toggle</code><span class="sig-paren">(</span><em class="sig-param">key: Any, down: bool, modifiers: List[Modifier], modifier_delay: float=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.key.toggle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Holds down the given key or keycode if <code class="docutils literal notranslate"><span class="pre">down</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, or releases it if
-not. Integer keycodes and modifiers should be taken from module constants
-(e.g., <code class="docutils literal notranslate"><span class="pre">Code.DELETE</span></code> or <code class="docutils literal notranslate"><span class="pre">Modifier.META</span></code>). If the given key is a character,
-it is automatically converted to a keycode corresponding to the current
-keyboard layout.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="autopy.key.tap">
-<code class="sig-prename descclassname">autopy.key.</code><code class="sig-name descname">tap</code><span class="sig-paren">(</span><em class="sig-param">key: Any, modifiers: List[Modifier], delay: float=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.key.tap" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convenience wrapper around <code class="docutils literal notranslate"><span class="pre">toggle()</span></code> that holds down and then releases
-the given key and modifiers.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="autopy.key.type_string">
-<code class="sig-prename descclassname">autopy.key.</code><code class="sig-name descname">type_string</code><span class="sig-paren">(</span><em class="sig-param">string: str</em>, <em class="sig-param">wpm: float=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.key.type_string" title="Permalink to this definition">¶</a></dt>
-<dd><p>Attempts to simulate typing a string at the given WPM, or as fast as
-possible if the WPM is 0.</p>
-</dd></dl>
-
-</div>
-<div class="section" id="constants">
-<h2>Constants<a class="headerlink" href="#constants" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="autopy.key.Code">
-<em class="property">class </em><code class="sig-prename descclassname">autopy.key.</code><code class="sig-name descname">Code</code><a class="headerlink" href="#autopy.key.Code" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Code</dt>
-<dd class="field-odd"><p>F1</p>
-</dd>
-<dt class="field-even">Code</dt>
-<dd class="field-even"><p>F2</p>
-</dd>
-<dt class="field-odd">Code</dt>
-<dd class="field-odd"><p>F3</p>
-</dd>
-<dt class="field-even">Code</dt>
-<dd class="field-even"><p>F4</p>
-</dd>
-<dt class="field-odd">Code</dt>
-<dd class="field-odd"><p>F5</p>
-</dd>
-<dt class="field-even">Code</dt>
-<dd class="field-even"><p>F6</p>
-</dd>
-<dt class="field-odd">Code</dt>
-<dd class="field-odd"><p>F7</p>
-</dd>
-<dt class="field-even">Code</dt>
-<dd class="field-even"><p>F8</p>
-</dd>
-<dt class="field-odd">Code</dt>
-<dd class="field-odd"><p>F9</p>
-</dd>
-<dt class="field-even">Code</dt>
-<dd class="field-even"><p>F10</p>
-</dd>
-<dt class="field-odd">Code</dt>
-<dd class="field-odd"><p>F11</p>
-</dd>
-<dt class="field-even">Code</dt>
-<dd class="field-even"><p>F12</p>
-</dd>
-<dt class="field-odd">Code</dt>
-<dd class="field-odd"><p>F13</p>
-</dd>
-<dt class="field-even">Code</dt>
-<dd class="field-even"><p>F14</p>
-</dd>
-<dt class="field-odd">Code</dt>
-<dd class="field-odd"><p>F15</p>
-</dd>
-<dt class="field-even">Code</dt>
-<dd class="field-even"><p>F16</p>
-</dd>
-<dt class="field-odd">Code</dt>
-<dd class="field-odd"><p>F17</p>
-</dd>
-<dt class="field-even">Code</dt>
-<dd class="field-even"><p>F18</p>
-</dd>
-<dt class="field-odd">Code</dt>
-<dd class="field-odd"><p>F19</p>
-</dd>
-<dt class="field-even">Code</dt>
-<dd class="field-even"><p>F20</p>
-</dd>
-<dt class="field-odd">Code</dt>
-<dd class="field-odd"><p>F21</p>
-</dd>
-<dt class="field-even">Code</dt>
-<dd class="field-even"><p>F22</p>
-</dd>
-<dt class="field-odd">Code</dt>
-<dd class="field-odd"><p>F23</p>
-</dd>
-<dt class="field-even">Code</dt>
-<dd class="field-even"><p>F24</p>
-</dd>
-<dt class="field-odd">Code</dt>
-<dd class="field-odd"><p>ALT</p>
-</dd>
-<dt class="field-even">Code</dt>
-<dd class="field-even"><p>BACKSPACE</p>
-</dd>
-<dt class="field-odd">Code</dt>
-<dd class="field-odd"><p>CAPS_LOCK</p>
-</dd>
-<dt class="field-even">Code</dt>
-<dd class="field-even"><p>CONTROL</p>
-</dd>
-<dt class="field-odd">Code</dt>
-<dd class="field-odd"><p>DELETE</p>
-</dd>
-<dt class="field-even">Code</dt>
-<dd class="field-even"><p>DOWN_ARROW</p>
-</dd>
-<dt class="field-odd">Code</dt>
-<dd class="field-odd"><p>END</p>
-</dd>
-<dt class="field-even">Code</dt>
-<dd class="field-even"><p>ESCAPE</p>
-</dd>
-<dt class="field-odd">Code</dt>
-<dd class="field-odd"><p>HOME</p>
-</dd>
-<dt class="field-even">Code</dt>
-<dd class="field-even"><p>LEFT_ARROW</p>
-</dd>
-<dt class="field-odd">Code</dt>
-<dd class="field-odd"><p>META</p>
-</dd>
-<dt class="field-even">Code</dt>
-<dd class="field-even"><p>PAGE_DOWN</p>
-</dd>
-<dt class="field-odd">Code</dt>
-<dd class="field-odd"><p>PAGE_UP</p>
-</dd>
-<dt class="field-even">Code</dt>
-<dd class="field-even"><p>RETURN</p>
-</dd>
-<dt class="field-odd">Code</dt>
-<dd class="field-odd"><p>RIGHT_ARROW</p>
-</dd>
-<dt class="field-even">Code</dt>
-<dd class="field-even"><p>SHIFT</p>
-</dd>
-<dt class="field-odd">Code</dt>
-<dd class="field-odd"><p>SPACE</p>
-</dd>
-<dt class="field-even">Code</dt>
-<dd class="field-even"><p>UP_ARROW</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="class">
-<dt id="autopy.key.Modifier">
-<em class="property">class </em><code class="sig-prename descclassname">autopy.key.</code><code class="sig-name descname">Modifier</code><a class="headerlink" href="#autopy.key.Modifier" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Modifier</dt>
-<dd class="field-odd"><p>META</p>
-</dd>
-<dt class="field-even">Modifier</dt>
-<dd class="field-even"><p>ALT</p>
-</dd>
-<dt class="field-odd">Modifier</dt>
-<dd class="field-odd"><p>CONTROL</p>
-</dd>
-<dt class="field-even">Modifier</dt>
-<dd class="field-even"><p>SHIFT</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
-</div>
-
-
-          </div>
+        <div class="documentwrapper">
+            <div class="bodywrapper">
+                <div class="body" role="main">
+                    <div class="section" id="module-autopy.key">
+                        <span id="key-autopy-module-for-working-with-the-keyboard"></span>
+                        <h1>key — autopy module for working with the keyboard<a class="headerlink" href="#module-autopy.key" title="Permalink to this headline">¶</a></h1>
+                        <p>This module contains functions for controlling the keyboard.</p>
+                        <div class="section" id="module-autopy.key">
+                            <span id="functions"></span>
+                            <h2>Functions<a class="headerlink" href="#module-autopy.key" title="Permalink to this headline">¶</a></h2>
+                            <dl class="function">
+                                <dt id="autopy.key.toggle">
+                                    <code class="sig-prename descclassname">autopy.key.</code><code class="sig-name descname">toggle</code><span class="sig-paren">(</span><em class="sig-param">key: Any</em>, <em class="sig-param">down: bool</em>, <em class="sig-param">modifiers: List[Modifier]=[]</em>, <em class="sig-param">modifier_delay: float=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.key.toggle" title="Permalink to this definition">¶</a>
+                                </dt>
+                                <dd>
+                                    <p>Holds down the given key or keycode if <code class="docutils literal notranslate"><span class="pre">down</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, or releases it if not. Integer keycodes and modifiers should be taken from module constants (e.g., <code class="docutils literal notranslate"><span class="pre">Code.DELETE</span></code> or <code class="docutils literal notranslate"><span class="pre">Modifier.META</span></code>). If the given key is a character, it is automatically converted to a keycode corresponding to the current keyboard layout.</p>
+                                </dd>
+                            </dl>
+                            <dl class="function">
+                                <dt id="autopy.key.tap">
+                                    <code class="sig-prename descclassname">autopy.key.</code><code class="sig-name descname">tap</code><span class="sig-paren">(</span><em class="sig-param">key: Any</em>, <em class="sig-param">modifiers: List[Modifier]=[]</em>, <em class="sig-param">delay: float=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.key.tap" title="Permalink to this definition">¶</a>
+                                </dt>
+                                <dd>
+                                    <p>Convenience wrapper around <code class="docutils literal notranslate"><span class="pre">toggle()</span></code> that holds down and then releases the given key and modifiers.</p>
+                                </dd>
+                            </dl>
+                            <dl class="function">
+                                <dt id="autopy.key.type_string">
+                                    <code class="sig-prename descclassname">autopy.key.</code><code class="sig-name descname">type_string</code><span class="sig-paren">(</span><em class="sig-param">string: str</em>, <em class="sig-param">wpm: float=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.key.type_string" title="Permalink to this definition">¶</a>
+                                </dt>
+                                <dd>
+                                    <p>Attempts to simulate typing a string at the given WPM, or as fast as possible if the WPM is 0.</p>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="section" id="constants">
+                            <h2>Constants<a class="headerlink" href="#constants" title="Permalink to this headline">¶</a></h2>
+                            <dl class="class">
+                                <dt id="autopy.key.Code">
+                                    <em class="property">class</em> <code class="sig-prename descclassname">autopy.key.</code><code class="sig-name descname">Code</code><a class="headerlink" href="#autopy.key.Code" title="Permalink to this definition">¶</a>
+                                </dt>
+                                <dd>
+                                    <dl class="field-list simple">
+                                        <dt class="field-odd">Code</dt>
+                                        <dd class="field-odd">
+                                            <p>F1</p>
+                                        </dd>
+                                        <dt class="field-even">Code</dt>
+                                        <dd class="field-even">
+                                            <p>F2</p>
+                                        </dd>
+                                        <dt class="field-odd">Code</dt>
+                                        <dd class="field-odd">
+                                            <p>F3</p>
+                                        </dd>
+                                        <dt class="field-even">Code</dt>
+                                        <dd class="field-even">
+                                            <p>F4</p>
+                                        </dd>
+                                        <dt class="field-odd">Code</dt>
+                                        <dd class="field-odd">
+                                            <p>F5</p>
+                                        </dd>
+                                        <dt class="field-even">Code</dt>
+                                        <dd class="field-even">
+                                            <p>F6</p>
+                                        </dd>
+                                        <dt class="field-odd">Code</dt>
+                                        <dd class="field-odd">
+                                            <p>F7</p>
+                                        </dd>
+                                        <dt class="field-even">Code</dt>
+                                        <dd class="field-even">
+                                            <p>F8</p>
+                                        </dd>
+                                        <dt class="field-odd">Code</dt>
+                                        <dd class="field-odd">
+                                            <p>F9</p>
+                                        </dd>
+                                        <dt class="field-even">Code</dt>
+                                        <dd class="field-even">
+                                            <p>F10</p>
+                                        </dd>
+                                        <dt class="field-odd">Code</dt>
+                                        <dd class="field-odd">
+                                            <p>F11</p>
+                                        </dd>
+                                        <dt class="field-even">Code</dt>
+                                        <dd class="field-even">
+                                            <p>F12</p>
+                                        </dd>
+                                        <dt class="field-odd">Code</dt>
+                                        <dd class="field-odd">
+                                            <p>F13</p>
+                                        </dd>
+                                        <dt class="field-even">Code</dt>
+                                        <dd class="field-even">
+                                            <p>F14</p>
+                                        </dd>
+                                        <dt class="field-odd">Code</dt>
+                                        <dd class="field-odd">
+                                            <p>F15</p>
+                                        </dd>
+                                        <dt class="field-even">Code</dt>
+                                        <dd class="field-even">
+                                            <p>F16</p>
+                                        </dd>
+                                        <dt class="field-odd">Code</dt>
+                                        <dd class="field-odd">
+                                            <p>F17</p>
+                                        </dd>
+                                        <dt class="field-even">Code</dt>
+                                        <dd class="field-even">
+                                            <p>F18</p>
+                                        </dd>
+                                        <dt class="field-odd">Code</dt>
+                                        <dd class="field-odd">
+                                            <p>F19</p>
+                                        </dd>
+                                        <dt class="field-even">Code</dt>
+                                        <dd class="field-even">
+                                            <p>F20</p>
+                                        </dd>
+                                        <dt class="field-odd">Code</dt>
+                                        <dd class="field-odd">
+                                            <p>F21</p>
+                                        </dd>
+                                        <dt class="field-even">Code</dt>
+                                        <dd class="field-even">
+                                            <p>F22</p>
+                                        </dd>
+                                        <dt class="field-odd">Code</dt>
+                                        <dd class="field-odd">
+                                            <p>F23</p>
+                                        </dd>
+                                        <dt class="field-even">Code</dt>
+                                        <dd class="field-even">
+                                            <p>F24</p>
+                                        </dd>
+                                        <dt class="field-odd">Code</dt>
+                                        <dd class="field-odd">
+                                            <p>ALT</p>
+                                        </dd>
+                                        <dt class="field-even">Code</dt>
+                                        <dd class="field-even">
+                                            <p>BACKSPACE</p>
+                                        </dd>
+                                        <dt class="field-odd">Code</dt>
+                                        <dd class="field-odd">
+                                            <p>CAPS_LOCK</p>
+                                        </dd>
+                                        <dt class="field-even">Code</dt>
+                                        <dd class="field-even">
+                                            <p>CONTROL</p>
+                                        </dd>
+                                        <dt class="field-odd">Code</dt>
+                                        <dd class="field-odd">
+                                            <p>DELETE</p>
+                                        </dd>
+                                        <dt class="field-even">Code</dt>
+                                        <dd class="field-even">
+                                            <p>DOWN_ARROW</p>
+                                        </dd>
+                                        <dt class="field-odd">Code</dt>
+                                        <dd class="field-odd">
+                                            <p>END</p>
+                                        </dd>
+                                        <dt class="field-even">Code</dt>
+                                        <dd class="field-even">
+                                            <p>ESCAPE</p>
+                                        </dd>
+                                        <dt class="field-odd">Code</dt>
+                                        <dd class="field-odd">
+                                            <p>HOME</p>
+                                        </dd>
+                                        <dt class="field-even">Code</dt>
+                                        <dd class="field-even">
+                                            <p>LEFT_ARROW</p>
+                                        </dd>
+                                        <dt class="field-odd">Code</dt>
+                                        <dd class="field-odd">
+                                            <p>META</p>
+                                        </dd>
+                                        <dt class="field-even">Code</dt>
+                                        <dd class="field-even">
+                                            <p>PAGE_DOWN</p>
+                                        </dd>
+                                        <dt class="field-odd">Code</dt>
+                                        <dd class="field-odd">
+                                            <p>PAGE_UP</p>
+                                        </dd>
+                                        <dt class="field-even">Code</dt>
+                                        <dd class="field-even">
+                                            <p>RETURN</p>
+                                        </dd>
+                                        <dt class="field-odd">Code</dt>
+                                        <dd class="field-odd">
+                                            <p>RIGHT_ARROW</p>
+                                        </dd>
+                                        <dt class="field-even">Code</dt>
+                                        <dd class="field-even">
+                                            <p>SHIFT</p>
+                                        </dd>
+                                        <dt class="field-odd">Code</dt>
+                                        <dd class="field-odd">
+                                            <p>SPACE</p>
+                                        </dd>
+                                        <dt class="field-even">Code</dt>
+                                        <dd class="field-even">
+                                            <p>UP_ARROW</p>
+                                        </dd>
+                                    </dl>
+                                </dd>
+                            </dl>
+                            <dl class="class">
+                                <dt id="autopy.key.Modifier">
+                                    <em class="property">class</em> <code class="sig-prename descclassname">autopy.key.</code><code class="sig-name descname">Modifier</code><a class="headerlink" href="#autopy.key.Modifier" title="Permalink to this definition">¶</a>
+                                </dt>
+                                <dd>
+                                    <dl class="field-list simple">
+                                        <dt class="field-odd">Modifier</dt>
+                                        <dd class="field-odd">
+                                            <p>META</p>
+                                        </dd>
+                                        <dt class="field-even">Modifier</dt>
+                                        <dd class="field-even">
+                                            <p>ALT</p>
+                                        </dd>
+                                        <dt class="field-odd">Modifier</dt>
+                                        <dd class="field-odd">
+                                            <p>CONTROL</p>
+                                        </dd>
+                                        <dt class="field-even">Modifier</dt>
+                                        <dd class="field-even">
+                                            <p>SHIFT</p>
+                                        </dd>
+                                    </dl>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">key — autopy module for working with the keyboard</a><ul>
-<li><a class="reference internal" href="#module-autopy.key">Functions</a></li>
-<li><a class="reference internal" href="#constants">Constants</a></li>
-</ul>
-</li>
-</ul>
-
-
-
-<script type="text/javascript" src=_static/toc.js></script>
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="color.html"
-                        title="previous chapter">color — autopy module for working with colors</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="mouse.html"
-                        title="next chapter">mouse — autopy module for working with the mouse</a></p>
+        <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+            <div class="sphinxsidebarwrapper">
+                <h3><a href="index.html">Table Of Contents</a></h3>
+                <ul>
+                    <li>
+                        <a class="reference internal" href="#">key — autopy module for working with the keyboard</a>
+                        <ul>
+                            <li>
+                                <a class="reference internal" href="#module-autopy.key">Functions</a>
+                            </li>
+                            <li>
+                                <a class="reference internal" href="#constants">Constants</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <script type="text/javascript" src="_static/toc.js"></script>
+                <h4>Previous topic</h4>
+                <p class="topless"><a href="color.html" title="previous chapter">color — autopy module for working with colors</a></p>
+                <h4>Next topic</h4>
+                <p class="topless"><a href="mouse.html" title="next chapter">mouse — autopy module for working with the mouse</a></p>
+            </div>
         </div>
-      </div>
-      <div class="clearer"></div>
-    </div> 
-  </body>
+        <div class="clearer"></div>
+    </div>
+</body>
 </html>

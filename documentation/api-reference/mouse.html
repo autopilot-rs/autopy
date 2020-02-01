@@ -1,151 +1,160 @@
-
-
-
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
+<head>
     <meta charset="utf-8" />
     <title>mouse — autopy module for working with the mouse &#8212; AutoPy 1.0 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
-    
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/language_data.js"></script>
-    
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="screen — autopy module for working with the screen" href="screen.html" />
-    <link rel="prev" title="key — autopy module for working with the keyboard" href="key.html" /> 
-  </head><body>
+    <link rel="prev" title="key — autopy module for working with the keyboard" href="key.html" />
+</head>
+<body>
     <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="screen.html" title="screen — autopy module for working with the screen"
-             accesskey="N">next</a></li>
-        <li class="right" >
-          <a href="index.html" title="Index"
-             accesskey="index">index</a> |</li>
-        <li class="right" >
-          <a href="key.html" title="key — autopy module for working with the keyboard"
-             accesskey="P">previous</a> |</li>
-<a href="index.html">AutoPy Documentation</a>  &#187; <a href="index.html">API Reference</a>
- 
-      </ul>
-    </div>  
-
+        <h3>Navigation</h3>
+        <ul>
+            <li class="right" style="margin-right: 10px">
+                <a href="screen.html" title="screen — autopy module for working with the screen" accesskey="N">next</a>
+            </li>
+            <li class="right">
+                <a href="index.html" title="Index" accesskey="index">index</a> |
+            </li>
+            <li class="right">
+                <a href="key.html" title="key — autopy module for working with the keyboard" accesskey="P">previous</a> |
+            </li><a href="index.html">AutoPy Documentation</a>&#187; <a href="index.html">API Reference</a>
+        </ul>
+    </div>
     <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
-            
-  <div class="section" id="module-autopy.mouse">
-<span id="mouse-autopy-module-for-working-with-the-mouse"></span><h1>mouse — autopy module for working with the mouse<a class="headerlink" href="#module-autopy.mouse" title="Permalink to this headline">¶</a></h1>
-<p>This module contains functions for getting the current state of and
-controlling the mouse cursor.</p>
-<p>Unless otherwise stated, coordinates are those of a screen coordinate
-system, where the origin is at the top left.</p>
-<div class="section" id="module-autopy.mouse">
-<span id="functions"></span><h2>Functions<a class="headerlink" href="#module-autopy.mouse" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="autopy.mouse.location">
-<code class="sig-prename descclassname">autopy.mouse.</code><code class="sig-name descname">location</code><span class="sig-paren">(</span><em class="sig-param">) -&gt; (float</em>, <em class="sig-param">float</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.mouse.location" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a tuple <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> of the current mouse position.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="autopy.mouse.toggle">
-<code class="sig-prename descclassname">autopy.mouse.</code><code class="sig-name descname">toggle</code><span class="sig-paren">(</span><em class="sig-param">button: Button=None</em>, <em class="sig-param">down: bool</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.mouse.toggle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Holds down or releases the given mouse button in the current position.
-Button can be <code class="docutils literal notranslate"><span class="pre">LEFT</span></code>, <code class="docutils literal notranslate"><span class="pre">RIGHT</span></code>, <code class="docutils literal notranslate"><span class="pre">MIDDLE</span></code>, or <code class="docutils literal notranslate"><span class="pre">None</span></code> to default to the
-left button.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="autopy.mouse.click">
-<code class="sig-prename descclassname">autopy.mouse.</code><code class="sig-name descname">click</code><span class="sig-paren">(</span><em class="sig-param">button: Button=None</em>, <em class="sig-param">delay: float=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.mouse.click" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convenience wrapper around <code class="docutils literal notranslate"><span class="pre">toggle()</span></code> that holds down and then releases
-the given mouse button. By default, the left button is pressed.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="autopy.mouse.move">
-<code class="sig-prename descclassname">autopy.mouse.</code><code class="sig-name descname">move</code><span class="sig-paren">(</span><em class="sig-param">x: float</em>, <em class="sig-param">y: float</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.mouse.move" title="Permalink to this definition">¶</a></dt>
-<dd><p>Moves the mouse to the given <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> coordinate.</p>
-<dl class="simple">
-<dt><cite>Exceptions:</cite></dt><dd><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">ValueError</span></code> is thrown if the point is out of index.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="autopy.mouse.smooth_move">
-<code class="sig-prename descclassname">autopy.mouse.</code><code class="sig-name descname">smooth_move</code><span class="sig-paren">(</span><em class="sig-param">x: float</em>, <em class="sig-param">y: float</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.mouse.smooth_move" title="Permalink to this definition">¶</a></dt>
-<dd><p>Smoothly moves the mouse to the given <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> coordinate in a straight
-line.</p>
-<dl class="simple">
-<dt><cite>Exceptions:</cite></dt><dd><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">ValueError</span></code> is thrown if the point is out of index.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="constants">
-<h2>Constants<a class="headerlink" href="#constants" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="autopy.mouse.Button">
-<em class="property">class </em><code class="sig-prename descclassname">autopy.mouse.</code><code class="sig-name descname">Button</code><a class="headerlink" href="#autopy.mouse.Button" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Button</dt>
-<dd class="field-odd"><p>LEFT</p>
-</dd>
-<dt class="field-even">Button</dt>
-<dd class="field-even"><p>RIGHT</p>
-</dd>
-<dt class="field-odd">Button</dt>
-<dd class="field-odd"><p>MIDDLE</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
-</div>
-
-
-          </div>
+        <div class="documentwrapper">
+            <div class="bodywrapper">
+                <div class="body" role="main">
+                    <div class="section" id="module-autopy.mouse">
+                        <span id="mouse-autopy-module-for-working-with-the-mouse"></span>
+                        <h1>mouse — autopy module for working with the mouse<a class="headerlink" href="#module-autopy.mouse" title="Permalink to this headline">¶</a></h1>
+                        <p>This module contains functions for getting the current state of and controlling the mouse cursor.</p>
+                        <p>Unless otherwise stated, coordinates are those of a screen coordinate system, where the origin is at the top left.</p>
+                        <div class="section" id="module-autopy.mouse">
+                            <span id="functions"></span>
+                            <h2>Functions<a class="headerlink" href="#module-autopy.mouse" title="Permalink to this headline">¶</a></h2>
+                            <dl class="function">
+                                <dt id="autopy.mouse.location">
+                                    <code class="sig-prename descclassname">autopy.mouse.</code><code class="sig-name descname">location</code><span class="sig-paren">(</span><em class="sig-param">) -&gt; (float</em>, <em class="sig-param">float</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.mouse.location" title="Permalink to this definition">¶</a>
+                                </dt>
+                                <dd>
+                                    <p>Returns a tuple <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> of the current mouse position.</p>
+                                </dd>
+                            </dl>
+                            <dl class="function">
+                                <dt id="autopy.mouse.toggle">
+                                    <code class="sig-prename descclassname">autopy.mouse.</code><code class="sig-name descname">toggle</code><span class="sig-paren">(</span><em class="sig-param">button: Button=None</em>, <em class="sig-param">down: bool</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.mouse.toggle" title="Permalink to this definition">¶</a>
+                                </dt>
+                                <dd>
+                                    <p>Holds down or releases the given mouse button in the current position. Button can be <code class="docutils literal notranslate"><span class="pre">LEFT</span></code>, <code class="docutils literal notranslate"><span class="pre">RIGHT</span></code>, <code class="docutils literal notranslate"><span class="pre">MIDDLE</span></code>, or <code class="docutils literal notranslate"><span class="pre">None</span></code> to default to the left button.</p>
+                                </dd>
+                            </dl>
+                            <dl class="function">
+                                <dt id="autopy.mouse.click">
+                                    <code class="sig-prename descclassname">autopy.mouse.</code><code class="sig-name descname">click</code><span class="sig-paren">(</span><em class="sig-param">button: Button=None</em>, <em class="sig-param">delay: float=None</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.mouse.click" title="Permalink to this definition">¶</a>
+                                </dt>
+                                <dd>
+                                    <p>Convenience wrapper around <code class="docutils literal notranslate"><span class="pre">toggle()</span></code> that holds down and then releases the given mouse button. By default, the left button is pressed.</p>
+                                </dd>
+                            </dl>
+                            <dl class="function">
+                                <dt id="autopy.mouse.move">
+                                    <code class="sig-prename descclassname">autopy.mouse.</code><code class="sig-name descname">move</code><span class="sig-paren">(</span><em class="sig-param">x: float</em>, <em class="sig-param">y: float</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.mouse.move" title="Permalink to this definition">¶</a>
+                                </dt>
+                                <dd>
+                                    <p>Moves the mouse to the given <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> coordinate.</p>
+                                    <dl class="simple">
+                                        <dt><cite>Exceptions:</cite></dt>
+                                        <dd>
+                                            <ul class="simple">
+                                                <li>
+                                                    <p><code class="docutils literal notranslate"><span class="pre">ValueError</span></code> is thrown if the point is out of index.</p>
+                                                </li>
+                                            </ul>
+                                        </dd>
+                                    </dl>
+                                </dd>
+                            </dl>
+                            <dl class="function">
+                                <dt id="autopy.mouse.smooth_move">
+                                    <code class="sig-prename descclassname">autopy.mouse.</code><code class="sig-name descname">smooth_move</code><span class="sig-paren">(</span><em class="sig-param">x: float</em>, <em class="sig-param">y: float</em><span class="sig-paren">)</span><a class="headerlink" href="#autopy.mouse.smooth_move" title="Permalink to this definition">¶</a>
+                                </dt>
+                                <dd>
+                                    <p>Smoothly moves the mouse to the given <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> coordinate in a straight line.</p>
+                                    <dl class="simple">
+                                        <dt><cite>Exceptions:</cite></dt>
+                                        <dd>
+                                            <ul class="simple">
+                                                <li>
+                                                    <p><code class="docutils literal notranslate"><span class="pre">ValueError</span></code> is thrown if the point is out of index.</p>
+                                                </li>
+                                            </ul>
+                                        </dd>
+                                    </dl>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="section" id="constants">
+                            <h2>Constants<a class="headerlink" href="#constants" title="Permalink to this headline">¶</a></h2>
+                            <dl class="class">
+                                <dt id="autopy.mouse.Button">
+                                    <em class="property">class</em> <code class="sig-prename descclassname">autopy.mouse.</code><code class="sig-name descname">Button</code><a class="headerlink" href="#autopy.mouse.Button" title="Permalink to this definition">¶</a>
+                                </dt>
+                                <dd>
+                                    <dl class="field-list simple">
+                                        <dt class="field-odd">Button</dt>
+                                        <dd class="field-odd">
+                                            <p>LEFT</p>
+                                        </dd>
+                                        <dt class="field-even">Button</dt>
+                                        <dd class="field-even">
+                                            <p>RIGHT</p>
+                                        </dd>
+                                        <dt class="field-odd">Button</dt>
+                                        <dd class="field-odd">
+                                            <p>MIDDLE</p>
+                                        </dd>
+                                    </dl>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">mouse — autopy module for working with the mouse</a><ul>
-<li><a class="reference internal" href="#module-autopy.mouse">Functions</a></li>
-<li><a class="reference internal" href="#constants">Constants</a></li>
-</ul>
-</li>
-</ul>
-
-
-
-<script type="text/javascript" src=_static/toc.js></script>
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="key.html"
-                        title="previous chapter">key — autopy module for working with the keyboard</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="screen.html"
-                        title="next chapter">screen — autopy module for working with the screen</a></p>
+        <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+            <div class="sphinxsidebarwrapper">
+                <h3><a href="index.html">Table Of Contents</a></h3>
+                <ul>
+                    <li>
+                        <a class="reference internal" href="#">mouse — autopy module for working with the mouse</a>
+                        <ul>
+                            <li>
+                                <a class="reference internal" href="#module-autopy.mouse">Functions</a>
+                            </li>
+                            <li>
+                                <a class="reference internal" href="#constants">Constants</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <script type="text/javascript" src="_static/toc.js"></script>
+                <h4>Previous topic</h4>
+                <p class="topless"><a href="key.html" title="previous chapter">key — autopy module for working with the keyboard</a></p>
+                <h4>Next topic</h4>
+                <p class="topless"><a href="screen.html" title="next chapter">screen — autopy module for working with the screen</a></p>
+            </div>
         </div>
-      </div>
-      <div class="clearer"></div>
-    </div> 
-  </body>
+        <div class="clearer"></div>
+    </div>
+</body>
 </html>
