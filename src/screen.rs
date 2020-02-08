@@ -10,15 +10,13 @@ use image::Pixel;
 use internal::{rgb_to_hex, FromImageError};
 use pyo3::prelude::*;
 
-/// Returns the scale of the main screen, i.e. how many pixels are in a
-/// point.
+/// Returns the scale of the main screen, i.e. how many pixels are in a point.
 #[pyfunction]
 fn scale() -> PyResult<f64> {
     Ok(autopilot::screen::scale())
 }
 
-/// Returns a tuple `(width, height)` of the size of the main screen in
-/// points.
+/// Returns a tuple `(width, height)` of the size of the main screen in points.
 #[pyfunction]
 fn size() -> PyResult<(f64, f64)> {
     let size = autopilot::screen::size();

@@ -59,8 +59,8 @@ fn location() -> PyResult<(f64, f64)> {
 }
 
 /// Holds down or releases the given mouse button in the current position.
-/// Button can be `LEFT`, `RIGHT`, `MIDDLE`, or `None` to default to the
-/// left button.
+/// Button can be `LEFT`, `RIGHT`, `MIDDLE`, or `None` to default to the left
+/// button.
 #[pyfunction]
 fn toggle(button: Option<&Button>, down: bool) -> PyResult<()> {
     use autopilot::mouse::Button::*;
@@ -68,8 +68,8 @@ fn toggle(button: Option<&Button>, down: bool) -> PyResult<()> {
     Ok(())
 }
 
-/// Convenience wrapper around `toggle()` that holds down and then releases
-/// the given mouse button. By default, the left button is pressed.
+/// Convenience wrapper around `toggle()` that holds down and then releases the
+/// given mouse button. By default, the left button is pressed.
 #[pyfunction]
 fn click(button: Option<&Button>, delay: Option<f64>) -> PyResult<()> {
     let delay_ms: Option<u64> = delay.map(|x| x as u64 * 1000);
@@ -97,7 +97,8 @@ fn smooth_move(x: f64, y: f64, duration: Option<f64>) -> PyResult<()> {
 /// system, where the origin is at the top left.
 #[pymodule(mouse)]
 fn init(py: Python, m: &PyModule) -> PyResult<()> {
-    // Workaround bug where #[pyfunction(m, "move")] identifier causes error in pyo3.
+    // Workaround bug where #[pyfunction(m, "move")] identifier causes error in
+    // pyo3.
     m.add("move", wrap_pyfunction!(move_py)(py))?;
     m.add_wrapped(wrap_pyfunction!(location))?;
     m.add_wrapped(wrap_pyfunction!(toggle))?;

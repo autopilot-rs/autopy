@@ -99,9 +99,9 @@ impl pyo3::class::PyBufferProtocol for Bitmap {
 #[pymethods]
 impl Bitmap {
     /// Saves image to absolute path in the given format. The image type is
-    /// determined from the filename if possible, unless format is given. If the
-    /// file already exists, it will be overwritten. Currently only jpeg and png
-    /// files are supported.
+    /// determined from the filename if possible, unless format is given. If
+    /// the file already exists, it will be overwritten. Currently only jpeg
+    /// and png files are supported.
     ///
     /// Exceptions:
     ///     - `IOError` is thrown if the file could not be saved.
@@ -182,9 +182,9 @@ impl Bitmap {
     }
 
     /// Attempts to find `color` inside `rect` in `bmp` from the given
-    /// `start_point`. Returns coordinates if found, or `None` if not. If `rect`
-    /// is `None`, `bmp.bounds` is used instead. If `start_point` is `None`, the
-    /// origin of `rect` is used.
+    /// `start_point`. Returns coordinates if found, or `None` if not. If
+    /// `rect` is `None`, `bmp.bounds` is used instead. If `start_point` is
+    /// `None`, the origin of `rect` is used.
     ///
     /// Tolerance is defined as a float in the range from 0 to 1, where 0 is an
     /// exact match and 1 matches anything.
@@ -206,10 +206,10 @@ impl Bitmap {
         }
     }
 
-    /// Returns list of all `(x, y)` coordinates inside `rect` in `bmp` matching
-    /// `color` from the given `start_point`. If `rect` is `None`, `bmp.bounds`
-    /// is used instead. If `start_point` is `None`, the origin of `rect` is
-    /// used.
+    /// Returns list of all `(x, y)` coordinates inside `rect` in `bmp`
+    /// matching `color` from the given `start_point`. If `rect` is `None`,
+    /// `bmp.bounds` is used instead. If `start_point` is `None`, the origin of
+    /// `rect` is used.
     fn find_every_color(
         &self,
         color: (u8, u8, u8),
@@ -251,9 +251,9 @@ impl Bitmap {
     }
 
     /// Attempts to find `needle` inside `rect` in `bmp` from the given
-    /// `start_point`. Returns coordinates if found, or `None` if not. If `rect`
-    /// is `None`, `bmp.bounds` is used instead. If `start_point` is `None`, the
-    /// origin of `rect` is used.
+    /// `start_point`. Returns coordinates if found, or `None` if not. If
+    /// `rect` is `None`, `bmp.bounds` is used instead. If `start_point` is
+    /// `None`, the origin of `rect` is used.
     ///
     /// Tolerance is defined as a float in the range from 0 to 1, where 0 is an
     /// exact match and 1 matches anything.
@@ -277,10 +277,10 @@ impl Bitmap {
         }
     }
 
-    /// Returns list of all `(x, y)` coordinates inside `rect` in `bmp` matching
-    /// `needle` from the given `start_point`. If `rect` is `None`, `bmp.bounds`
-    /// is used instead. If `start_point` is `None`, the origin of `rect` is
-    /// used.
+    /// Returns list of all `(x, y)` coordinates inside `rect` in `bmp`
+    /// matching `needle` from the given `start_point`. If `rect` is `None`,
+    /// `bmp.bounds` is used instead. If `start_point` is `None`, the origin of
+    /// `rect` is used.
     fn find_every_bitmap(
         &self,
         needle: &Bitmap,

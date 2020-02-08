@@ -1,0 +1,4 @@
+comment_width = 79
+error_on_line_overflow = true
+format_strings = true
+wrap_comments = true

@@ -8,11 +8,11 @@
 use autopilot::alert::Response;
 use pyo3::prelude::*;
 
-/// Displays alert with the given attributes. If `cancel_button` is not
-/// given, only the default button is displayed. Returns `True` if the
-/// default button was pressed, or `False` if cancelled. Note that the
-/// arguments are keywords, and can be passed as named parameters (e.g.,
-/// `alert(msg='bar', title='foo')`).
+/// Displays alert with the given attributes. If `cancel_button` is not given,
+/// only the default button is displayed. Returns `True` if the default button
+/// was pressed, or `False` if cancelled. Note that the arguments are keywords,
+/// and can be passed as named parameters (e.g., `alert(msg='bar',
+/// title='foo')`).
 ///
 /// NOTE: Due to limitations in the Win32 API, Windows currently replaces
 /// `default_button` with 'OK' and `cancel_button` (if given) with 'Cancel'.

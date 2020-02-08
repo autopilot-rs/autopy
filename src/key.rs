@@ -260,8 +260,8 @@ fn toggle(
     }
 }
 
-/// Convenience wrapper around `toggle()` that holds down and then releases
-/// the given key and modifiers.
+/// Convenience wrapper around `toggle()` that holds down and then releases the
+/// given key and modifiers.
 #[pyfunction]
 fn tap(
     key: &PyAny,
