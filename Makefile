@@ -1,7 +1,20 @@
+.PHONY: build
+build: ## Build debug target for development.
+	rustup default nightly-2019-10-05
+	pip install -r requirements.txt
+	python setup.py build
+
 .PHONY: help
-help: ## Print help.
-	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' \
-	$(MAKEFILE_LIST) | sort
+help: ## Print help information.
+	@awk 'BEGIN { \
+        FS = ":.*?## " \
+    } /^[a-zA-Z_-]+:.*?## / { \
+        printf "\033[36m%-30s\033[0m %s\n", $$1, $$2 \
+    }' $(MAKEFILE_LIST)
+
+.PHONY: install
+install: ## Install local target.
+	pip install .
 
 .PHONY: mac
 mac: ## Build wheel distributions for macOS.
