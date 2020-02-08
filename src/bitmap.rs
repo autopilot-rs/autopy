@@ -144,7 +144,8 @@ impl Bitmap {
         Ok(self.bitmap.bounds().is_point_visible(Point::new(x, y)))
     }
 
-    /// Returns `True` if the given rect is contained in `bmp.bounds`.
+    /// Returns `True` if the given rect of the form `((x, y), (width,
+    /// height))` is contained in `bmp.bounds`.
     fn rect_in_bounds(&self, rect: ((f64, f64), (f64, f64))) -> PyResult<bool> {
         let rect = Rect::new(
             Point::new((rect.0).0, (rect.0).1),
@@ -181,10 +182,10 @@ impl Bitmap {
         }
     }
 
-    /// Attempts to find `color` inside `rect` in `bmp` from the given
-    /// `start_point`. Returns coordinates if found, or `None` if not. If
-    /// `rect` is `None`, `bmp.bounds` is used instead. If `start_point` is
-    /// `None`, the origin of `rect` is used.
+    /// Attempts to find `color` inside `rect` of the form `((x, y), (width,
+    /// height))` in `bmp` from the given `start_point`. Returns coordinates if
+    /// found, or `None` if not. If `rect` is `None`, `bmp.bounds` is used
+    /// instead. If `start_point` is `None`, the origin of `rect` is used.
     ///
     /// Tolerance is defined as a float in the range from 0 to 1, where 0 is an
     /// exact match and 1 matches anything.
@@ -372,7 +373,8 @@ impl Bitmap {
 }
 
 /// Returns a screengrab of the given portion of the main display, or the
-/// entire display if rect is `None`.
+/// entire display if `rect` is `None`. The `rect` parameter is in the form of
+/// `((x, y), (width, height))`.
 ///
 /// Exceptions:
 ///     - `ValueError` is thrown if the rect is out of bounds.
