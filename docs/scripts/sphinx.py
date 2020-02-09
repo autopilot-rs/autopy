@@ -85,7 +85,8 @@ class DocstringMarkdownParser(object):
             docstr = self._mono_re(r'[\w()]+').sub(self.sub_method, docstr)
 
         # Treat `text` as monospace (like Markdown).
-        docstr = re.sub(r'([^:]|^)`(\S.*?)`', r'\1``\2``', docstr)
+        docstr = re.sub(r'([^:]|^)`(.*?)`', r'\1``\2``', docstr,
+                        flags=re.MULTILINE | re.DOTALL)
 
         # Automatically italicize "Exceptions:"
         docstr = re.sub(r'(\b)(Exceptions:)', r'\1`\2`', docstr)
