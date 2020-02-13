@@ -2,56 +2,29 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<url>
 		<loc>https://www.autopy.org/</loc>
-		<lastmod>2020-02-01</lastmod>
-		<changefreq>weekly</changefreq>
-		<priority>1.00</priority>
 	</url>
 	<url>
 		<loc>https://www.autopy.org/documentation/</loc>
-		<lastmod>2020-02-01</lastmod>
-		<changefreq>weekly</changefreq>
-		<priority>0.40</priority>
 	</url>
 	<url>
 		<loc>https://www.autopy.org/documentation/api-reference/</loc>
-		<lastmod>2020-02-01</lastmod>
-		<changefreq>weekly</changefreq>
-		<priority>0.60</priority>
 	</url>
 	<url>
 		<loc>https://www.autopy.org/documentation/api-reference/alert.html</loc>
-		<lastmod>2020-02-01</lastmod>
-		<changefreq>weekly</changefreq>
-		<priority>0.50</priority>
 	</url>
 	<url>
 		<loc>https://www.autopy.org/documentation/api-reference/bitmap.html</loc>
-		<lastmod>2020-02-01</lastmod>
-		<changefreq>weekly</changefreq>
-		<priority>0.50</priority>
 	</url>
 	<url>
 		<loc>https://www.autopy.org/documentation/api-reference/color.html</loc>
-		<lastmod>2020-02-01</lastmod>
-		<changefreq>weekly</changefreq>
-		<priority>0.50</priority>
 	</url>
 	<url>
 		<loc>https://www.autopy.org/documentation/api-reference/key.html</loc>
-		<lastmod>2020-02-01</lastmod>
-		<changefreq>weekly</changefreq>
-		<priority>0.50</priority>
 	</url>
 	<url>
 		<loc>https://www.autopy.org/documentation/api-reference/mouse.html</loc>
-		<lastmod>2020-02-01</lastmod>
-		<changefreq>weekly</changefreq>
-		<priority>0.50</priority>
 	</url>
 	<url>
 		<loc>https://www.autopy.org/documentation/api-reference/screen.html</loc>
-		<lastmod>2020-02-01</lastmod>
-		<changefreq>weekly</changefreq>
-		<priority>0.50</priority>
 	</url>
 </urlset>
