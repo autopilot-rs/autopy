@@ -5,7 +5,7 @@
 // https://opensource.org/licenses/MIT>, at your option. This file may not be
 // copied, modified, or distributed except according to those terms.
 
-use internal::rgb_to_hex;
+use internal::{rgb_to_hex, hex_to_rgb};
 use pyo3::prelude::*;
 
 /// Returns hexadecimal value of given RGB tuple. `r`, `g`, and `b` must be in
@@ -18,11 +18,8 @@ fn py_rgb_to_hex(red: u8, green: u8, blue: u8) -> PyResult<u32> {
 /// Returns a tuple `(r, g, b)` of the RGB integer values equivalent to the
 /// given RGB hexadecimal value. `r`, `g`, and `b` are in the range 0 - 255.
 #[pyfunction]
-fn hex_to_rgb(hex: u32) -> PyResult<(u8, u8, u8)> {
-    let red: u8 = ((hex >> 16) & 0xff) as u8;
-    let green: u8 = ((hex >> 8) & 0xff) as u8;
-    let blue: u8 = (hex & 0xff) as u8;
-    Ok((red, green, blue))
+fn py_hex_to_rgb(hex: u32) -> PyResult<(u8, u8, u8)> {
+    Ok(hex_to_rgb(hex))
 }
 
 /// This module provides functions for converting between the hexadecimal
@@ -31,6 +28,6 @@ fn hex_to_rgb(hex: u32) -> PyResult<(u8, u8, u8)> {
 #[pymodule(color)]
 fn init(py: Python, m: &PyModule) -> PyResult<()> {
     m.add("rgb_to_hex", wrap_pyfunction!(py_rgb_to_hex)(py))?;
-    m.add_wrapped(wrap_pyfunction!(hex_to_rgb))?;
+    m.add("hex_to_rgb", wrap_pyfunction!(py_hex_to_rgb)(py))?;
     Ok(())
 }

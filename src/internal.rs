@@ -9,8 +9,16 @@ use image::ImageError;
 use pyo3::prelude::*;
 
 pub struct FromImageError(ImageError);
+
 pub fn rgb_to_hex(red: u8, green: u8, blue: u8) -> u32 {
     ((red as u32) << 16) | ((green as u32) << 8) | blue as u32
+}
+
+pub fn hex_to_rgb(hex: u32) -> (u8, u8, u8) {
+    let red: u8 = ((hex >> 16) & 0xff) as u8;
+    let green: u8 = ((hex >> 8) & 0xff) as u8;
+    let blue: u8 = (hex & 0xff) as u8;
+    (red, green, blue)
 }
 
 impl From<ImageError> for FromImageError {

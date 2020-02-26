@@ -9,7 +9,7 @@ use autopilot::geometry::{Point, Rect, Size};
 use image;
 use image::Pixel;
 use image::{ImageOutputFormat, ImageResult, Rgba};
-use internal::{rgb_to_hex, FromImageError};
+use internal::{rgb_to_hex, hex_to_rgb, FromImageError};
 use pyo3::basic::CompareOp;
 use pyo3::prelude::*;
 use pyo3::types::PyType;
@@ -191,16 +191,17 @@ impl Bitmap {
     /// exact match and 1 matches anything.
     fn find_color(
         &self,
-        color: (u8, u8, u8),
+        color: u32,
         tolerance: Option<f64>,
         rect: Option<((f64, f64), (f64, f64))>,
         start_point: Option<(f64, f64)>,
     ) -> PyResult<Option<(f64, f64)>> {
-        let color = Rgba([color.0, color.1, color.2, 255]);
+        let split_color = hex_to_rgb(color);
+        let rgb = Rgba([split_color.0, split_color.1, split_color.2, 255]);
         let rect: Option<Rect> =
             rect.map(|r| Rect::new(Point::new((r.0).0, (r.0).1), Size::new((r.1).0, (r.1).1)));
         let start_point: Option<Point> = start_point.map(|p| Point::new(p.0, p.1));
-        if let Some(point) = self.bitmap.find_color(color, tolerance, rect, start_point) {
+        if let Some(point) = self.bitmap.find_color(rgb, tolerance, rect, start_point) {
             Ok(Some((point.x, point.y)))
         } else {
             Ok(None)
@@ -213,18 +214,19 @@ impl Bitmap {
     /// `rect` is used.
     fn find_every_color(
         &self,
-        color: (u8, u8, u8),
+        color: u32,
         tolerance: Option<f64>,
         rect: Option<((f64, f64), (f64, f64))>,
         start_point: Option<(f64, f64)>,
     ) -> PyResult<Vec<(f64, f64)>> {
-        let color = Rgba([color.0, color.1, color.2, 255]);
+        let split_color = hex_to_rgb(color);
+        let rgb = Rgba([split_color.0, split_color.1, split_color.2, 255]);
         let rect: Option<Rect> =
             rect.map(|r| Rect::new(Point::new((r.0).0, (r.0).1), Size::new((r.1).0, (r.1).1)));
         let start_point: Option<Point> = start_point.map(|p| Point::new(p.0, p.1));
         let points = self
             .bitmap
-            .find_every_color(color, tolerance, rect, start_point)
+            .find_every_color(rgb, tolerance, rect, start_point)
             .iter()
             .map(|p| (p.x, p.y))
             .collect();
@@ -236,18 +238,19 @@ impl Bitmap {
     /// `len(find_every_color(color, tolerance, rect, start_point))`
     fn count_of_color(
         &self,
-        color: (u8, u8, u8),
+        color: u32,
         tolerance: Option<f64>,
         rect: Option<((f64, f64), (f64, f64))>,
         start_point: Option<(f64, f64)>,
     ) -> PyResult<u64> {
-        let color = Rgba([color.0, color.1, color.2, 255]);
+        let split_color = hex_to_rgb(color);
+        let rgb = Rgba([split_color.0, split_color.1, split_color.2, 255]);
         let rect: Option<Rect> =
             rect.map(|r| Rect::new(Point::new((r.0).0, (r.0).1), Size::new((r.1).0, (r.1).1)));
         let start_point: Option<Point> = start_point.map(|p| Point::new(p.0, p.1));
         let count = self
             .bitmap
-            .count_of_color(color, tolerance, rect, start_point);
+            .count_of_color(rgb, tolerance, rect, start_point);
         Ok(count)
     }
 
