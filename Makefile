@@ -1,6 +1,6 @@
 .PHONY: build
 build: ## Build debug target for development.
-	rustup default nightly-2019-10-05
+	rustup default nightly
 	pip install -r requirements.txt
 	python setup.py build
 
@@ -14,7 +14,7 @@ help: ## Print help information.
 
 .PHONY: install
 install: ## Install local target.
-	pip install .
+	pip3install .
 
 .PHONY: mac
 mac: ## Build wheel distributions for macOS.
