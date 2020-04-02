@@ -9,7 +9,7 @@ crate-type = ["cdylib"]
 name = "autopy"
 
 [dependencies.autopilot]
-path = "../autopilot-rs"
+version = "0.4.0"
 
 [dependencies.pyo3]
 version = "0.8.1"
