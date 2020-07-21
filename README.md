@@ -90,12 +90,12 @@ Reference](https://www.autopy.org/documentation/api-reference/mouse.html). E.g.,
 to immediately "teleport" the mouse to the top left corner of the screen:
 
 	>>> import autopy
-	>>> autopy.mouse.move(1, 1)
+	>>> autopy.mouse.move(0, 0)
 
 To move the mouse a bit more realistically, we could use:
 
 	>>> import autopy
-	>>> autopy.mouse.smooth_move(1, 1)
+	>>> autopy.mouse.smooth_move(0, 0)
 
 Even better, we could write our own function to move the mouse across the screen
 as a sine wave:
@@ -168,7 +168,7 @@ memory address, and then immediately destroys it. Let's do something more
 useful, like look at its pixel data:
 
 	>>> import autopy
-	>>> autopy.bitmap.capture_screen().get_color(1, 1)
+	>>> autopy.bitmap.capture_screen().get_color(0, 0)
 	15921906
 
 AutoPy uses a coordinate system with its origin starting at the top-left, so
@@ -177,14 +177,14 @@ number shown looks a bit unrecognizable, but we can format it with Python's
 built-in `hex` function:
 
 	>>> import autopy
-	>>> hex(autopy.bitmap.capture_screen().get_color(1, 1))
+	>>> hex(autopy.bitmap.capture_screen().get_color(0, 0))
 	'0xF2F2F2'
 
 Alternatively, we can use:
 
 
 	>>> import autopy
-	>>> autopy.color.hex_to_rgb(autopy.screen.get_color(1, 1))
+	>>> autopy.color.hex_to_rgb(autopy.screen.get_color(0, 0))
 	(242, 242, 242)
 
 which converts that hex value to a tuple of `(r, g, b)` values. (Note that
