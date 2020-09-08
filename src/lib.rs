@@ -5,7 +5,7 @@
 // https://opensource.org/licenses/MIT>, at your option. This file may not be
 // copied, modified, or distributed except according to those terms.
 
-#![feature(specialization, const_fn, custom_attribute)]
+#![feature(specialization, const_fn)]
 
 extern crate autopilot;
 extern crate either;
