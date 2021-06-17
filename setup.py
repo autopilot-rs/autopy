@@ -47,8 +47,7 @@ def git_rev_count(revision):
 def expand_version(version):
     env = os.environ
     is_ci = strtobool(env.get("CI", "f"))
-    pr_sha = env.get("TRAVIS_PULL_REQUEST_SHA") or \
-             env.get("APPVEYOR_PULL_REQUEST_HEAD_COMMIT")
+    pr_sha = env.get("TRAVIS_PULL_REQUEST_SHA") or env.get("APPVEYOR_PULL_REQUEST_HEAD_COMMIT")
     branch = env.get("APPVEYOR_REPO_BRANCH") or env.get("TRAVIS_BRANCH")
     if is_ci and not pr_sha and branch == "master":
         commit = env.get("APPVEYOR_REPO_COMMIT") or env.get("TRAVIS_COMMIT")
