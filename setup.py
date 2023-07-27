@@ -64,7 +64,7 @@ def main():
         name='autopy',
         version=expand_version(version),
         author=author,
-        author_email='michael.sanders@fastmail.com',
+        author_email='pypi@michaelsande.rs',
         description=description,
         long_description=read_description(),
         long_description_content_type='text/markdown',
