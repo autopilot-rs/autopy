@@ -1,6 +1,7 @@
 [package]
 name = "autopy"
 version = "0.1.0"
+edition = "2021"
 authors = ["Michael Sanders <crates@michaelsande.rs>"]
 
 [lib]
@@ -12,8 +13,7 @@ name = "autopy"
 version = "0.4.0"
 
 [dependencies.pyo3]
-version = "0.8.1"
-default-features = false
+version = "0.23.5"
 
 [dependencies.image]
 version = "0.22.4"

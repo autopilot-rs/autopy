@@ -5,7 +5,7 @@
 // https://opensource.org/licenses/MIT>, at your option. This file may not be
 // copied, modified, or distributed except according to those terms.
 
-use internal::{rgb_to_hex, hex_to_rgb};
+use crate::internal::{rgb_to_hex, hex_to_rgb};
 use pyo3::prelude::*;
 
 /// Returns hexadecimal value of given RGB tuple. `r`, `g`, and `b` must be in
@@ -25,9 +25,9 @@ fn py_hex_to_rgb(hex: u32) -> PyResult<(u8, u8, u8)> {
 /// This module provides functions for converting between the hexadecimal
 /// format used by autopy methods and other more readable formats (e.g., RGB
 /// tuples).
-#[pymodule(color)]
-fn init(py: Python, m: &PyModule) -> PyResult<()> {
-    m.add("rgb_to_hex", wrap_pyfunction!(py_rgb_to_hex)(py))?;
-    m.add("hex_to_rgb", wrap_pyfunction!(py_hex_to_rgb)(py))?;
+#[pymodule]
+fn color(py: Python<'_>, m: &Bound<'_, PyModule>) -> PyResult<()> {
+    m.add("rgb_to_hex", wrap_pyfunction!(py_rgb_to_hex)(py)?)?;
+    m.add("hex_to_rgb", wrap_pyfunction!(py_hex_to_rgb)(py)?)?;
     Ok(())
 }

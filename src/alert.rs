@@ -18,7 +18,8 @@ use pyo3::prelude::*;
 /// `default_button` with 'OK' and `cancel_button` (if given) with 'Cancel'.
 /// This may be fixed in a later release.
 #[pyfunction]
-fn alert(
+#[pyo3(signature = (msg, title=None, default_button=None, cancel_button=None))]
+fn pyalert(
     msg: &str,
     title: Option<&str>,
     default_button: Option<&str>,
@@ -33,9 +34,8 @@ fn alert(
 }
 
 /// This module contains functions for displaying alerts.
-#[pymodule(alert)]
-fn init(_py: Python, m: &PyModule) -> PyResult<()> {
-    m.add_wrapped(wrap_pyfunction!(alert))?;
-
+#[pymodule]
+fn alert(py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
+    m.add("alert", wrap_pyfunction!(pyalert)(py)?)?;
     Ok(())
 }

@@ -6,15 +6,12 @@
 // copied, modified, or distributed except according to those terms.
 
 use autopilot::geometry::{Point, Rect, Size};
-use image;
 use image::Pixel;
 use image::{ImageOutputFormat, ImageResult, Rgba};
-use internal::{rgb_to_hex, hex_to_rgb, FromImageError};
+use crate::internal::{rgb_to_hex, hex_to_rgb, FromImageError};
 use pyo3::basic::CompareOp;
 use pyo3::prelude::*;
 use pyo3::types::PyType;
-use pyo3::PyNativeType;
-use pyo3::PyObjectProtocol;
 use std::collections::hash_map::DefaultHasher;
 use std::fs::File;
 use std::hash::{Hash, Hasher};
@@ -25,8 +22,8 @@ struct Bitmap {
     bitmap: autopilot::bitmap::Bitmap,
 }
 
-#[pyproto]
-impl PyObjectProtocol for Bitmap {
+#[pymethods]
+impl Bitmap {
     fn __richcmp__(&self, other: &Bitmap, op: CompareOp) -> PyResult<bool> {
         match op {
             CompareOp::Eq => Ok(self.bitmap == other.bitmap),
@@ -39,20 +36,17 @@ impl PyObjectProtocol for Bitmap {
         self.bitmap.hash(&mut s);
         Ok(s.finish() as isize)
     }
-}
 
-#[pyproto]
-impl pyo3::class::PyBufferProtocol for Bitmap {
     // From
     // https://github.com/PyO3/pyo3/blob/97189a1/tests/test_buffer_protocol.rs#L17
-    fn bf_getbuffer(&self, view: *mut pyo3::ffi::Py_buffer, flags: libc::c_int) -> PyResult<()> {
-        use pyo3::exceptions::BufferError;
+    unsafe fn __getbuffer__(&self, view: *mut pyo3::ffi::Py_buffer, flags: libc::c_int) -> PyResult<()> {
+        use pyo3::exceptions::PyBufferError;
         use pyo3::*;
         use std::ffi::CStr;
         use std::ptr;
 
         if view.is_null() {
-            return Err(BufferError::py_err("View is null"));
+            return Err(PyBufferError::new_err("View is null"));
         }
 
         unsafe {
@@ -60,7 +54,7 @@ impl pyo3::class::PyBufferProtocol for Bitmap {
         }
 
         if (flags & ffi::PyBUF_WRITABLE) == ffi::PyBUF_WRITABLE {
-            return Err(BufferError::py_err("Object is not writable"));
+            return Err(PyBufferError::new_err("Object is not writable"));
         }
 
         let bytes = &self.bitmap.image.raw_pixels();
@@ -94,10 +88,7 @@ impl pyo3::class::PyBufferProtocol for Bitmap {
 
         Ok(())
     }
-}
 
-#[pymethods]
-impl Bitmap {
     /// Saves image to absolute path in the given format. The image type is
     /// determined from the filename if possible, unless format is given. If
     /// the file already exists, it will be overwritten. Currently only jpeg
@@ -106,13 +97,14 @@ impl Bitmap {
     /// Exceptions:
     ///     - `IOError` is thrown if the file could not be saved.
     ///     - `ValueError` is thrown if image couldn't be parsed.
+    #[pyo3(signature = (path, format=None))]
     fn save(&self, path: &str, format: Option<&str>) -> PyResult<()> {
         let format = format
             .or(Path::new(path).extension().and_then(|x| x.to_str()))
             .unwrap_or("");
         let fmt = image_output_format_from_extension(format);
         match fmt {
-            AutoPyImageFormat::Unsupported => Err(pyo3::exceptions::ValueError::py_err(format!(
+            AutoPyImageFormat::Unsupported => Err(pyo3::exceptions::PyValueError::new_err(format!(
                 "Unknown format {}",
                 format
             ))),
@@ -157,7 +149,7 @@ impl Bitmap {
     /// Open the image located at the path specified. The image's format is
     /// determined from the path's file extension.
     #[classmethod]
-    fn open(cls: &PyType, path: String) -> PyResult<Py<Bitmap>> {
+    fn open(cls: &Bound<'_, PyType>, path: String) -> PyResult<Py<Bitmap>> {
         let image = image::open(path).map_err(FromImageError::from)?;
         let bmp = autopilot::bitmap::Bitmap::new(image, None);
         let result = Py::new(cls.py(), Bitmap { bitmap: bmp })?;
@@ -171,7 +163,7 @@ impl Bitmap {
     fn get_color(&self, x: f64, y: f64) -> PyResult<u32> {
         let point = Point::new(x, y);
         if !self.bitmap.bounds().is_point_visible(point) {
-            Err(pyo3::exceptions::ValueError::py_err(format!(
+            Err(pyo3::exceptions::PyValueError::new_err(format!(
                 "Point out of bounds {}",
                 point
             )))
@@ -189,6 +181,7 @@ impl Bitmap {
     ///
     /// Tolerance is defined as a float in the range from 0 to 1, where 0 is an
     /// exact match and 1 matches anything.
+    #[pyo3(signature = (color, tolerance=None, rect=None, start_point=None))]
     fn find_color(
         &self,
         color: u32,
@@ -212,6 +205,7 @@ impl Bitmap {
     /// matching `color` from the given `start_point`. If `rect` is `None`,
     /// `bmp.bounds` is used instead. If `start_point` is `None`, the origin of
     /// `rect` is used.
+    #[pyo3(signature = (color, tolerance=None, rect=None, start_point=None))]
     fn find_every_color(
         &self,
         color: u32,
@@ -236,6 +230,7 @@ impl Bitmap {
     /// Returns count of color in bitmap. Functionally equivalent to:
     ///
     /// `len(find_every_color(color, tolerance, rect, start_point))`
+    #[pyo3(signature = (color, tolerance=None, rect=None, start_point=None))]
     fn count_of_color(
         &self,
         color: u32,
@@ -261,6 +256,7 @@ impl Bitmap {
     ///
     /// Tolerance is defined as a float in the range from 0 to 1, where 0 is an
     /// exact match and 1 matches anything.
+    #[pyo3(signature = (needle, tolerance=None, rect=None, start_point=None))]
     fn find_bitmap(
         &self,
         needle: &Bitmap,
@@ -285,6 +281,7 @@ impl Bitmap {
     /// matching `needle` from the given `start_point`. If `rect` is `None`,
     /// `bmp.bounds` is used instead. If `start_point` is `None`, the origin of
     /// `rect` is used.
+    #[pyo3(signature = (needle, tolerance=None, rect=None, start_point=None))]
     fn find_every_bitmap(
         &self,
         needle: &Bitmap,
@@ -308,6 +305,7 @@ impl Bitmap {
     /// equivalent to:
     ///
     /// `len(find_every_bitmap(color, tolerance, rect, start_point))`
+    #[pyo3(signature = (needle, tolerance=None, rect=None, start_point=None))]
     fn count_of_bitmap(
         &self,
         needle: &Bitmap,
@@ -334,12 +332,14 @@ impl Bitmap {
             Size::new((rect.1).0, (rect.1).1),
         );
         let bmp = self.bitmap.cropped(rect).map_err(FromImageError::from)?;
-        let gil = Python::acquire_gil();
-        let result = Py::new(gil.python(), Bitmap { bitmap: bmp })?;
-        Ok(result)
+        Python::with_gil(|py| {
+            let result = Py::new(py, Bitmap { bitmap: bmp })?;
+            Ok(result)
+        })
     }
 
     /// Returns true if bitmap is equal to receiver with the given tolerance.
+    #[pyo3(signature = (bitmap, tolerance=None))]
     pub fn is_bitmap_equal(&self, bitmap: &Bitmap, tolerance: Option<f64>) -> PyResult<bool> {
         Ok(self.bitmap.bitmap_eq(&bitmap.bitmap, tolerance))
     }
@@ -383,6 +383,7 @@ impl Bitmap {
 ///     - `ValueError` is thrown if the rect is out of bounds.
 ///     - `IOError` is thrown if the image failed to parse.
 #[pyfunction]
+#[pyo3(signature = (rect=None))]
 fn capture_screen(python: Python, rect: Option<((f64, f64), (f64, f64))>) -> PyResult<Py<Bitmap>> {
     let result: ImageResult<autopilot::bitmap::Bitmap> = if let Some(rect) = rect {
         let portion = Rect::new(
@@ -402,8 +403,8 @@ fn capture_screen(python: Python, rect: Option<((f64, f64), (f64, f64))>) -> PyR
 /// for bitmaps on-screen.
 ///
 /// It also defines functions for taking screenshots of the screen.
-#[pymodule(bitmap)]
-fn init(_py: Python, m: &PyModule) -> PyResult<()> {
+#[pymodule]
+fn bitmap(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_class::<Bitmap>()?;
     m.add_wrapped(wrap_pyfunction!(capture_screen))?;
     Ok(())

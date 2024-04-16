@@ -31,9 +31,9 @@ impl From<FromImageError> for PyErr {
     fn from(err: FromImageError) -> PyErr {
         match err.0 {
             ImageError::DimensionError => {
-                pyo3::exceptions::ValueError::py_err(format!("{}", err.0))
+                pyo3::exceptions::PyValueError::new_err(format!("{}", err.0))
             }
-            _ => pyo3::exceptions::IOError::py_err(format!("{}", err.0)),
+            _ => pyo3::exceptions::PyIOError::new_err(format!("{}", err.0)),
         }
     }
 }

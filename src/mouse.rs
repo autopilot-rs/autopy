@@ -62,6 +62,7 @@ fn location() -> PyResult<(f64, f64)> {
 /// Button can be `LEFT`, `RIGHT`, `MIDDLE`, or `None` to default to the left
 /// button.
 #[pyfunction]
+#[pyo3(signature = (button=None, down=false))]
 fn toggle(button: Option<&Button>, down: bool) -> PyResult<()> {
     use autopilot::mouse::Button::*;
     autopilot::mouse::toggle(button.map_or(Left, |x| x.button), down);
@@ -71,6 +72,7 @@ fn toggle(button: Option<&Button>, down: bool) -> PyResult<()> {
 /// Convenience wrapper around `toggle()` that holds down and then releases the
 /// given mouse button. By default, the left button is pressed.
 #[pyfunction]
+#[pyo3(signature = (button=None, delay=None))]
 fn click(button: Option<&Button>, delay: Option<f64>) -> PyResult<()> {
     let delay_ms: Option<u64> = delay.map(|x| x as u64 * 1000);
     use autopilot::mouse::Button::*;
@@ -84,6 +86,7 @@ fn click(button: Option<&Button>, delay: Option<f64>) -> PyResult<()> {
 /// Exceptions:
 ///     - `ValueError` is thrown if the point is out of index.
 #[pyfunction]
+#[pyo3(signature = (x, y, duration=None))]
 fn smooth_move(x: f64, y: f64, duration: Option<f64>) -> PyResult<()> {
     let result = autopilot::mouse::smooth_move(Point::new(x, y), duration);
     result.map_err(FromMouseError::from)?;
@@ -95,11 +98,11 @@ fn smooth_move(x: f64, y: f64, duration: Option<f64>) -> PyResult<()> {
 ///
 /// Unless otherwise stated, coordinates are those of a screen coordinate
 /// system, where the origin is at the top left.
-#[pymodule(mouse)]
-fn init(py: Python, m: &PyModule) -> PyResult<()> {
+#[pymodule]
+fn mouse(py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     // Workaround bug where #[pyfunction(m, "move")] identifier causes error in
     // pyo3.
-    m.add("move", wrap_pyfunction!(move_py)(py))?;
+    m.add("move", wrap_pyfunction!(move_py)(py)?)?;
     m.add_wrapped(wrap_pyfunction!(location))?;
     m.add_wrapped(wrap_pyfunction!(toggle))?;
     m.add_wrapped(wrap_pyfunction!(click))?;
@@ -111,9 +114,10 @@ fn init(py: Python, m: &PyModule) -> PyResult<()> {
 
 impl _Button {
     fn init_button_ref(&self, button: autopilot::mouse::Button) -> PyResult<Py<Button>> {
-        let gil = Python::acquire_gil();
-        let result = Py::new(gil.python(), Button { button: button })?;
-        Ok(result)
+        Python::with_gil(|py| {
+            let result = Py::new(py, Button { button: button })?;
+            Ok(result)
+        })
     }
 }
 
@@ -127,7 +131,7 @@ impl From<FromMouseError> for PyErr {
     fn from(err: FromMouseError) -> PyErr {
         use autopilot::mouse::MouseError::*;
         match err.0 {
-            OutOfBounds => pyo3::exceptions::ValueError::py_err("Point out of bounds"),
+            OutOfBounds => pyo3::exceptions::PyValueError::new_err("Point out of bounds"),
         }
     }
 }

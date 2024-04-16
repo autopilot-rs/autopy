@@ -6,9 +6,9 @@
 // copied, modified, or distributed except according to those terms.
 
 use autopilot::geometry::Point;
-use image::Pixel;
-use internal::{rgb_to_hex, FromImageError};
+use crate::internal::{rgb_to_hex, FromImageError};
 use pyo3::prelude::*;
+use crate::image::Pixel;
 
 /// Returns the scale of the main screen, i.e. how many pixels are in a point.
 #[pyfunction]
@@ -49,8 +49,8 @@ fn get_color(x: f64, y: f64) -> PyResult<u32> {
 }
 
 /// This module contains functions for working with the screen.
-#[pymodule(screen)]
-fn init(_py: Python, m: &PyModule) -> PyResult<()> {
+#[pymodule]
+fn screen(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_wrapped(wrap_pyfunction!(scale))?;
     m.add_wrapped(wrap_pyfunction!(size))?;
     m.add_wrapped(wrap_pyfunction!(is_point_visible))?;

@@ -7,7 +7,7 @@
 
 use either::{Either, Left, Right};
 use pyo3::prelude::*;
-use pyo3::types::{PyAny, PyString};
+use pyo3::types::PyString;
 
 // NB: pyo3 doesn't currently support static properties for python classes, so
 // using a separate class as a namespace instead.
@@ -235,10 +235,12 @@ impl _Code {
 /// it is automatically converted to a keycode corresponding to the current
 /// keyboard layout.
 #[pyfunction]
+#[pyo3(signature = (key, down, modifiers=None, modifier_delay=None))]
 fn toggle(
-    key: &PyAny,
+    py: Python<'_>,
+    key: &Bound<'_, PyAny>,
     down: bool,
-    modifiers: Option<Vec<&Modifier>>,
+    modifiers: Option<Vec<Py<Modifier>>>,
     modifier_delay: Option<u64>,
 ) -> PyResult<()> {
     let modifier_delay_ms: u64 = modifier_delay.map(|x| x as u64 * 1000).unwrap_or(0);
@@ -246,7 +248,7 @@ fn toggle(
         let flags: Vec<_> = modifiers
             .unwrap_or(Vec::new())
             .iter()
-            .map(|x| x.flag)
+            .map(|x| x.borrow(py).flag)
             .collect();
         match either {
             Left(x) => autopilot::key::toggle(&x, down, &flags, modifier_delay_ms),
@@ -254,7 +256,7 @@ fn toggle(
         };
         Ok(())
     } else {
-        Err(pyo3::exceptions::TypeError::py_err(
+        Err(pyo3::exceptions::PyTypeError::new_err(
             "Expected string or key code",
         ))
     }
@@ -263,9 +265,11 @@ fn toggle(
 /// Convenience wrapper around `toggle()` that holds down and then releases the
 /// given key and modifiers.
 #[pyfunction]
+#[pyo3(signature = (key, modifiers=None, delay=None, modifier_delay=None))]
 fn tap(
-    key: &PyAny,
-    modifiers: Option<Vec<&Modifier>>,
+    py: Python<'_>,
+    key: &Bound<'_, PyAny>,
+    modifiers: Option<Vec<Py<Modifier>>>,
     delay: Option<f64>,
     modifier_delay: Option<f64>,
 ) -> PyResult<()> {
@@ -275,7 +279,7 @@ fn tap(
         let flags: Vec<_> = modifiers
             .unwrap_or(Vec::new())
             .iter()
-            .map(|x| x.flag)
+            .map(|x| x.borrow(py).flag)
             .collect();
         match either {
             Left(x) => autopilot::key::tap(&x, &flags, delay_ms, modifier_delay_ms),
@@ -283,7 +287,7 @@ fn tap(
         };
         Ok(())
     } else {
-        Err(pyo3::exceptions::TypeError::py_err(
+        Err(pyo3::exceptions::PyTypeError::new_err(
             "Expected string or key code",
         ))
     }
@@ -292,14 +296,15 @@ fn tap(
 /// Attempts to simulate typing a string at the given WPM, or as fast as
 /// possible if the WPM is 0.
 #[pyfunction]
+#[pyo3(signature = (string, wpm=None))]
 fn type_string(string: &str, wpm: Option<f64>) -> PyResult<()> {
     autopilot::key::type_string(string, &[], wpm.unwrap_or(0.0), 0.0);
     Ok(())
 }
 
 /// This module contains functions for controlling the keyboard.
-#[pymodule(key)]
-fn init(py: Python, m: &PyModule) -> PyResult<()> {
+#[pymodule]
+fn key(py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add("Modifier", Py::new(py, _Modifier {})?)?;
     m.add("Code", Py::new(py, _Code {})?)?;
     m.add_wrapped(wrap_pyfunction!(toggle))?;
@@ -309,15 +314,14 @@ fn init(py: Python, m: &PyModule) -> PyResult<()> {
 }
 
 fn py_object_to_key_code_convertible(
-    object: &PyAny,
+    object: &Bound<'_, PyAny>,
 ) -> Option<Either<autopilot::key::Code, autopilot::key::Character>> {
-    if let Ok(code) = Code::try_from(object.as_ref()) {
-        return Some(Left(autopilot::key::Code(code.code)));
-    } else if let Ok(key) = PyString::try_from(object.as_ref()) {
-        if let Ok(string) = key.to_string() {
-            if let Some(c) = string.chars().next() {
-                return Some(Right(autopilot::key::Character(c)));
-            }
+    // object.extract::<Bound<'_, PyAny>>
+    if let Ok(code) = object.downcast::<Code>() {
+        return Some(Left(autopilot::key::Code(code.borrow().code)));
+    } else if let Ok(key) = object.downcast::<PyString>() {
+        if let Some(c) = key.to_string().chars().next() {
+            return Some(Right(autopilot::key::Character(c)));
         }
     }
     None
@@ -325,16 +329,18 @@ fn py_object_to_key_code_convertible(
 
 impl _Modifier {
     fn init_modifier_ref(&self, flag: autopilot::key::Flag) -> PyResult<Py<Modifier>> {
-        let gil = Python::acquire_gil();
-        let result = Py::new(gil.python(), Modifier { flag: flag })?;
-        Ok(result)
+        Python::with_gil(|py| {
+            let result = Py::new(py, Modifier { flag: flag })?;
+            Ok(result)
+        })
     }
 }
 
 impl _Code {
     fn init_code_ref(&self, code: autopilot::key::KeyCode) -> PyResult<Py<Code>> {
-        let gil = Python::acquire_gil();
-        let result = Py::new(gil.python(), Code { code: code })?;
-        Ok(result)
+        Python::with_gil(|py| {
+            let result = Py::new(py, Code { code: code })?;
+            Ok(result)
+        })
     }
 }
