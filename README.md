@@ -128,7 +128,7 @@ def sine_mouse_wave():
 sine_mouse_wave()
 ```
 
-<a href="https://www.autopy.org/documentation/sine-wave"><img src="https://github.com/autopilot-rs/autopy/raw/gh-pages/sine-move-mouse-thumbnail.jpg" alt="Demonstration video"/></a>
+<video controls src="https://github.com/autopilot-rs/autopy/assets/9993663/379ee2a6-5d3e-4f1e-a0bd-420660351875" width="640" alt="Demonstration video"></video>
 
 ### Controlling the Keyboard
 
