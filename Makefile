@@ -14,7 +14,7 @@ help: ## Print help information.
 
 .PHONY: install
 install: ## Install local target.
-	pip3install .
+	pip install .
 
 .PHONY: mac
 mac: ## Build wheel distributions for macOS.
