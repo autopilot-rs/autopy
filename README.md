@@ -20,7 +20,7 @@ Currently supported on macOS, Windows, and X11 with the XTest extension.
 
 ### Requirements
 
-* Python 2.7, or Python 3.5 to 3.8.
+* Python 3.8 and onwards (for newer releases).
 * Rust 1.23.0-nightly 2019-02-06 or later (unless using a binary wheel
   distribution).
 * macOS 10.6 and up.
