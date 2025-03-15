@@ -2,7 +2,7 @@
 [![Supported Python versions](https://img.shields.io/pypi/pyversions/autopy.svg)](https://pypi.python.org/pypi/autopy/)
 [![Total downloads](https://pepy.tech/badge/autopy)](https://pepy.tech/project/autopy)
 
-[![Travis Build Status](https://travis-ci.org/autopilot-rs/autopy.svg?branch=master)](https://travis-ci.org/autopilot-rs/autopy)
+[![Github Build Status](https://github.com/autopilot-rs/autopy/actions/workflows/build.yaml/badge.svg)](https://github.com/autopilot-rs/autopy/actions/workflows/build.yaml)
 [![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/2p5xap3tv4qkwsd1?svg=true)](https://ci.appveyor.com/project/msanders/autopy)
 
 AutoPy Introduction and Tutorial

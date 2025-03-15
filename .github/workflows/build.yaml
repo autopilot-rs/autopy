@@ -7,13 +7,7 @@ name: Maturin actions
 
 on:
   push:
-    branches:
-      - main
-      - master
-    tags:
-      - '*'
   pull_request:
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -28,14 +22,6 @@ jobs:
             target: x86_64
           - runner: ubuntu-latest
             target: x86
-          - runner: ubuntu-latest
-            target: aarch64
-          - runner: ubuntu-latest
-            target: armv7
-          - runner: ubuntu-latest
-            target: s390x
-          - runner: ubuntu-latest
-            target: ppc64le
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -47,6 +33,9 @@ jobs:
           target: ${{ matrix.platform.target }}
           args: --release --out dist --find-interpreter
           sccache: 'true'
+          before-script-linux: |
+            yum update
+            yum install -y libXtst-devel
           manylinux: auto
       - name: Upload wheels
         uses: actions/upload-artifact@v4
