@@ -26,7 +26,7 @@ fn py_hex_to_rgb(hex: u32) -> PyResult<(u8, u8, u8)> {
 /// format used by autopy methods and other more readable formats (e.g., RGB
 /// tuples).
 #[pymodule]
-fn color(py: Python<'_>, m: &Bound<'_, PyModule>) -> PyResult<()> {
+pub fn color(py: Python<'_>, m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add("rgb_to_hex", wrap_pyfunction!(py_rgb_to_hex)(py)?)?;
     m.add("hex_to_rgb", wrap_pyfunction!(py_hex_to_rgb)(py)?)?;
     Ok(())

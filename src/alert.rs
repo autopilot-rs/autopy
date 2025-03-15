@@ -35,7 +35,7 @@ fn pyalert(
 
 /// This module contains functions for displaying alerts.
 #[pymodule]
-fn alert(py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
+pub fn alert(py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add("alert", wrap_pyfunction!(pyalert)(py)?)?;
     Ok(())
 }

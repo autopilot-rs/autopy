@@ -50,7 +50,7 @@ fn get_color(x: f64, y: f64) -> PyResult<u32> {
 
 /// This module contains functions for working with the screen.
 #[pymodule]
-fn screen(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
+pub fn screen(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_wrapped(wrap_pyfunction!(scale))?;
     m.add_wrapped(wrap_pyfunction!(size))?;
     m.add_wrapped(wrap_pyfunction!(is_point_visible))?;

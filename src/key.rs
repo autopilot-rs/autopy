@@ -304,7 +304,7 @@ fn type_string(string: &str, wpm: Option<f64>) -> PyResult<()> {
 
 /// This module contains functions for controlling the keyboard.
 #[pymodule]
-fn key(py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
+pub fn key(py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add("Modifier", Py::new(py, _Modifier {})?)?;
     m.add("Code", Py::new(py, _Code {})?)?;
     m.add_wrapped(wrap_pyfunction!(toggle))?;

@@ -404,7 +404,7 @@ fn capture_screen(python: Python, rect: Option<((f64, f64), (f64, f64))>) -> PyR
 ///
 /// It also defines functions for taking screenshots of the screen.
 #[pymodule]
-fn bitmap(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
+pub fn bitmap(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_class::<Bitmap>()?;
     m.add_wrapped(wrap_pyfunction!(capture_screen))?;
     Ok(())

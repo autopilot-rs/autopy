@@ -99,7 +99,7 @@ fn smooth_move(x: f64, y: f64, duration: Option<f64>) -> PyResult<()> {
 /// Unless otherwise stated, coordinates are those of a screen coordinate
 /// system, where the origin is at the top left.
 #[pymodule]
-fn mouse(py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
+pub fn mouse(py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     // Workaround bug where #[pyfunction(m, "move")] identifier causes error in
     // pyo3.
     m.add("move", wrap_pyfunction!(move_py)(py)?)?;
