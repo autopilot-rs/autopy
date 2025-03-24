@@ -2,7 +2,7 @@
 [![Supported Python versions](https://img.shields.io/pypi/pyversions/autopy.svg)](https://pypi.python.org/pypi/autopy/)
 [![Total downloads](https://pepy.tech/badge/autopy)](https://pepy.tech/project/autopy)
 
-[![Travis Build Status](https://travis-ci.org/autopilot-rs/autopy.svg?branch=master)](https://travis-ci.org/autopilot-rs/autopy)
+[![Github Build Status](https://github.com/autopilot-rs/autopy/actions/workflows/build.yaml/badge.svg)](https://github.com/autopilot-rs/autopy/actions/workflows/build.yaml)
 [![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/2p5xap3tv4qkwsd1?svg=true)](https://ci.appveyor.com/project/msanders/autopy)
 
 AutoPy Introduction and Tutorial
@@ -20,7 +20,7 @@ Currently supported on macOS, Windows, and X11 with the XTest extension.
 
 ### Requirements
 
-* Python 2.7, or Python 3.5 to 3.8.
+* Python 3.8 and onwards (for newer releases).
 * Rust 1.23.0-nightly 2019-02-06 or later (unless using a binary wheel
   distribution).
 * macOS 10.6 and up.
