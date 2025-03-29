@@ -43,26 +43,11 @@ Another option is to build from the latest source on the GitHub repository:
 
     $ git clone git://github.com/autopilot-rs/autopy-rs.git
     $ cd autopy
-    $ make
-    $ make install
+    $ python -m venv .env && source .env/bin/activate
+    $ maturin develop
 
-**Note**: AutoPy currently requires the `2019-10-05` Rust nightly in order to
-build from source. This is to maintain compatibility with an older version of
-PyO3, as the latest version has dropped Python 2 support. Python 2 support will
-likely be dropped from AutoPy as well sometime later this year, depending on
-how necessary it is to upgrade to a more recent version of PyO3 or Rust. In the
-meantime, it may be necessary to install the required nightly via the following
-when building locally:
-
-```
-rustup install nightly 2019-10-05 --force
-```
-
-This is due to rustup complaining that it doesn't include certain components
-such as `rustfmt`.
-
-Additional instructions for installing from source on Windows are available
-[here](https://github.com/autopilot-rs/autopy/blob/master/scripts/windows-setup.md).
+Additional possibly outdated instructions for installing from source on Windows
+are available [here](https://github.com/autopilot-rs/autopy/blob/master/scripts/windows-setup.md).
 
 ### Hello World
 
