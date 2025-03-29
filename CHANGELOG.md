@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 4.0.1 - 2025-03-29
+
+### Changed
+
+- Updated PyO3 to 0.23.5, Cargo to Edition 2021, and all main dependencies.
+- Provided maturin build CI for linux/macos/windows environments producing respective artifacts.
+
 ## 4.0.0 - 2020-02-26
 
 ### Changed
