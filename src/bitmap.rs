@@ -7,7 +7,7 @@
 
 use autopilot::geometry::{Point, Rect, Size};
 use image::Pixel;
-use image::{ImageOutputFormat, ImageResult, Rgba};
+use image::{ImageFormat, ImageResult, Rgba};
 use crate::internal::{rgb_to_hex, hex_to_rgb, FromImageError};
 use pyo3::basic::CompareOp;
 use pyo3::prelude::*;
@@ -57,7 +57,7 @@ impl Bitmap {
             return Err(PyBufferError::new_err("Object is not writable"));
         }
 
-        let bytes = &self.bitmap.image.raw_pixels();
+        let bytes = &self.bitmap.image.as_bytes();
 
         unsafe {
             (*view).buf = bytes.as_ptr() as *mut libc::c_void;
@@ -112,7 +112,7 @@ impl Bitmap {
                 let ref mut buffer = File::create(path)?;
                 self.bitmap
                     .image
-                    .write_to(buffer, fmt)
+                    .write_to(buffer, ImageFormat::from(fmt))
                     .map_err(FromImageError::from)?;
                 Ok(())
             }
@@ -169,8 +169,8 @@ impl Bitmap {
             )))
         } else {
             let rgb = self.bitmap.get_pixel(point);
-            let (r, g, b, _) = rgb.channels4();
-            Ok(rgb_to_hex(r, g, b))
+            let channels = rgb.channels();
+            Ok(rgb_to_hex(channels[0], channels[1], channels[2]))
         }
     }
 
@@ -418,29 +418,30 @@ enum AutoPyImageFormat {
     Unsupported,
 }
 
-impl From<AutoPyImageFormat> for ImageOutputFormat {
-    fn from(format: AutoPyImageFormat) -> ImageOutputFormat {
-        use image::ImageOutputFormat::*;
+impl From<AutoPyImageFormat> for ImageFormat {
+    fn from(format: AutoPyImageFormat) -> ImageFormat {
+        use image::ImageFormat::*;
         match format {
-            AutoPyImageFormat::BMP => BMP,
-            AutoPyImageFormat::GIF => GIF,
-            AutoPyImageFormat::JPEG => JPEG(100),
-            AutoPyImageFormat::PNG => PNG,
+            AutoPyImageFormat::BMP => Bmp,
+            AutoPyImageFormat::GIF => Gif,
+            AutoPyImageFormat::JPEG => Jpeg,
+            AutoPyImageFormat::PNG => Png,
             AutoPyImageFormat::Unsupported => {
-                Unsupported("This image format is unsupported by AutoPy".to_string())
+                // choose default format on the image crate side
+                Bmp
             }
         }
     }
 }
 
-impl From<ImageOutputFormat> for AutoPyImageFormat {
-    fn from(format: ImageOutputFormat) -> AutoPyImageFormat {
-        use image::ImageOutputFormat::*;
+impl From<ImageFormat> for AutoPyImageFormat {
+    fn from(format: ImageFormat) -> AutoPyImageFormat {
+        use image::ImageFormat::*;
         match format {
-            BMP => AutoPyImageFormat::BMP,
-            GIF => AutoPyImageFormat::GIF,
-            JPEG(_) => AutoPyImageFormat::JPEG,
-            PNG => AutoPyImageFormat::PNG,
+            Bmp => AutoPyImageFormat::BMP,
+            Gif => AutoPyImageFormat::GIF,
+            Jpeg => AutoPyImageFormat::JPEG,
+            Png => AutoPyImageFormat::PNG,
             _ => AutoPyImageFormat::Unsupported,
         }
     }
