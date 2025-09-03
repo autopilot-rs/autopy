@@ -103,20 +103,12 @@ impl Bitmap {
             .or(Path::new(path).extension().and_then(|x| x.to_str()))
             .unwrap_or("");
         let fmt = image_output_format_from_extension(format);
-        match fmt {
-            AutoPyImageFormat::Unsupported => Err(pyo3::exceptions::PyValueError::new_err(format!(
-                "Unknown format {}",
-                format
-            ))),
-            _ => {
-                let ref mut buffer = File::create(path)?;
-                self.bitmap
-                    .image
-                    .write_to(buffer, ImageFormat::from(fmt))
-                    .map_err(FromImageError::from)?;
-                Ok(())
-            }
-        }
+        let ref mut buffer = File::create(path)?;
+        self.bitmap
+            .image
+            .write_to(buffer, ImageFormat::try_from(fmt)?)
+            .map_err(FromImageError::from)?;
+        Ok(())
     }
 
     /// Copies image to pasteboard. Currently only supported on macOS.
@@ -418,17 +410,18 @@ enum AutoPyImageFormat {
     Unsupported,
 }
 
-impl From<AutoPyImageFormat> for ImageFormat {
-    fn from(format: AutoPyImageFormat) -> ImageFormat {
+impl TryFrom<AutoPyImageFormat> for ImageFormat {
+    type Error = pyo3::PyErr;
+
+    fn try_from(format: AutoPyImageFormat) -> Result<ImageFormat, Self::Error> {
         use image::ImageFormat::*;
         match format {
-            AutoPyImageFormat::BMP => Bmp,
-            AutoPyImageFormat::GIF => Gif,
-            AutoPyImageFormat::JPEG => Jpeg,
-            AutoPyImageFormat::PNG => Png,
+            AutoPyImageFormat::BMP => Ok(Bmp),
+            AutoPyImageFormat::GIF => Ok(Gif),
+            AutoPyImageFormat::JPEG => Ok(Jpeg),
+            AutoPyImageFormat::PNG => Ok(Png),
             AutoPyImageFormat::Unsupported => {
-                // choose default format on the image crate side
-                Bmp
+                Err(pyo3::exceptions::PyValueError::new_err("This image format is unsupported by AutoPy"))
             }
         }
     }
