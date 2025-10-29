@@ -3,7 +3,7 @@
 #
 #    maturin generate-ci github
 #
-name: Maturin actions
+name: Build and test
 
 on:
   push:
@@ -206,3 +206,129 @@ jobs:
         with:
           command: upload
           args: --non-interactive --skip-existing wheels-*/*
+
+  testing-linux:
+    name: Testing on linux
+    runs-on: ubuntu-latest
+    needs: [linux]
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - uses: actions/download-artifact@v4
+      - name: Installing built artifact
+        run: |
+          pip install wheels-linux-x86_64/autopy-*-cp310-*
+      - uses: actions/checkout@v4
+        with:
+          repository: intra2net/guibot
+          path: ./guibot
+          ref: ${{ github.event.inputs.rust_ref || 'master' }}
+      - name: Local pip installation of caller code
+        run: |
+          cd guibot/packaging
+          pip install .
+      - name: Prepare virtual screen (fake display)
+        run: |
+          sudo apt-get -y install libx11-dev libxtst-dev xvfb vim-common
+          sudo apt-get install -y x11-utils libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xfixes0
+          Xvfb :99 -screen 0 1024x768x24 &> /tmp/xvfb.log  &
+          sudo touch ~/.Xauthority
+          sudo xauth -f ~/.Xauthority add ${HOST}:99 . $(xxd -l 16 -p /dev/urandom)
+          sudo chmod a+rxw ~/.Xauthority
+          # give xvfb some time to start
+          sleep 3
+      - name: Run current caller tests
+        run: |
+          cd guibot/tests
+          sudo apt-get install -y libegl1 libxcb-cursor0
+          pip install coverage PyQt6==6.8.1 numpy opencv-contrib-python
+          bash coverage_analysis.sh
+        env:
+          DISPLAY: :99.0
+          DISABLE_XDOTOOL: 1
+          DISABLE_PYAUTOGUI: 1
+          DISABLE_VNCDOTOOL: 1
+          DISABLE_OCR: 1
+          DISABLE_PYTORCH: 1
+
+  testing-windows:
+    name: Testing on windows
+    runs-on: windows-latest
+    needs: [windows]
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - uses: actions/download-artifact@v4
+      - name: Installing built artifact
+        run: |
+          $wheel = Get-ChildItem -Path wheels-windows-x64 -Filter "autopy-*-cp310-*.whl" | Select-Object -First 1
+          if (-not $wheel) { throw "No matching wheel found!" }
+          pip install $wheel.FullName
+      - uses: actions/checkout@v4
+        with:
+          repository: intra2net/guibot
+          path: ./guibot
+          ref: ${{ github.event.inputs.rust_ref || 'master' }}
+      - name: Local pip installation of caller code
+        run: |
+          cd guibot/packaging
+          pip install .
+      - name: Prepare virtual screen (fake display)
+        run: |
+          pip install wxPython==4.2.1
+          python -c "import wx; app = wx.App(); display = wx.Display()"
+      - name: Run current caller tests
+        run: |
+          cd guibot/tests
+          # TODO: why is OpenCV needed? Isn't AutoPy enough?
+          pip install coverage PyQt6==6.8.1 numpy opencv-contrib-python
+          bash coverage_analysis.sh
+        env:
+          DISABLE_XDOTOOL: 1
+          DISABLE_PYAUTOGUI: 1
+          DISABLE_VNCDOTOOL: 1
+          DISABLE_OCR: 1
+          DISABLE_PYTORCH: 1
+          # TODO: drag/drop and in particular drop has problems on on Windows
+          DISABLE_DRAG: 1
+
+  testing-macos:
+    name: Testing on macos
+    runs-on: macos-latest
+    needs: [macos]
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - uses: actions/download-artifact@v4
+      - name: Installing built artifact
+        run: |
+          pip install wheels-macos-aarch64/autopy-*-cp310-*
+      - uses: actions/checkout@v4
+        with:
+          repository: intra2net/guibot
+          path: ./guibot
+          ref: ${{ github.event.inputs.rust_ref || 'master' }}
+      - name: Local pip installation of caller code
+        run: |
+          cd guibot/packaging
+          pip install .
+      - name: Prepare virtual screen (fake display)
+        run: |
+          pip install wxPython==4.2.1
+          python -c "import wx; app = wx.App(); display = wx.Display()"
+      - name: Run current caller tests
+        run: |
+          cd guibot/tests
+          pip install coverage PyQt6==6.8.1 numpy opencv-contrib-python
+          bash coverage_analysis.sh
+        env:
+          DISABLE_XDOTOOL: 1
+          DISABLE_PYAUTOGUI: 1
+          DISABLE_VNCDOTOOL: 1
+          DISABLE_OCR: 1
+          DISABLE_PYTORCH: 1
+          # TODO: drag/drop both have problems on on macOS
+          DISABLE_DRAG: 1
