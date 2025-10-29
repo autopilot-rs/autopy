@@ -27,12 +27,36 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: Building most up-to-date autopilot-rs dependency in develop mode
+      - name: Override continuous dependency path
         run: |
-          git clone --depth 1 https://github.com/autopilot-rs/autopilot-rs.git dep
-          cd dep
-          cargo build --all
-          cd ..
+          awk '
+          /^\[dependencies\.autopilot\]$/ {
+              print
+              getline
+              print "path = \"./autopilot-rs\""
+              next
+          }
+          { print }
+          ' Cargo.toml > Cargo.toml.tmp && mv Cargo.toml.tmp Cargo.toml
+      - uses: actions/checkout@v4
+        with:
+          repository: autopilot-rs/autopilot-rs
+          path: ./autopilot-rs
+          ref: ${{ github.event.inputs.rust_ref || 'main' }}
+      - name: Set up cargo cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+            ~/.rustup/toolchains
+            ~/.rustup/update-hashes
+            ~/.rustup/settings.toml
+            autopilot-rs/target
+          key: ${{ runner.os }}-cargo-autopilot-${{ hashFiles('**/Cargo.lock', 'autopilot-rs/**/Cargo.lock') }}
+      - name: Install system dependencies
+        run: sudo apt-get install -y libxtst-dev xvfb
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
@@ -64,6 +88,29 @@ jobs:
         with:
           python-version: '3.10'
           architecture: ${{ matrix.platform.target }}
+      - name: Override continuous dependency path
+        run: |
+          $content = Get-Content -Raw -Path Cargo.toml
+          $updated = $content -replace '(?m)^\[dependencies\.autopilot\]\r?\n\s*version = ".*?"', '[dependencies.autopilot]
+          path = "./autopilot-rs"'
+          Set-Content -Path Cargo.toml -Value $updated
+      - uses: actions/checkout@v4
+        with:
+          repository: autopilot-rs/autopilot-rs
+          path: ./autopilot-rs
+          ref: ${{ github.event.inputs.rust_ref || 'main' }}
+      - name: Set up cargo cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+            ~/.rustup/toolchains
+            ~/.rustup/update-hashes
+            ~/.rustup/settings.toml
+            autopilot-rs/target
+          key: ${{ runner.os }}-cargo-autopilot-${{ hashFiles('**/Cargo.lock', 'autopilot-rs/**/Cargo.lock') }}
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
@@ -90,6 +137,34 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+      - name: Override continuous dependency path
+        run: |
+          awk '
+          /^\[dependencies\.autopilot\]$/ {
+              print
+              getline
+              print "path = \"./autopilot-rs\""
+              next
+          }
+          { print }
+          ' Cargo.toml > Cargo.toml.tmp && mv Cargo.toml.tmp Cargo.toml
+      - uses: actions/checkout@v4
+        with:
+          repository: autopilot-rs/autopilot-rs
+          path: ./autopilot-rs
+          ref: ${{ github.event.inputs.rust_ref || 'main' }}
+      - name: Set up cargo cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+            ~/.rustup/toolchains
+            ~/.rustup/update-hashes
+            ~/.rustup/settings.toml
+            autopilot-rs/target
+          key: ${{ runner.os }}-cargo-autopilot-${{ hashFiles('**/Cargo.lock', 'autopilot-rs/**/Cargo.lock') }}
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
