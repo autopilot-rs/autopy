@@ -332,7 +332,7 @@ impl Bitmap {
             Size::new((rect.1).0, (rect.1).1),
         );
         let bmp = self.bitmap.cropped(rect).map_err(FromImageError::from)?;
-        Python::with_gil(|py| {
+        Python::attach(|py| {
             let result = Py::new(py, Bitmap { bitmap: bmp })?;
             Ok(result)
         })

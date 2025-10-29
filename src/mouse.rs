@@ -114,7 +114,7 @@ pub fn mouse(py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
 
 impl _Button {
     fn init_button_ref(&self, button: autopilot::mouse::Button) -> PyResult<Py<Button>> {
-        Python::with_gil(|py| {
+        Python::attach(|py| {
             let result = Py::new(py, Button { button: button })?;
             Ok(result)
         })

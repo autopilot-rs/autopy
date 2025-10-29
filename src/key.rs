@@ -317,9 +317,9 @@ fn py_object_to_key_code_convertible(
     object: &Bound<'_, PyAny>,
 ) -> Option<Either<autopilot::key::Code, autopilot::key::Character>> {
     // object.extract::<Bound<'_, PyAny>>
-    if let Ok(code) = object.downcast::<Code>() {
+    if let Ok(code) = object.cast::<Code>() {
         return Some(Left(autopilot::key::Code(code.borrow().code)));
-    } else if let Ok(key) = object.downcast::<PyString>() {
+    } else if let Ok(key) = object.cast::<PyString>() {
         if let Some(c) = key.to_string().chars().next() {
             return Some(Right(autopilot::key::Character(c)));
         }
@@ -329,7 +329,7 @@ fn py_object_to_key_code_convertible(
 
 impl _Modifier {
     fn init_modifier_ref(&self, flag: autopilot::key::Flag) -> PyResult<Py<Modifier>> {
-        Python::with_gil(|py| {
+        Python::attach(|py| {
             let result = Py::new(py, Modifier { flag: flag })?;
             Ok(result)
         })
@@ -338,7 +338,7 @@ impl _Modifier {
 
 impl _Code {
     fn init_code_ref(&self, code: autopilot::key::KeyCode) -> PyResult<Py<Code>> {
-        Python::with_gil(|py| {
+        Python::attach(|py| {
             let result = Py::new(py, Code { code: code })?;
             Ok(result)
         })
