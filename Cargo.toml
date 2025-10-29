@@ -1,7 +1,7 @@
 [package]
 name = "autopy"
 version = "4.0.1"
-edition = "2021"
+edition = "2024"
 authors = ["Michael Sanders <crates@michaelsande.rs>"]
 
 [lib]
@@ -16,7 +16,7 @@ version = "0.4.0"
 version = "0.27.1"
 
 [dependencies.image]
-version = "0.22.4"
+version = "0.25.6"
 
 [dependencies.either]
 version = "1.15.0"

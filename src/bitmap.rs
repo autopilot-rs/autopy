@@ -7,7 +7,7 @@
 
 use autopilot::geometry::{Point, Rect, Size};
 use image::Pixel;
-use image::{ImageOutputFormat, ImageResult, Rgba};
+use image::{ImageFormat, ImageResult, Rgba};
 use crate::internal::{rgb_to_hex, hex_to_rgb, FromImageError};
 use pyo3::basic::CompareOp;
 use pyo3::prelude::*;
@@ -57,7 +57,7 @@ impl Bitmap {
             return Err(PyBufferError::new_err("Object is not writable"));
         }
 
-        let bytes = &self.bitmap.image.raw_pixels();
+        let bytes = &self.bitmap.image.as_bytes();
 
         unsafe {
             (*view).buf = bytes.as_ptr() as *mut libc::c_void;
@@ -103,20 +103,12 @@ impl Bitmap {
             .or(Path::new(path).extension().and_then(|x| x.to_str()))
             .unwrap_or("");
         let fmt = image_output_format_from_extension(format);
-        match fmt {
-            AutoPyImageFormat::Unsupported => Err(pyo3::exceptions::PyValueError::new_err(format!(
-                "Unknown format {}",
-                format
-            ))),
-            _ => {
-                let ref mut buffer = File::create(path)?;
-                self.bitmap
-                    .image
-                    .write_to(buffer, fmt)
-                    .map_err(FromImageError::from)?;
-                Ok(())
-            }
-        }
+        let ref mut buffer = File::create(path)?;
+        self.bitmap
+            .image
+            .write_to(buffer, ImageFormat::try_from(fmt)?)
+            .map_err(FromImageError::from)?;
+        Ok(())
     }
 
     /// Copies image to pasteboard. Currently only supported on macOS.
@@ -169,8 +161,8 @@ impl Bitmap {
             )))
         } else {
             let rgb = self.bitmap.get_pixel(point);
-            let (r, g, b, _) = rgb.channels4();
-            Ok(rgb_to_hex(r, g, b))
+            let channels = rgb.channels();
+            Ok(rgb_to_hex(channels[0], channels[1], channels[2]))
         }
     }
 
@@ -418,29 +410,31 @@ enum AutoPyImageFormat {
     Unsupported,
 }
 
-impl From<AutoPyImageFormat> for ImageOutputFormat {
-    fn from(format: AutoPyImageFormat) -> ImageOutputFormat {
-        use image::ImageOutputFormat::*;
+impl TryFrom<AutoPyImageFormat> for ImageFormat {
+    type Error = pyo3::PyErr;
+
+    fn try_from(format: AutoPyImageFormat) -> Result<ImageFormat, Self::Error> {
+        use image::ImageFormat::*;
         match format {
-            AutoPyImageFormat::BMP => BMP,
-            AutoPyImageFormat::GIF => GIF,
-            AutoPyImageFormat::JPEG => JPEG(100),
-            AutoPyImageFormat::PNG => PNG,
+            AutoPyImageFormat::BMP => Ok(Bmp),
+            AutoPyImageFormat::GIF => Ok(Gif),
+            AutoPyImageFormat::JPEG => Ok(Jpeg),
+            AutoPyImageFormat::PNG => Ok(Png),
             AutoPyImageFormat::Unsupported => {
-                Unsupported("This image format is unsupported by AutoPy".to_string())
+                Err(pyo3::exceptions::PyValueError::new_err("This image format is unsupported by AutoPy"))
             }
         }
     }
 }
 
-impl From<ImageOutputFormat> for AutoPyImageFormat {
-    fn from(format: ImageOutputFormat) -> AutoPyImageFormat {
-        use image::ImageOutputFormat::*;
+impl From<ImageFormat> for AutoPyImageFormat {
+    fn from(format: ImageFormat) -> AutoPyImageFormat {
+        use image::ImageFormat::*;
         match format {
-            BMP => AutoPyImageFormat::BMP,
-            GIF => AutoPyImageFormat::GIF,
-            JPEG(_) => AutoPyImageFormat::JPEG,
-            PNG => AutoPyImageFormat::PNG,
+            Bmp => AutoPyImageFormat::BMP,
+            Gif => AutoPyImageFormat::GIF,
+            Jpeg => AutoPyImageFormat::JPEG,
+            Png => AutoPyImageFormat::PNG,
             _ => AutoPyImageFormat::Unsupported,
         }
     }

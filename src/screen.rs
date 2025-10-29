@@ -44,8 +44,8 @@ fn is_point_visible(x: f64, y: f64) -> PyResult<bool> {
 fn get_color(x: f64, y: f64) -> PyResult<u32> {
     let point = Point::new(x, y);
     let rgb = autopilot::screen::get_color(point).map_err(FromImageError::from)?;
-    let (r, g, b, _) = rgb.channels4();
-    Ok(rgb_to_hex(r, g, b))
+    let channels = rgb.channels();
+    Ok(rgb_to_hex(channels[0], channels[1], channels[2]))
 }
 
 /// This module contains functions for working with the screen.

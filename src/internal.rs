@@ -5,7 +5,7 @@
 // https://opensource.org/licenses/MIT>, at your option. This file may not be
 // copied, modified, or distributed except according to those terms.
 
-use image::ImageError;
+use image::error::{ImageError, LimitErrorKind};
 use pyo3::prelude::*;
 
 pub struct FromImageError(ImageError);
@@ -30,8 +30,8 @@ impl From<ImageError> for FromImageError {
 impl From<FromImageError> for PyErr {
     fn from(err: FromImageError) -> PyErr {
         match err.0 {
-            ImageError::DimensionError => {
-                pyo3::exceptions::PyValueError::new_err(format!("{}", err.0))
+            ImageError::Limits(limit_err) if matches!(limit_err.kind(), LimitErrorKind::DimensionError) => {
+                pyo3::exceptions::PyValueError::new_err(format!("{}", limit_err))
             }
             _ => pyo3::exceptions::PyIOError::new_err(format!("{}", err.0)),
         }
