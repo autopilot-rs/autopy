@@ -223,7 +223,7 @@ jobs:
         with:
           repository: intra2net/guibot
           path: ./guibot
-          ref: ${{ github.event.inputs.rust_ref || 'master' }}
+          ref: ${{ github.event.inputs.rust_ref || 'autopy-ci' }}
       - name: Local pip installation of caller code
         run: |
           cd guibot/packaging
@@ -270,7 +270,7 @@ jobs:
         with:
           repository: intra2net/guibot
           path: ./guibot
-          ref: ${{ github.event.inputs.rust_ref || 'master' }}
+          ref: ${{ github.event.inputs.rust_ref || 'autopy-ci' }}
       - name: Local pip installation of caller code
         run: |
           cd guibot/packaging
@@ -310,7 +310,7 @@ jobs:
         with:
           repository: intra2net/guibot
           path: ./guibot
-          ref: ${{ github.event.inputs.rust_ref || 'master' }}
+          ref: ${{ github.event.inputs.rust_ref || 'autopy-ci' }}
       - name: Local pip installation of caller code
         run: |
           cd guibot/packaging
