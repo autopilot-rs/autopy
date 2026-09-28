@@ -31,7 +31,7 @@ fn is_point_visible(x: f64, y: f64) -> PyResult<bool> {
 
 /// Returns hexadecimal value describing the color at a given point.
 ///
-/// Functionally equivalent to:
+/// Functionally equivalent to::
 ///
 ///     rect = ((x, y), (1, 1))
 ///     bitmap.capture_screen_portion(rect).get_color(0, 0)

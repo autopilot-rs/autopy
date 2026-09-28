@@ -91,10 +91,6 @@ class DocstringMarkdownParser(object):
         # Automatically italicize "Exceptions:"
         docstr = re.sub(r'(\b)(Exceptions:)', r'\1`\2`', docstr)
 
-        # Automatically format code blocks.
-        docstr = re.sub("(\s*\n)+((\n?(    |\t)(\w.*))+)",
-                        "\n::\n" + r'\2', docstr, re.MULTILINE)
-
         return docstr
 
 
