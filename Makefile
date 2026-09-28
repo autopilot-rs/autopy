@@ -1,8 +1,7 @@
 .PHONY: build
 build: ## Build debug target for development.
-	rustup default nightly
-	pip install -r requirements.txt
-	python setup.py build
+	python -m pip install 'maturin[patchelf]>=1.5,<2.0'
+	maturin build
 
 .PHONY: help
 help: ## Print help information.

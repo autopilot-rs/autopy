@@ -21,8 +21,7 @@ Currently supported on macOS, Windows, and X11 with the XTest extension.
 ### Requirements
 
 * Python 3.8 and onwards (for newer releases).
-* Rust 1.23.0-nightly 2019-02-06 or later (unless using a binary wheel
-  distribution).
+* Rust 1.98.1 (unless using a binary wheel distribution).
 * macOS 10.6 and up.
 * Windows 7 and up.
 * X11 with the XTest extension.
@@ -35,8 +34,7 @@ First, see if a binary wheel is available for your machine by running:
 
 If that fails, install [rustup](https://rustup.rs) and then run:
 
-    $ rustup default nightly-2019-10-05
-    $ pip install -U setuptools-rust
+    $ rustup update stable
     $ pip install -U autopy
 
 Another option is to build from the latest source on the GitHub repository:
