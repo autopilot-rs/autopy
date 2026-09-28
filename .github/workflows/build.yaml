@@ -245,7 +245,7 @@ jobs:
         run: |
           cd guibot/tests
           sudo apt-get install -y libegl1 libxcb-cursor0
-          pip install coverage PyQt6==6.8.1 numpy opencv-contrib-python
+          pip install coverage PyQt6==6.8.1 numpy 'opencv-contrib-python<5'
           bash coverage_analysis.sh
         env:
           DISPLAY: :99.0
@@ -286,7 +286,7 @@ jobs:
         run: |
           cd guibot/tests
           # TODO: why is OpenCV needed? Isn't AutoPy enough?
-          pip install coverage PyQt6==6.8.1 numpy opencv-contrib-python
+          pip install coverage PyQt6==6.8.1 numpy 'opencv-contrib-python<5'
           bash coverage_analysis.sh
         env:
           DISABLE_XDOTOOL: 1
@@ -327,7 +327,7 @@ jobs:
       - name: Run current caller tests
         run: |
           cd guibot/tests
-          pip install coverage PyQt6==6.8.1 numpy opencv-contrib-python
+          pip install coverage PyQt6==6.8.1 numpy 'opencv-contrib-python<5'
           bash coverage_analysis.sh
         env:
           DISABLE_XDOTOOL: 1
